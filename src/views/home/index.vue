@@ -45,6 +45,7 @@
                     etc.</p>
             </div>
         </div>
+        <arrow-block style="width: 90%;"></arrow-block>
         <div class="d-block-1">
             <div class="unit-block">
                 <p class="unit-title">Research</p>
@@ -65,35 +66,7 @@
                 <p class="unit-link">Read More</p>
             </div>
         </div>
-        <div class="bot-line" style="margin-top: 5px;">
-            <div style="position: relative; width: 10%; height: auto; margin-left: 5%; float: left;">
-                <span
-                    style="margin-top: 10px; layer-background-color: #FFFFFF; border: 1px none #000000; font-family: Century Gothic; font-size: 16px; color: rgba(255,255,255,0.75); float: left;">Contact</span>
-                <div style="width: 50px; height: auto; margin-left: 30%; float: left;">
-                    <a href="http://m.weibo.cn/u/5640347073">
-                        <img src="@/assets/contact/weibo.svg" width="500" height="160" alt class="contact_icon" />
-                    </a>
-                    <a href="Share.html">
-                        <img src="@/assets/contact/wechat.svg" width="500" height="379" alt class="contact_icon" />
-                    </a>
-                    <a href="Share.html">
-                        <img src="@/assets/contact/qq.svg" width="500" height="500" alt class="contact_icon" />
-                    </a>
-                </div>
-            </div>
-            <div class="bottom-banner-block">
-                <span class="bottom-banner-span">
-                    <a class="icp" target="_blank"
-                        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35012102500791"><img
-                            draggable="false" src="@/assets/gov/gongan.png" />
-                        闽公网安备 35012102500791号
-                    </a>
-                    <a href="https://beian.miit.gov.cn/#/Integrated/index" class="icp">
-                        闽ICP备2023010064号
-                    </a> Creator SN®
-                </span>
-            </div>
-        </div>
+        <bottom-block></bottom-block>
         <div class="ret-top-div" @click="retop">
             <span class="ms-Icon ms-Icon--ChevronUp" style="color: rgba(242,242,242,1);"></span>
         </div>
@@ -102,9 +75,15 @@
 
 <script>
 import gsap from "gsap";
+import bottomBlock from "./bottomBlock.vue";
+import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState } from "vuex";
 
 export default {
+    components: {
+        bottomBlock,
+        arrowBlock
+    },
     data() {
         return {
             sliderList: [
@@ -165,6 +144,7 @@ export default {
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    overflow-x: hidden;
 
     .main_block {
         position: fixed;
@@ -283,7 +263,8 @@ export default {
         position: relative;
         width: 100%;
         max-width: 1360px;
-        height: 600px;
+        min-height: 600px;
+        height: auto;
         flex-shrink: 0;
         color: rgba(234, 233, 238, 1);
         display: flex;
@@ -348,8 +329,7 @@ export default {
                 font-size: 24px;
             }
 
-            .unit-content
-            {
+            .unit-content {
                 margin-bottom: 25px;
                 max-width: 300px;
                 font-size: 13px;
@@ -357,10 +337,9 @@ export default {
                 text-align: left;
             }
 
-            .unit-link
-            {
+            .unit-link {
                 font-size: 13px;
-                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                 color: rgba(200, 194, 201, 1);
                 border-bottom: rgba(200, 194, 201, 1) solid 2px;
                 text-align: left;
@@ -398,144 +377,6 @@ export default {
         border-radius: 5px;
         cursor: pointer;
     }
-
-    .re_on {
-        -webkit-animation: go_on 0.2s both;
-    }
-
-    .re_dis {
-        -webkit-animation: go_dis 0.2s both;
-    }
-
-    .bot-line {
-        position: relative;
-        float: left;
-        width: 100%;
-        height: auto;
-        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
-
-        .contact_icon {
-            width: auto;
-            margin-top: 35px;
-            margin-left: 30%;
-            height: 30px;
-            opacity: 0.7;
-            filter: invert(1);
-            float: left;
-
-            &:hover {
-                opacity: 1;
-                float: left;
-            }
-
-            &:active {
-                opacity: 0.9;
-                float: left;
-            }
-        }
-
-        .bottom-banner-block {
-            @include HendVcenter;
-
-            position: relative;
-            width: 100%;
-            height: 30px;
-            float: left;
-
-            .bottom-banner-span {
-                @include HendVcenter;
-
-                margin: 0px 5px;
-                color: rgba(255, 255, 255, 0.5);
-                font-family: "微软雅黑";
-                font-size: 12px;
-                font-weight: 100;
-                float: right;
-
-                .icp {
-                    @include Vcenter;
-
-                    margin: 0px 5px;
-                    color: rgba(255, 255, 255, 0.5);
-                    text-decoration: none;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-
-                    img {
-                        width: 13px;
-                        height: auto;
-                        margin: 0px 5px;
-                    }
-                }
-            }
-        }
-    }
-
-    @-webkit-keyframes a_link_normal {
-        from {
-            color: rgba(50, 191, 242, 1);
-        }
-
-        to {
-            color: rgba(255, 255, 255, 1);
-        }
-    }
-
-    @-webkit-keyframes a_link_lighter {
-        from {
-            color: rgba(255, 255, 255, 1);
-        }
-
-        to {
-            color: rgba(50, 191, 242, 1);
-        }
-    }
-
-    @-webkit-keyframes a_link_down {
-        from {
-            color: rgba(50, 191, 242, 1);
-        }
-
-        to {
-            color: rgba(61, 127, 205, 1);
-        }
-    }
-
-    @-webkit-keyframes go_on {
-        from {
-            opacity: 0;
-            -webkit-filter: blur(10px);
-        }
-
-        to {
-            opacity: 1;
-            -webkit-filter: blur(0px);
-        }
-    }
-
-    @-webkit-keyframes go_dis {
-        from {
-            opacity: 1;
-            -webkit-filter: blur(0px);
-        }
-
-        to {
-            opacity: 0;
-            -webkit-filter: blur(10px);
-        }
-    }
-
-    @keyframes blur-off {
-        from {
-            filter: blur(10px);
-        }
-
-        to {
-            filter: blur(0px);
-        }
-    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -570,6 +411,29 @@ export default {
             .nav-icon {
                 visibility: visible;
                 display: flex;
+            }
+        }
+
+        .d-block-1 {
+            flex-direction: column;
+            flex-wrap: wrap;
+
+            .left-block {
+                width: 100%;
+                max-width: 100%;
+                height: 500px;
+                flex-direction: column;
+                flex-wrap: wrap;
+            }
+
+            .right-block {
+                width: 100%;
+                height: auto;
+                padding: 25px;
+            }
+
+            .unit-block {
+                width: 100%;
             }
         }
     }

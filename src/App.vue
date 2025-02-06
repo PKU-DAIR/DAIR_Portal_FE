@@ -24,15 +24,19 @@ export default {
 			setScreenWidth: 'setScreenWidth'
 		}),
 		timerInit() {
+			this.clearTimer();
 			this.timer.screenWidth = setInterval(() => {
 				this.setScreenWidth(document.body.clientWidth);
 			}, 300);
+		},
+		clearTimer() {
+			for (let key in this.timer) {
+				clearInterval(this.timer[key]);
+			}
 		}
 	},
 	beforeDestroy() {
-		for (let key in this.timer) {
-			clearInterval(this.timer[key]);
-		}
+		this.clearTimer();
 	}
 };
 </script>
@@ -42,6 +46,15 @@ export default {
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
+}
+
+body {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 /*定义滚动条高宽及背景
