@@ -13,7 +13,7 @@ const routes = [
         name: "Home",
         component: () => AsyncLoad(import("@/views/home")),
         meta: {
-            title: "创造者官网"
+            title: "PKU-DAIR"
         }
     },
     {

@@ -2,7 +2,7 @@
     <div class="team-container">
         <div class="team-banner" @click="$Go('/')">
             <img
-                src="@/assets/logo/logo.png"
+                src="@/assets/logo/pku_dair.svg"
                 class="logo"
                 draggable="false"
                 width="110"
