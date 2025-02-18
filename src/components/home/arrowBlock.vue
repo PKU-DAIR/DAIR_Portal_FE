@@ -35,7 +35,7 @@ export default {
                 colorR: 0,
                 colorG: 90,
                 colorB: 90,
-                repeat: -1,
+                repeat: 20,
                 yoyo: true
             })
         },

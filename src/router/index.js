@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 
 import tool from "./tools";
 
+import Login from "./Login";
+
 Vue.use(VueRouter);
 
 const AsyncLoad = tool.AsyncLoad;
@@ -28,6 +30,7 @@ const routes = [
             }
         ]
     },
+    Login,
     {
         path: "/dev",
         name: "Dev",
