@@ -21,7 +21,7 @@ ax.interceptors.request.use(config => {
         localStorage.removeItem("ApiTokenExpiredAt");
     }
     if (token != null) {
-        config.headers["Authorization"] = token;
+        config.headers["Api-key"] = token;
     }
     return config;
 });

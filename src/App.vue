@@ -7,22 +7,51 @@
 <script>
 import { mapMutations } from "vuex";
 
+import axios from "@/api/config.js";
+
 export default {
 	name: "App",
 	data() {
 		return {
 			timer: {
-				screenWidth: null
-			}
-		}
+				screenWidth: null,
+			},
+		};
+	},
+	watch: {
+		$route() {
+			this.refreshInfo();
+		},
 	},
 	mounted() {
 		this.timerInit();
+		this.refreshInfo();
 	},
 	methods: {
 		...mapMutations({
-			setScreenWidth: 'setScreenWidth'
+			setScreenWidth: "setScreenWidth",
 		}),
+		...mapMutations("user", {
+			setUserInfo: "setUserInfo",
+		}),
+		refreshInfo() {
+			axios({
+				method: "get",
+				url: `/info_me`,
+			})
+				.then((res) => {
+					if (res.data.code === 200) {
+						let data = res.data.data;
+						this.setUserInfo({
+							status: true,
+							...data,
+						});
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
 		timerInit() {
 			this.clearTimer();
 			this.timer.screenWidth = setInterval(() => {
@@ -33,11 +62,11 @@ export default {
 			for (let key in this.timer) {
 				clearInterval(this.timer[key]);
 			}
-		}
+		},
 	},
 	beforeDestroy() {
 		this.clearTimer();
-	}
+	},
 };
 </script>
 

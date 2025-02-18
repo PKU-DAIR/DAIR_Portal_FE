@@ -3,11 +3,11 @@ import Vue from "vue";
 const user = {
     namespaced: true,
     state: {
-        avatarCache: {},
+        avatar: null,
         info: {
             status: false,
             userid: "",
-            role: ["guest"],
+            role: "",
         },
     },
     getters: {
@@ -17,7 +17,7 @@ const user = {
     },
     mutations: {
         setAvatar(state, { userId, avatar }) {
-            Vue.set(state.avatarCache, userId, avatar);
+            Vue.set(state.avatar, userId, avatar);
         },
         setUserInfo(state, obj) {
             state.info = obj;

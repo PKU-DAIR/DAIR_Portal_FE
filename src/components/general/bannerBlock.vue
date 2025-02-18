@@ -39,6 +39,65 @@
 					@click="$Go('/login')"
 					>Login</fv-button
 				>
+
+				<fv-callout
+					v-if="islogin"
+					:lockScroll="true"
+					:position="'bottomRight'"
+					:beak="10"
+					:space="0"
+					:popper-style="{ width: '150px' }"
+					:visible.sync="show.menu"
+				>
+					<div v-if="islogin" class="sosd-avatar-container">
+						<fv-img :src="avatar"></fv-img>
+					</div>
+					<main class="drop-down-block">
+						<div
+							v-if="role.includes('admin')"
+							class="drop-down-item"
+						>
+							<fv-animated-icon
+								value="bounceRotate"
+								icon="Settings"
+								style="width: 100%; margin: 10px 0px"
+								@click="$Go('/admin')"
+							>
+								<template v-slot:content>
+									<div
+										style="
+											margin-left: 15px;
+											font-size: 13px;
+											user-select: none;
+										"
+									>
+										管理页面
+									</div>
+								</template>
+							</fv-animated-icon>
+						</div>
+						<hr style="opacity: 0.3" />
+						<div class="drop-down-item">
+							<fv-animated-icon
+								icon="AzureKeyVault"
+								style="width: 100%; margin: 10px 0px"
+								@click="logout"
+							>
+								<template v-slot:content>
+									<div
+										style="
+											margin-left: 15px;
+											font-size: 13px;
+											user-select: none;
+										"
+									>
+										注销
+									</div>
+								</template>
+							</fv-animated-icon>
+						</div>
+					</main>
+				</fv-callout>
 			</div>
 			<transition :name="show.mobileNav ? 'move-top-to-bottom' : ''">
 				<div v-show="show.mobileNav" class="s-link-block">
@@ -75,7 +134,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 
 export default {
@@ -101,10 +160,29 @@ export default {
 		...mapState({
 			screenWidth: "screenWidth",
 			userInfo: (state) => state.user.info,
+			userAvatar: (state) => state.user.avatar,
 		}),
+		role() {
+			if (!this.userInfo) return "";
+            if (!this.userInfo.role) return "";
+			return this.userInfo.role;
+		},
 		islogin() {
 			if (!this.userInfo.status) return false;
 			return true;
+		},
+		avatar() {
+			if (!this.userAvatar) return this.img.defaultAvatar;
+			return this.userAvatar;
+		},
+	},
+	methods: {
+		...mapMutations("user", {
+			clearInfo: "clearInfo",
+		}),
+		logout() {
+			this.clearInfo();
+			localStorage.removeItem("ApiKey");
 		},
 	},
 };
@@ -117,6 +195,36 @@ export default {
 	height: auto;
 	background-size: cover;
 	z-index: 2;
+
+	.sosd-avatar-container {
+		position: relative;
+		width: 30px;
+		height: 30px;
+		margin-right: 15px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		user-select: none;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.drop-down-block {
+		@include HcenterVcenterC;
+
+		position: relative;
+		width: 100%;
+		height: auto;
+
+		.drop-down-item {
+			@include HcenterVcenter;
+
+			position: relative;
+			width: 100%;
+			height: 45px;
+		}
+	}
 
 	.d-1 {
 		position: relative;
