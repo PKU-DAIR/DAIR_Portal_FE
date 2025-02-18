@@ -61,7 +61,7 @@
 								value="bounceRotate"
 								icon="Settings"
 								style="width: 100%; margin: 10px 0px"
-								@click="$Go('/admin')"
+								@click="$Go('/a')"
 							>
 								<template v-slot:content>
 									<div
@@ -71,7 +71,7 @@
 											user-select: none;
 										"
 									>
-										管理页面
+										Admin Center
 									</div>
 								</template>
 							</fv-animated-icon>

@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import i18n from "@/js/i18n.js";
 
-import axios from "@/api/config.js";
+import { mapMutations } from "vuex";
 
 export default {
 	name: "App",
@@ -24,18 +24,23 @@ export default {
 		},
 	},
 	mounted() {
+        this.i18nInit();
 		this.timerInit();
 		this.refreshInfo();
 	},
 	methods: {
 		...mapMutations({
+			reviseI18N: "reviseI18N",
 			setScreenWidth: "setScreenWidth",
 		}),
 		...mapMutations("user", {
 			setUserInfo: "setUserInfo",
 		}),
+        i18nInit() {
+            this.reviseI18N(i18n);
+        },
 		refreshInfo() {
-			axios({
+			this.$axios({
 				method: "get",
 				url: `/info_me`,
 			})

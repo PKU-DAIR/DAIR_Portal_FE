@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import tool from "./tools";
 
 import Login from "./Login";
+import Admin from "./Admin";
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,7 @@ const routes = [
         ]
     },
     Login,
+    Admin,
     {
         path: "/dev",
         name: "Dev",

@@ -9,7 +9,14 @@ import VFluent from "vfluentdesign";
 import "vfluentdesign/lib/index.css";
 import "@/style/global.scss";
 
+import custom_axios from "@/api/config.js";
+
 Vue.use(VFluent, Vuex);
+
+import PowerEditor from "@creatorsn/powereditor";
+
+import "@creatorsn/powereditor/lib/powereditor.css";
+Vue.use(PowerEditor);
 
 Vue.config.productionTip = false
 
@@ -25,6 +32,7 @@ new Vue({
     router,
     store,
     beforeCreate() {
+        Vue.prototype.$axios = custom_axios;
         Vue.prototype.$Go = str => {
             this.$router.push(str);
         };
