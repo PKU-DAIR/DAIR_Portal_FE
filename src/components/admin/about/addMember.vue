@@ -316,7 +316,7 @@
 					>确认用户ID</fv-button
 				>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">奖项登记</p>
+					<p class="panel-title">成果登记</p>
 					<fv-button
 						theme="dark"
 						background="rgba(0, 204, 153, 1)"
@@ -370,7 +370,7 @@
 					></fv-text-box>
 					<fv-Combobox
 						v-model="item.competitionName"
-						placeholder="请选择奖项"
+						placeholder="请选择成果"
 						:options="awardList"
 						:is-box-shadow="true"
 						style="width: 250px"
@@ -672,8 +672,12 @@ export default {
 	mounted() {},
 	methods: {
 		getMajors() {
-			this.$api.Team.GetMajors()
+			this.$axios({
+				method: "get",
+				url: "/get_majors",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let majorList = data.data;
 						majorList.forEach((item) => {
@@ -690,8 +694,12 @@ export default {
 				});
 		},
 		getTeams() {
-			this.$api.Team.GetTeamList()
+			this.$axios({
+				method: "get",
+				url: "/get_teams",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let teamList = data.data;
 						teamList.forEach((item) => {
@@ -708,8 +716,12 @@ export default {
 				});
 		},
 		getGroups() {
-			this.$api.Team.GetGroups()
+			this.$axios({
+				method: "get",
+				url: "/get_groups",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let groupList = data.data;
 						groupList.forEach((item) => {
@@ -726,8 +738,12 @@ export default {
 				});
 		},
 		getEdu() {
-			this.$api.Team.GetEducation()
+			this.$axios({
+				method: "get",
+				url: "/get_edus",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let eduList = data.data;
 						eduList.forEach((item) => {
@@ -744,8 +760,12 @@ export default {
 				});
 		},
 		getToWhere() {
-			this.$api.Team.GetToWheres()
+			this.$axios({
+				method: "get",
+				url: "/get_towheres",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let toWhereList = data.data;
 						toWhereList.forEach((item) => {
@@ -762,8 +782,12 @@ export default {
 				});
 		},
 		getAwards() {
-			this.$api.Team.GetAwardNames()
+			this.$axios({
+				method: "get",
+				url: "/get_award_items",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let awardList = data.data;
 						awardList.forEach((item) => {
@@ -780,8 +804,12 @@ export default {
 				});
 		},
 		getAwardLevels() {
-			this.$api.Team.GetAwardLevels()
+			this.$axios({
+				method: "get",
+				url: "/get_award_levels",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let awardLevelList = data.data;
 						awardLevelList.forEach((item) => {
@@ -966,7 +994,7 @@ export default {
 				email: this.member.email,
 				mobile: this.member.mobile,
 				toWhere: this.member.toWhere.name,
-                postAddress: this.member.postAddress,
+				postAddress: this.member.postAddress,
 				awards: this.formatAwardsPost(),
 				userId: this.member.userId ? this.member.userId : null,
 			})
@@ -1021,7 +1049,7 @@ export default {
 				email: this.member.email,
 				mobile: this.member.mobile,
 				toWhere: this.member.toWhere.name,
-                postAddress: this.member.postAddress,
+				postAddress: this.member.postAddress,
 				awards: this.formatAwardsPost(),
 				userId: this.member.userId ? this.member.userId : null,
 			})

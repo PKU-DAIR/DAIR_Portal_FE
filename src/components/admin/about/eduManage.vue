@@ -125,8 +125,12 @@ export default {
 	},
 	methods: {
 		getEducations() {
-			this.$api.Team.GetEducation()
+			this.$axios({
+				method: "get",
+				url: "/get_edus",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
@@ -145,9 +149,10 @@ export default {
 			if (!this.educationName) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			this.$api.Team.AddEducation(this.educationName)
+			this.$axios
+				.post("/add_edu", { name: this.educationName })
 				.then((data) => {
-					console.log(data);
+					data = data.data;
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
 							status: "correct",
@@ -173,8 +178,10 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$api.Team.RemoveEducation(item.id)
+					this.$axios
+						.post("/remove_edu", { id: item.id })
 						.then((data) => {
+                            data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",

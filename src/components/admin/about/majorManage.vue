@@ -38,7 +38,7 @@
 								background="rgba(173, 38, 45, 1)"
 								icon="Delete"
 								:disabled="!item.lock"
-                                :is-box-shadow="true"
+								:is-box-shadow="true"
 								@click="removeMajor(item)"
 								>删除</fv-button
 							>
@@ -123,8 +123,12 @@ export default {
 	},
 	methods: {
 		getMajors() {
-			this.$api.Team.GetMajors()
+			this.$axios({
+				method: "get",
+				url: "/get_majors",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
@@ -143,10 +147,12 @@ export default {
 			if (!this.majorName) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			this.$api.Team.AddMajor({
-				name: this.majorName,
-			})
+			this.$axios
+				.post("/add_major", {
+					name: this.majorName,
+				})
 				.then((data) => {
+					data = data.data;
 					console.log(data);
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
@@ -173,8 +179,10 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$api.Team.RemoveMajor(item.id)
+					this.$axios
+						.post("/remove_major", { id: item.id })
 						.then((data) => {
+							data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",

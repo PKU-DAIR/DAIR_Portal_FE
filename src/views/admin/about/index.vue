@@ -163,7 +163,7 @@ export default {
 					},
 				},
 				{
-					name: "奖项管理",
+					name: "成果管理",
 					icon: "Certificate",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {

@@ -43,20 +43,8 @@ export default {
 				{
 					key: 1,
 					name: () => this.local("About"),
-					icon: "Feedback",
+					icon: "Info",
 					route: "about",
-				},
-				{
-					key: 2,
-					name: () => this.local("Playground"),
-					icon: "CommandPrompt",
-					route: "playground",
-				},
-				{
-					key: 3,
-					name: () => this.local("Models"),
-					icon: "DialShape3",
-					route: "models",
 				},
 				{
 					key: 4,
@@ -66,7 +54,7 @@ export default {
 				},
 				{
 					key: 5,
-					name: () => this.local("Laws"),
+					name: () => this.local("News"),
 					icon: "DuplexPortraitTwoSidedLongEdge",
 					route: "law",
 					disabled: true,

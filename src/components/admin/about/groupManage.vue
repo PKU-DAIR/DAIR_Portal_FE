@@ -123,8 +123,12 @@ export default {
 	},
 	methods: {
 		getGroups() {
-			this.$api.Team.GetGroups()
+			this.$axios({
+				method: "get",
+				url: "/get_groups",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
@@ -143,11 +147,11 @@ export default {
 			if (!this.groupName) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			this.$api.Team.CreateGroup({
+			this.$axios.post("add_group", {
 				name: this.groupName,
 			})
 				.then((data) => {
-					console.log(data);
+					data = data.data;
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
 							status: "correct",
@@ -173,8 +177,11 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$api.Team.RemoveGroup(item.id)
+					this.$axios.post("remove_group", {
+						id: item.id,
+					})
 						.then((data) => {
+							data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",

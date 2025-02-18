@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'竞赛奖项管理'"
+		:title="'成果管理'"
 		width="450px"
 		height="auto"
 		:background="
@@ -20,7 +20,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="award-title">竞赛奖项列表</p>
+					<p class="award-title">成果列表</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -45,15 +45,13 @@
 						</template>
 					</fv-Collapse>
 				</div>
-                <div class="c-row">
-					<p class="award-title" style="margin-top: 15px">
-						添加竞赛奖项
-					</p>
+				<div class="c-row">
+					<p class="award-title" style="margin-top: 15px">添加成果</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="awardName"
 							underline
-							:placeholder="'输入竞赛奖项名称'"
+							:placeholder="'输入成果名称'"
 							:border-width="2"
 							:border-color="'transparent'"
 							:focus-border-color="'rgba(0, 90, 158, 1)'"
@@ -72,11 +70,11 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addAward"
 						>
-							添加竞赛奖项
+							添加成果
 						</fv-button>
 					</div>
 				</div>
-                <div class="c-row">
+				<div class="c-row">
 					<p class="award-title">竞赛等级列表</p>
 				</div>
 				<div class="c-row main-table">
@@ -104,13 +102,13 @@
 				</div>
 				<div class="c-row">
 					<p class="award-title" style="margin-top: 15px">
-						添加奖项等级
+						添加成果等级
 					</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="levelName"
 							underline
-							:placeholder="'输入竞赛奖项等级'"
+							:placeholder="'输入成果等级'"
 							:border-width="2"
 							:border-color="'transparent'"
 							:focus-border-color="'rgba(0, 90, 158, 1)'"
@@ -129,7 +127,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addLevel"
 						>
-							添加奖项等级
+							添加成果等级
 						</fv-button>
 					</div>
 				</div>
@@ -162,12 +160,12 @@ export default {
 		return {
 			thisValue: this.value,
 			objs: [],
-            levels: [],
+			levels: [],
 			awardName: "",
 			levelName: "",
 			lock: {
 				add: true,
-                addLevel: true
+				addLevel: true,
 			},
 		};
 	},
@@ -182,12 +180,16 @@ export default {
 	computed: {},
 	mounted() {
 		this.getAwards();
-        this.getLevels();
+		this.getLevels();
 	},
 	methods: {
 		getAwards() {
-			this.$api.Team.GetAwardNames()
+			this.$axios({
+				method: "get",
+				url: "/get_award_items",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
@@ -206,8 +208,10 @@ export default {
 			if (!this.awardName) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			this.$api.Team.AddAwardName(this.awardName)
+			this.$axios
+				.post("/add_award_item", { name: this.awardName })
 				.then((data) => {
+					data = data.data;
 					console.log(data);
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
@@ -234,8 +238,10 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$api.Team.RemoveAwardName(item.id)
+					this.$axios
+						.post("/remove_award_item", { id: item.id })
 						.then((data) => {
+							data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",
@@ -255,8 +261,12 @@ export default {
 			});
 		},
 		getLevels() {
-			this.$api.Team.GetAwardLevels()
+			this.$axios({
+				method: "get",
+				url: "/get_award_levels",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let levels = data.data;
 						levels.forEach((item) => {
@@ -275,8 +285,10 @@ export default {
 			if (!this.levelName) return;
 			if (!this.lock.addLevel) return;
 			this.lock.addLevel = false;
-			this.$api.Team.AddAwardLevel(this.levelName)
+			this.$axios
+				.post("/add_award_level", { level: this.levelName })
 				.then((data) => {
+					data = data.data;
 					console.log(data);
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
@@ -303,8 +315,10 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$api.Team.RemoveAwardLevel(item.id)
+					this.$axios
+						.post("/remove_award_level", { id: item.id })
 						.then((data) => {
+							data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",
@@ -338,7 +352,7 @@ export default {
 		Roboto, Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font-weight: 400;
 	box-sizing: border-box;
-    overflow: overlay;
+	overflow: overlay;
 
 	&.dark {
 	}

@@ -123,8 +123,12 @@ export default {
 	},
 	methods: {
 		getTeams() {
-			this.$api.Team.GetTeamList()
+			this.$axios({
+				method: "get",
+				url: "/get_teams",
+			})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
@@ -143,11 +147,12 @@ export default {
 			if (!this.teamName) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			this.$api.Team.CreateTeam({
-				name: this.teamName,
-			})
+			this.$axios
+				.post("/add_team", {
+					name: this.teamName,
+				})
 				.then((data) => {
-					console.log(data);
+					data = data.data;
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
 							status: "correct",
@@ -173,8 +178,10 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$api.Team.RemoveTeam(item.id)
+					this.$axios
+						.post("/remove_team", { id: item.id })
 						.then((data) => {
+							data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",
