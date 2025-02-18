@@ -4,6 +4,7 @@
 		:title="'专业管理'"
 		width="450px"
 		height="auto"
+		:theme="theme"
 		:background="
 			theme === 'dark'
 				? 'rgba(36, 36, 36, 0.8)'
@@ -27,6 +28,7 @@
 						v-for="(item, index) in objs"
 						:key="index"
 						:title="item.name"
+						:theme="theme"
 						:content="item.id"
 						:icon="'Package'"
 						:disabledCollapse="true"
@@ -52,6 +54,7 @@
 							v-model="majorName"
 							underline
 							:placeholder="'输入专业名称'"
+							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
 							:focus-border-color="'rgba(0, 90, 158, 1)'"
@@ -78,6 +81,7 @@
 		</template>
 		<template v-slot:footer>
 			<fv-button
+				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
 				>关闭</fv-button
@@ -218,6 +222,11 @@ export default {
 	box-sizing: border-box;
 
 	&.dark {
+		color: rgba(250, 250, 250, 1);
+
+		.major-title {
+			color: whitesmoke;
+		}
 	}
 
 	.major-title {

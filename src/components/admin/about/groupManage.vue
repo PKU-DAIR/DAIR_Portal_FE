@@ -4,6 +4,7 @@
 		:title="'分组管理'"
 		width="450px"
 		height="auto"
+		:theme="theme"
 		:background="
 			theme === 'dark'
 				? 'rgba(36, 36, 36, 0.8)'
@@ -26,6 +27,7 @@
 					<fv-Collapse
 						v-for="(item, index) in objs"
 						:key="index"
+						:theme="theme"
 						:title="item.name"
 						:content="item.id"
 						:icon="'Group'"
@@ -52,6 +54,7 @@
 							v-model="groupName"
 							underline
 							:placeholder="'输入分组名称'"
+							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
 							:focus-border-color="'rgba(0, 90, 158, 1)'"
@@ -78,6 +81,7 @@
 		</template>
 		<template v-slot:footer>
 			<fv-button
+				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
 				>关闭</fv-button
@@ -147,9 +151,10 @@ export default {
 			if (!this.groupName) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			this.$axios.post("add_group", {
-				name: this.groupName,
-			})
+			this.$axios
+				.post("add_group", {
+					name: this.groupName,
+				})
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
@@ -177,9 +182,10 @@ export default {
 				confirm: () => {
 					if (!item.lock) return;
 					this.$set(item, "lock", false);
-					this.$axios.post("remove_group", {
-						id: item.id,
-					})
+					this.$axios
+						.post("remove_group", {
+							id: item.id,
+						})
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {

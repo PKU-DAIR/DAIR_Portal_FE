@@ -4,6 +4,7 @@
 		:title="'学历管理'"
 		width="450px"
 		height="auto"
+		:theme="theme"
 		:background="
 			theme === 'dark'
 				? 'rgba(36, 36, 36, 0.8)'
@@ -26,6 +27,7 @@
 					<fv-Collapse
 						v-for="(item, index) in objs"
 						:key="index"
+						:theme="theme"
 						:title="item.name"
 						:content="item.id"
 						:icon="'Package'"
@@ -54,6 +56,7 @@
 							v-model="educationName"
 							underline
 							:placeholder="'输入学历名称'"
+							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
 							:focus-border-color="'rgba(0, 90, 158, 1)'"
@@ -80,6 +83,7 @@
 		</template>
 		<template v-slot:footer>
 			<fv-button
+				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
 				>关闭</fv-button
@@ -181,7 +185,7 @@ export default {
 					this.$axios
 						.post("/remove_edu", { id: item.id })
 						.then((data) => {
-                            data = data.data;
+							data = data.data;
 							if (data.status === "success") {
 								this.$barWarning("删除成功", {
 									status: "correct",

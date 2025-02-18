@@ -3,6 +3,7 @@
 		<div class="row between">
 			<h1 class="main-title">团队介绍管理</h1>
 			<fv-text-box
+				:theme="theme"
 				v-model="currentSearch"
 				:placeholder="'在结果中筛选'"
 				icon="Filter"
@@ -12,11 +13,16 @@
 			></fv-text-box>
 		</div>
 		<div class="row command-bar">
-			<fv-command-bar :options="cmd" style="flex: 1"></fv-command-bar>
+			<fv-command-bar
+				:theme="theme"
+				:options="cmd"
+				style="flex: 1"
+			></fv-command-bar>
 		</div>
 		<div class="row main-table">
 			<fv-details-list
 				v-model="objs"
+				:theme="theme"
 				:head="head"
 				:filter="currentSearch"
 				style="width: 100%; height: 100%"
@@ -77,21 +83,26 @@
 				</template>
 			</fv-details-list>
 		</div>
-		<major-manage v-model="show.majorManage"></major-manage>
-		<team-manage v-model="show.teamManage"></team-manage>
-		<group-manage v-model="show.groupManage"></group-manage>
-		<to-where-manage v-model="show.toWhere"></to-where-manage>
-		<edu-manage v-model="show.eduManage"></edu-manage>
-		<award-manage v-model="show.awardManage"></award-manage>
+		<major-manage v-model="show.majorManage" :theme="theme"></major-manage>
+		<team-manage v-model="show.teamManage" :theme="theme"></team-manage>
+		<group-manage v-model="show.groupManage" :theme="theme"></group-manage>
+		<to-where-manage
+			v-model="show.toWhere"
+			:theme="theme"
+		></to-where-manage>
+		<edu-manage v-model="show.eduManage" :theme="theme"></edu-manage>
+		<award-manage v-model="show.awardManage" :theme="theme"></award-manage>
 		<add-member
 			v-model="show.addMember"
 			:updateMemberInfo="currentItem"
+			:theme="theme"
 			@finished="getMembers()"
 		></add-member>
 	</div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import majorManage from "@/components/admin/about/majorManage.vue";
 import addMember from "@/components/admin/about/addMember.vue";
 import teamManage from "@/components/admin/about/teamManage.vue";
@@ -203,7 +214,9 @@ export default {
 			},
 		};
 	},
-	computed: {},
+	computed: {
+		...mapGetters("Theme", ["color", "gradient", "theme"]),
+	},
 	mounted() {
 		this.getMembers();
 	},
@@ -211,34 +224,13 @@ export default {
 		getMembers() {
 			this.$axios({
 				method: "get",
-				url: "/user/get_users",
-			}).then((data) => {
-				this.objs = data.data;
+				url: "/list_members?limit=9999999",
+			}).then((res) => {
+				res = res.data;
+				this.objs = res.data.list;
 			});
 			this.show.majorManage = false;
 			this.show.addMember = false;
-		},
-		getUserName(item) {
-			if (item.userInfo == undefined) return item.publisher;
-			else return item.userInfo.name;
-		},
-		reviseType(obj) {
-			this.$api.News.ReviseInfo(
-				this.objs[obj.value].id,
-				undefined,
-				this.objs[obj.value].title,
-				undefined,
-				undefined,
-				undefined,
-				undefined,
-				obj.currentIndex == 0 ? "video" : "draw_video"
-			).then((data) => {
-				if (data.status == "success") {
-					this.getMembers();
-				} else {
-					this.$barWarning(data.status, { status: "warning" });
-				}
-			});
 		},
 		delMember(item) {
 			let el = this;
@@ -246,7 +238,11 @@ export default {
 				title: "确定删除",
 				status: "error",
 				confirm: () => {
-					this.$api.Team.RemoveMember(item.id).then((data) => {
+					this.$axios({
+						method: "get",
+						url: `/remove_member?id=${item.id}`,
+					}).then((data) => {
+						data = data.data;
 						if (data.status == "success") {
 							this.$barWarning("删除成功", {
 								status: "correct",
@@ -271,7 +267,12 @@ export default {
 				confirm: () => {
 					let promises = [];
 					for (let item of this.currentChoosen) {
-						promises.push(this.$api.Team.RemoveMember(item.id));
+						promises.push(
+							this.$axios({
+								method: "get",
+								url: `/remove_member?id=${item.id}`,
+							})
+						);
 					}
 					Promise.all(promises).then(() => {
 						this.$barWarning("删除成功", {
@@ -295,7 +296,6 @@ export default {
 	position: relative;
 	height: 100%;
 	flex: 1;
-	background: rgba(239, 239, 239, 1);
 	box-sizing: border-box;
 	overflow: hidden;
 
@@ -326,7 +326,7 @@ export default {
 			flex: 1;
 			margin: 8px 12px;
 			padding: 0px;
-			background: white;
+			background: rgba(50, 49, 48, 1);
 			border-radius: 5px;
 			box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 			overflow: hidden;

@@ -3,6 +3,7 @@
 		<fv-details-list
 			class="sosd-admin__user-table-list"
 			v-model="tableData"
+            :theme="theme"
 			:head="header"
 			:multi-selection="isMultiple"
 			@choose-items="$emit('choose-items', $event)"
@@ -14,7 +15,7 @@
 			</template>
 			<template v-slot:column_0="x">
 				<p class="sec highlight">
-					{{ x.item.id
+					{{ x.item.userid
 					}}{{
 						x.item.nickname != null ? `(${x.item.nickname})` : ""
 					}}
@@ -25,7 +26,11 @@
 			</template>
 			<template v-slot:column_1="x">
 				<div style="display: flex; align-items: center">
-					<avatar v-if="showAvatar" class="avatar" :xId="x.item.id" />
+					<avatar
+						v-if="showAvatar"
+						class="avatar"
+						:xId="x.item.userid"
+					/>
 					<p
 						class="sec"
 						:style="{ 'margin-left': showAvatar ? '5px' : '' }"
@@ -38,7 +43,7 @@
 				<p class="sec">{{ x.item.gender == 0 ? "男" : "女" }}</p>
 			</template>
 			<template v-slot:column_4="x">
-				<p class="sec">{{ x.item.qq }}</p>
+				<p class="sec">{{ x.item.phone }}</p>
 			</template>
 			<template v-slot:column_5="x">
 				<p class="sec">{{ x.item.email }}</p>
@@ -48,6 +53,7 @@
 			<fv-Pagination
 				:total="config.pages"
 				:value="config.currentPage"
+                :theme="theme"
 				@page-click="handleClickPage"
 				@next-click="handleClickPage"
 				@prev-click="handleClickPage"
@@ -87,6 +93,9 @@ export default {
 		showRole: {
 			default: true,
 		},
+		theme: {
+			default: "light",
+		},
 	},
 	data() {
 		return {
@@ -109,7 +118,7 @@ export default {
 					width: 120,
 				},
 				{
-					content: "QQ",
+					content: "Phone",
 					width: 120,
 				},
 				{
@@ -150,12 +159,12 @@ export default {
 			this.config.loading = true;
 			// 获取当前页的用户
 			let offset = (this.config.currentPage - 1) * this.config.pageSize;
-			await this.$api.User.ListUser(
-				this.search,
-				offset,
-				this.config.pageSize
-			).then(async (data) => {
-				this.tableData = data.list;
+			await this.$axios({
+				method: "get",
+				url: `/list_users?search=${this.search}&offset=${offset}&pageSize=${this.config.pageSize}`,
+			}).then(async (res) => {
+				res = res.data;
+				this.tableData = res.data;
 				this.config.loading = false;
 			});
 		},
@@ -163,10 +172,14 @@ export default {
 			if (this.config.loading) return;
 			this.config.loading = true;
 			// 初始化导航栏，获取用户数
-			await this.$api.User.ListUserSize(this.search).then((data) => {
+			await this.$axios({
+				method: "get",
+				url: `/list_users_size?search=${this.search}`,
+			}).then((res) => {
+				res = res.data;
 				// update total
 				this.config.currentPage = 1;
-				this.config.total = data.size;
+				this.config.total = res.data;
 				this.config.pages = Math.ceil(
 					this.config.total / this.config.pageSize
 				);
@@ -216,7 +229,7 @@ export default {
 	.page-block {
 		position: relative;
 		width: 100%;
-        display: flex;
+		display: flex;
 		overflow-x: overlay;
 	}
 }

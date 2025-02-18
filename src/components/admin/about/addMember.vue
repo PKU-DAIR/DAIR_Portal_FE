@@ -4,7 +4,8 @@
 		:title="'成员信息'"
 		width="calc(100% - 30px)"
 		height="1200px"
-		background="rgba(255, 255, 255, 0.6)"
+		:theme="theme"
+		background="rgba(30, 30, 30, 0.6)"
 		title-size="13.8"
 		:is-central-side="true"
 		:is-acrylic="true"
@@ -18,12 +19,14 @@
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.id"
+						:theme="theme"
 						:placeholder="'请输入ID'"
 						underline
 						disabled
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -33,11 +36,13 @@
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.name"
+						:theme="theme"
 						:placeholder="'请输入姓名'"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -83,6 +88,7 @@
 					style="justify-content: center"
 				>
 					<fv-button
+						:theme="theme"
 						:is-box-shadow="true"
 						style="width: 120px; margin-left: 5px"
 						@click="show.avatar = false"
@@ -96,11 +102,13 @@
 					<fv-text-box
 						v-model="member.grade"
 						:placeholder="'请输入入学年份'"
+						:theme="theme"
 						type="number"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -110,11 +118,13 @@
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.email"
-						:placeholder="'acm@fzu.edu.cn'"
+						:placeholder="'acm@pku.edu.cn'"
+						:theme="theme"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -125,11 +135,13 @@
 					<fv-text-box
 						v-model="member.mobile"
 						:placeholder="'请输入电话号码'"
+						:theme="theme"
 						type="tel"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -141,10 +153,12 @@
 						v-model="member.session"
 						:placeholder="'请输入毕业年份'"
 						type="number"
+						:theme="theme"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -157,6 +171,7 @@
 				>
 					<fv-DropDown
 						placeholder="请选择学历"
+						:theme="theme"
 						v-model="member.educations"
 						:options="eduList"
 					>
@@ -171,6 +186,7 @@
 				>
 					<fv-Combobox
 						placeholder="请选择专业"
+						:theme="theme"
 						v-model="member.major"
 						:options="majorList"
 					>
@@ -186,6 +202,7 @@
 					<fv-DropDown
 						placeholder="请选择团队"
 						v-model="member.teams"
+						:theme="theme"
 						:options="teamList"
 						:multiple="true"
 					>
@@ -201,6 +218,7 @@
 					<fv-DropDown
 						placeholder="请选择分组"
 						v-model="member.groups"
+						:theme="theme"
 						:options="groupList"
 						:multiple="true"
 					>
@@ -215,6 +233,7 @@
 				>
 					<fv-Combobox
 						placeholder="请选择去向"
+						:theme="theme"
 						v-model="member.toWhere"
 						:options="toWhereList"
 					>
@@ -230,10 +249,12 @@
 					<fv-text-box
 						v-model="member.postAddress"
 						:placeholder="'请输入毕业去向'"
+						:theme="theme"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -244,10 +265,12 @@
 					<fv-text-box
 						v-model="member.title"
 						:placeholder="'请输入职级和职称'"
+						:theme="theme"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -262,10 +285,12 @@
 					<fv-text-box
 						:placeholder="'请输入用户ID'"
 						underline
+						:theme="theme"
 						:icon="'Search'"
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 						@debounce-input="userIdFilter = $event"
 					></fv-text-box>
@@ -273,19 +298,19 @@
 				<div class="panel-row">
 					<p class="sec-title">
 						{{
-							member.userId
-								? "已绑定: " + member.userId
+							member.userid
+								? "已绑定: " + member.userid
 								: "未绑定用户 (请在下方选择单个用户后点击确认按钮)"
 						}}
 					</p>
 					<fv-button
-						v-show="member.userId"
+						v-show="member.userid"
 						theme="dark"
 						background="rgba(173, 38, 45, 1)"
 						:border-radius="50"
 						:font-size="8"
 						style="width: 20px; height: 20px; margin-left: 5px"
-						@click="member.userId = ''"
+						@click="member.userid = ''"
 					>
 						<i class="ms-Icon ms-Icon--Delete"></i>
 					</fv-button>
@@ -294,9 +319,10 @@
 					v-if="isManager"
 					:showAvatar="false"
 					:pageSize="5"
+					:theme="theme"
 					:showRole="false"
 					:isMultiple="true"
-					:search="userIdFilter"
+					:search="useridFilter"
 					style="
 						position: relative;
 						width: 90%;
@@ -361,16 +387,19 @@
 						:placeholder="'20届'"
 						type="number"
 						underline
+						:theme="theme"
 						:prefix="'届次'"
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 						style="width: 120px; height: 35px"
 					></fv-text-box>
 					<fv-Combobox
 						v-model="item.competitionName"
 						placeholder="请选择成果"
+						:theme="theme"
 						:options="awardList"
 						:is-box-shadow="true"
 						style="width: 250px"
@@ -379,6 +408,7 @@
 					<fv-Combobox
 						v-model="item.level"
 						placeholder="请选择获奖等级"
+						:theme="theme"
 						:options="awardLevelList"
 						:is-box-shadow="true"
 						style="width: 80px"
@@ -387,11 +417,13 @@
 					<fv-text-box
 						v-model="item.region"
 						:placeholder="'福州大学·福州'"
+						:theme="theme"
 						underline
 						:prefix="'地点'"
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
-						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+                        :focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 						style="width: 160px; height: 35px"
 					></fv-text-box>
@@ -411,6 +443,7 @@
 							'十一月',
 							'十二月',
 						]"
+						:theme="theme"
 						style="width: 150px; height: 35px"
 					></fv-DatePicker>
 					<fv-button
@@ -465,8 +498,13 @@
 						:placeholder="'填写你的简历...'"
 						class="intro-power-editor"
 						ref="editor"
+						:theme="theme"
 						:editorOutSideBackground="'transparent'"
-						editorBackground="rgba(255, 255, 255, 1)"
+						:editorBackground="
+							theme === 'dark'
+								? 'rgba(36, 36, 36, 1)'
+								: 'rgba(255, 255, 255, 1)'
+						"
 					>
 						<template v-slot:custom-buttons-front="x">
 							<fv-button
@@ -528,6 +566,7 @@
 				>更新信息</fv-button
 			>
 			<fv-button
+				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
 				>取消</fv-button
@@ -581,7 +620,7 @@ export default {
 				groups: [],
 				introduction: "",
 				photo: "",
-				userId: "",
+				userid: "",
 				awards: [],
 				email: "",
 				mobile: "",
@@ -589,7 +628,7 @@ export default {
 			avatar: null,
 			avatarBlob: null,
 			background: null,
-			userIdFilter: "",
+			useridFilter: "",
 			userChoosen: [],
 			majorList: [],
 			eduList: [],
@@ -829,16 +868,21 @@ export default {
 			if (this.updateMemberInfo.id) {
 				await this.getMemberDetailInfo();
 				let photo = await this.getMemberPhoto(this.member.photo);
-				this.blobToBase64(photo, (base64) => {
-					this.avatar = base64;
-				});
+				this.avatar = photo;
+				// this.blobToBase64(photo, (base64) => {
+				// 	this.avatar = base64;
+				// });
 			} else {
 				this.clearInfo();
 			}
 		},
 		async getMemberDetailInfo() {
-			await this.$api.Team.GetMember(this.updateMemberInfo.id)
+			await this.$axios({
+				method: "get",
+				url: `/get_member?id=${this.updateMemberInfo.id}`,
+			})
 				.then((res) => {
+					res = res.data;
 					if (res.status === "success") {
 						let data = res.data;
 						let majorObj = this.majorList.find(
@@ -904,9 +948,13 @@ export default {
 		},
 		async getMemberPhoto(id) {
 			let photo = "";
-			await this.$api.Team.GetMemberPhoto(id)
-				.then((data) => {
-					photo = data;
+			await this.$axios({
+				method: "get",
+				url: `get_member_avatar?id=${id}`,
+			})
+				.then((res) => {
+					res = res.data;
+					if (res.code === 200) photo = res.data;
 				})
 				.catch((err) => {
 					this.$barWarning(err, {
@@ -915,11 +963,15 @@ export default {
 				});
 			return photo;
 		},
-		async uploadMemberPhoto() {
-			let id = "";
+		async uploadMemberPhoto(id) {
 			if (!this.avatarBlob) return;
-			await this.$api.Team.UploadMemberPhoto(this.avatarBlob)
+			let formData = new FormData();
+			formData.append("id", id);
+			formData.append("member_avatar", this.avatarBlob);
+			this.$axios
+				.post("/upload_member_avatar", formData)
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						id = data.data;
 					} else {
@@ -971,44 +1023,45 @@ export default {
 			if (this.disabledAdd) return;
 			if (!this.lock.add) return;
 			this.lock.add = false;
-			let photoId = await this.uploadMemberPhoto();
-			this.$api.Team.AddMember(this.isManager, {
-				name: this.member.name,
-				grade: this.member.grade,
-				session: this.member.session,
-				major: this.member.major.name,
-				introduction: JSON.stringify(
-					this.$refs.editor.editor.getJSON()
-				),
-				photo: photoId,
-				title: this.member.title,
-				educations: this.member.educations.map((it) => {
-					return { id: it.id, name: it.name };
-				}),
-				groups: this.member.groups.map((it) => {
-					return { id: it.id, name: it.name };
-				}),
-				teams: this.member.teams.map((it) => {
-					return { id: it.id, name: it.name };
-				}),
-				email: this.member.email,
-				mobile: this.member.mobile,
-				toWhere: this.member.toWhere.name,
-				postAddress: this.member.postAddress,
-				awards: this.formatAwardsPost(),
-				userId: this.member.userId ? this.member.userId : null,
-			})
+			let res_id = "";
+			await this.$axios
+				.post("/add_member", {
+					name: this.member.name,
+					grade: this.member.grade,
+					session: this.member.session,
+					major: this.member.major.name,
+					introduction: JSON.stringify(
+						this.$refs.editor.editor.getJSON()
+					),
+					photo: "",
+					title: this.member.title,
+					educations: this.member.educations.map((it) => {
+						return { id: it.id, name: it.name };
+					}),
+					groups: this.member.groups.map((it) => {
+						return { id: it.id, name: it.name };
+					}),
+					teams: this.member.teams.map((it) => {
+						return { id: it.id, name: it.name };
+					}),
+					email: this.member.email,
+					mobile: this.member.mobile,
+					toWhere: this.member.toWhere.name,
+					postAddress: this.member.postAddress,
+					awards: this.formatAwardsPost(),
+					userid: this.member.userid ? this.member.userid : null,
+				})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						this.$barWarning("添加成功", {
 							status: "correct",
 						});
 						this.thisValue = false;
-						this.avatar = null;
-						this.avatarBlob = null;
+						res_id = data.data.id;
 						this.$emit("finished");
 					} else {
-						this.$barWarning(data.status, {
+						this.$barWarning(data.message, {
 							status: "warning",
 						});
 					}
@@ -1020,40 +1073,48 @@ export default {
 					});
 					this.lock.add = true;
 				});
+			if (res_id) {
+				await this.uploadMemberPhoto(res_id).then(() => {
+					this.avatar = null;
+					this.avatarBlob = null;
+				});
+			}
 		},
 		async updateMember() {
 			if (this.disabledAdd) return;
 			if (!this.lock.update) return;
 			this.lock.update = false;
-			let photoId = await this.uploadMemberPhoto();
-			this.$api.Team.UpdateMember(this.isManager, {
-				id: this.member.id,
-				name: this.member.name,
-				grade: this.member.grade,
-				session: this.member.session,
-				major: this.member.major.name,
-				introduction: JSON.stringify(
-					this.$refs.editor.editor.getJSON()
-				),
-				photo: photoId,
-				title: this.member.title,
-				educations: this.member.educations.map((it) => {
-					return { id: it.id, name: it.name };
-				}),
-				groups: this.member.groups.map((it) => {
-					return { id: it.id, name: it.name };
-				}),
-				teams: this.member.teams.map((it) => {
-					return { id: it.id, name: it.name };
-				}),
-				email: this.member.email,
-				mobile: this.member.mobile,
-				toWhere: this.member.toWhere.name,
-				postAddress: this.member.postAddress,
-				awards: this.formatAwardsPost(),
-				userId: this.member.userId ? this.member.userId : null,
-			})
+			await this.uploadMemberPhoto(this.member.id);
+			this.$axios
+				.post("/update_member", {
+					id: this.member.id,
+					name: this.member.name,
+					grade: this.member.grade,
+					session: this.member.session,
+					major: this.member.major.name,
+					introduction: JSON.stringify(
+						this.$refs.editor.editor.getJSON()
+					),
+					photo: this.member.photo,
+					title: this.member.title,
+					educations: this.member.educations.map((it) => {
+						return { id: it.id, name: it.name };
+					}),
+					groups: this.member.groups.map((it) => {
+						return { id: it.id, name: it.name };
+					}),
+					teams: this.member.teams.map((it) => {
+						return { id: it.id, name: it.name };
+					}),
+					email: this.member.email,
+					mobile: this.member.mobile,
+					toWhere: this.member.toWhere.name,
+					postAddress: this.member.postAddress,
+					awards: this.formatAwardsPost(),
+					userid: this.member.userid ? this.member.userid : null,
+				})
 				.then((data) => {
+					data = data.data;
 					if (data.status === "success") {
 						this.$barWarning("更新成功", {
 							status: "correct",
@@ -1096,7 +1157,7 @@ export default {
 		},
 		selectUser() {
 			if (this.userChoosen.length !== 1) return;
-			this.member.userId = this.userChoosen[0].id;
+			this.member.userid = this.userChoosen[0].userid;
 		},
 		pushAward(index = -1) {
 			let item = {
@@ -1142,6 +1203,10 @@ export default {
 </script>
 
 <style lang="scss">
+.fv-dark-Panel .fv-panel-container * {
+	color: inherit;
+}
+
 .model-panel-container {
 	position: relative;
 	width: 100%;
@@ -1196,7 +1261,6 @@ export default {
 		position: relative;
 		width: 100%;
 		height: 150px;
-		background: rgba(245, 245, 245, 1);
 		border-radius: 6px;
 		transition: all 0.1s;
 		overflow: hidden;
@@ -1221,7 +1285,6 @@ export default {
 	.intro-power-editor {
 		width: 100%;
 		height: auto;
-		background: rgba(250, 250, 250, 1);
 		border: rgba(200, 200, 200, 0.1) solid thin;
 		box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
