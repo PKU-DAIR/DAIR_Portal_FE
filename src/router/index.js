@@ -5,6 +5,7 @@ import tool from "./tools";
 
 import Login from "./Login";
 import Admin from "./Admin";
+import Team from "./Team";
 
 Vue.use(VueRouter);
 
@@ -19,19 +20,8 @@ const routes = [
             title: "PKU-DAIR"
         }
     },
-    {
-        path: "/team",
-        name: "Team",
-        component: () => AsyncLoad(import("@/views/team")),
-        children: [
-            {
-                path: "",
-                name: "lpc",
-                component: () => AsyncLoad(import("@/views/team/cv/lpc"))
-            }
-        ]
-    },
     Login,
+    Team,
     Admin,
     {
         path: "/dev",

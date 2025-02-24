@@ -12,7 +12,10 @@
 		:is-footer="true"
 	>
 		<template v-slot:container>
-			<div class="model-panel-container">
+			<div
+				class="model-panel-container"
+				:class="[{ dark: theme === 'dark' }]"
+			>
 				<div class="panel-row" style="margin-top: 15px">
 					<p class="panel-title">ID</p>
 				</div>
@@ -26,7 +29,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -42,7 +45,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -108,7 +111,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -118,13 +121,13 @@
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.email"
-						:placeholder="'acm@pku.edu.cn'"
+						:placeholder="'dair@pku.edu.cn'"
 						:theme="theme"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -141,7 +144,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -158,7 +161,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -254,7 +257,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -270,7 +273,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
@@ -290,7 +293,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 						@debounce-input="userIdFilter = $event"
 					></fv-text-box>
@@ -392,7 +395,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 						style="width: 120px; height: 35px"
 					></fv-text-box>
@@ -423,7 +426,7 @@
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
-                        :focus-border-color="'rgba(0, 90, 158, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
 						style="width: 160px; height: 35px"
 					></fv-text-box>
@@ -875,6 +878,8 @@ export default {
 			} else {
 				this.clearInfo();
 			}
+			if (this.updateMemberInfo.userid)
+				this.member.userid = this.updateMemberInfo.userid;
 		},
 		async getMemberDetailInfo() {
 			await this.$axios({
@@ -1219,6 +1224,10 @@ export default {
 	line-height: 2;
 	box-sizing: border-box;
 	overflow: overlay;
+
+	&.dark {
+		color: whitesmoke;
+	}
 
 	.panel-title {
 		font-size: 12px;

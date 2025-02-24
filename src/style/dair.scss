@@ -31,9 +31,9 @@ $theme-orange-5: #A66400;
     color: #8189a9;
 }
 
-@mixin color-black-gray
+@mixin color-pku-dair
 {
-    @include sas-color(linear-gradient(to right, #000000, #434343));
+    @include sas-color(linear-gradient(272deg, rgba(45, 80, 125, 1), rgba(108, 187, 232, 1)));
 }
 
 @mixin color-black-red

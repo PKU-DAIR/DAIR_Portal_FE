@@ -1,7 +1,7 @@
 <template>
 	<div class="main_block">
 		<div class="d-1">
-			<div class="left-block">
+			<div class="left-block" @click="$Go('/')">
 				<img
 					src="@/assets/logo/pku_dair.svg"
 					class="logo"
@@ -144,9 +144,6 @@ export default {
 				{ name: "Team", href: "/team" },
 				{ name: "Publications" },
 				{ name: "Projects" },
-				{ name: "Teaching" },
-				{ name: "Sources" },
-				{ name: "Contact" },
 			],
 			img: {
 				defaultAvatar: defaultAvatar,
@@ -164,7 +161,7 @@ export default {
 		}),
 		role() {
 			if (!this.userInfo) return "";
-            if (!this.userInfo.role) return "";
+			if (!this.userInfo.role) return "";
 			return this.userInfo.role;
 		},
 		islogin() {

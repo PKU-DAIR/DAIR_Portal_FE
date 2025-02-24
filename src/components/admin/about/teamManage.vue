@@ -2,7 +2,7 @@
 	<fv-panel
 		v-model="thisValue"
 		:title="'团队管理'"
-		width="450px"
+		width="550px"
 		height="auto"
 		:theme="theme"
 		:background="
@@ -31,16 +31,99 @@
 						:title="item.name"
 						:content="item.id"
 						:icon="'People'"
-						:disabledCollapse="true"
+						:disabledCollapse="!item.show"
 						style="margin: 3px"
 					>
+						<div class="r-row">
+							<fv-text-box
+								v-model="groupName"
+								underline
+								:placeholder="'输入分组名称'"
+								:theme="theme"
+								:border-width="2"
+								:border-color="'transparent'"
+								:focus-border-color="'rgba(0, 90, 158, 1)'"
+								:is-box-shadow="true"
+								:left-icon="'Group'"
+								style="height: 35px; margin: 15px 5px"
+								@keyup.enter="updateTeamGroup(item, groupName)"
+							></fv-text-box>
+							<fv-button
+								theme="dark"
+								:background="'rgba(0, 90, 158, 1)'"
+								borderRadius="6"
+								icon="Add"
+								:disabled="groupName && !lock.add"
+								:is-box-shadow="true"
+								style="
+									width: 120px;
+									height: 35px;
+									margin-left: 5px;
+								"
+								@click="updateTeamGroup(item, groupName)"
+							>
+								添加组别
+							</fv-button>
+						</div>
+						<div v-if="item.groups">
+							<fv-Collapse
+								v-for="(group, index) in item.groups"
+								:key="index"
+								:theme="theme"
+								:title="group.name"
+								:content="`已展示在团队: ${item.name}`"
+								:icon="'Group'"
+								:disabledCollapse="true"
+								style="margin: 3px"
+							>
+								<template v-slot:extension>
+									<fv-button
+										theme="dark"
+										background="rgba(173, 38, 45, 1)"
+										icon="Delete"
+										:disabled="!item.lock"
+										:is-box-shadow="true"
+										style="margin-left: 5px"
+										@click="
+											updateTeamGroup(
+												item,
+												group.name,
+												true
+											)
+										"
+										>删除</fv-button
+									>
+								</template>
+							</fv-Collapse>
+						</div>
+
 						<template v-slot:extension>
+							<fv-button
+								theme="dark"
+								:background="
+									item.show
+										? 'rgba(0, 120, 120, 1)'
+										: '#FF8B00'
+								"
+								:disabled="!item.lock"
+								:is-box-shadow="true"
+								@click="
+									($event) => {
+										$event.stopPropagation();
+										updateClientTeam(item);
+									}
+								"
+								>{{
+									item.show ? "取消展示" : "展示"
+								}}</fv-button
+							>
 							<fv-button
 								theme="dark"
 								background="rgba(173, 38, 45, 1)"
 								icon="Delete"
 								:disabled="!item.lock"
 								:is-box-shadow="true"
+								style="margin-left: 5px"
 								@click="removeTeam(item)"
 								>删除</fv-button
 							>
@@ -107,7 +190,9 @@ export default {
 		return {
 			thisValue: this.value,
 			objs: [],
+			clientTeams: [],
 			teamName: "",
+			groupName: "",
 			lock: {
 				add: true,
 			},
@@ -139,7 +224,11 @@ export default {
 							this.$set(item, "lock", true);
 						});
 						this.objs = objs;
-					}
+						this.getClientTeams();
+					} else
+						this.$barWarning(data.message, {
+							status: "error",
+						});
 				})
 				.catch((err) => {
 					this.$barWarning(err, {
@@ -163,7 +252,10 @@ export default {
 						});
 						this.getTeams();
 						this.teamName = "";
-					}
+					} else
+						this.$barWarning(data.message, {
+							status: "error",
+						});
 				})
 				.catch((err) => {
 					console.log(err);
@@ -191,7 +283,10 @@ export default {
 									status: "correct",
 								});
 								this.getTeams();
-							}
+							} else
+								this.$barWarning(data.message, {
+									status: "error",
+								});
 						})
 						.catch((err) => {
 							this.$barWarning(err, {
@@ -203,6 +298,141 @@ export default {
 						});
 				},
 			});
+		},
+		getClientTeams() {
+			this.$axios({
+				method: "get",
+				url: "/get_client_teams",
+			})
+				.then((data) => {
+					data = data.data;
+					if (data.status === "success") {
+						this.clientTeams = data.data;
+						for (let item of this.objs) {
+							let cindex = this.clientTeams.findIndex(
+								(it) => it.name === item.name
+							);
+							if (cindex >= 0) {
+								item.show = true;
+								item.groups = JSON.parse(
+									JSON.stringify(
+										this.clientTeams[cindex].groups
+									)
+								);
+							} else {
+								item.show = false;
+								item.groups = [];
+							}
+							this.$set(this.objs, this.objs.indexOf(item), item);
+						}
+					}
+				})
+				.catch((err) => {
+					this.$barWarning(err, {
+						status: "error",
+					});
+				});
+		},
+		updateClientTeam(item) {
+			if (!item.name) return;
+			if (!this.lock.add) return;
+			this.lock.add = false;
+			if (!item.show)
+				this.$axios
+					.post("/add_client_team", {
+						id: item.id,
+						name: item.name,
+						groups: [],
+					})
+					.then((data) => {
+						data = data.data;
+						if (data.status === "success") {
+							this.$barWarning("添加成功", {
+								status: "correct",
+							});
+							this.getClientTeams();
+						} else
+							this.$barWarning(data.message, {
+								status: "error",
+							});
+					})
+					.catch((err) => {
+						console.log(err);
+						this.$barWarning(err, {
+							status: "error",
+						});
+					})
+					.finally(() => {
+						this.lock.add = true;
+					});
+			else
+				this.$axios
+					.post("/remove_client_team", {
+						id: item.id,
+						name: item.name,
+					})
+					.then((data) => {
+						data = data.data;
+						if (data.status === "success") {
+							this.$barWarning("删除成功", {
+								status: "correct",
+							});
+							this.getClientTeams();
+						} else
+							this.$barWarning(data.message, {
+								status: "error",
+							});
+					})
+					.catch((err) => {
+						console.log(err);
+						this.$barWarning(err, {
+							status: "error",
+						});
+					})
+					.finally(() => {
+						this.lock.add = true;
+					});
+		},
+		updateTeamGroup(item, groupName, isDel = false) {
+			if (!item.name) return;
+			if (!groupName) return;
+			if (!this.lock.add) return;
+			this.lock.add = false;
+			let groups = item.groups;
+			if (!groups) groups = [];
+			if (isDel) {
+				let index = groups.findIndex((it) => it.name === groupName);
+				if (index >= 0) groups.splice(index, 1);
+			} else groups.push({ name: groupName });
+			groups.forEach((item) => (item.id = ""));
+			this.$axios
+				.post("/add_client_team/group", {
+					id: item.id,
+					name: item.name,
+					groups: groups,
+				})
+				.then((data) => {
+					data = data.data;
+					if (data.status === "success") {
+						this.$barWarning("更新成功", {
+							status: "correct",
+						});
+						this.groupName = "";
+						this.getClientTeams();
+					} else
+						this.$barWarning(data.message, {
+							status: "error",
+						});
+				})
+				.catch((err) => {
+					console.log(err);
+					this.$barWarning(err, {
+						status: "error",
+					});
+				})
+				.finally(() => {
+					this.lock.add = true;
+				});
 		},
 	},
 };
@@ -221,6 +451,7 @@ export default {
 	box-sizing: border-box;
 
 	&.dark {
+		color: whitesmoke;
 	}
 
 	.team-title {

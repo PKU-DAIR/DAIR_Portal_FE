@@ -74,9 +74,10 @@
 					></fv-tag>
 				</template>
 				<template v-slot:column_7="x">
-					<p class="sec highlight" @click="showUserRole(x.item)">
-						{{ x.item.role }}
-					</p>
+					<fv-tag
+						:theme="theme"
+						:value="getRole(x.item.role)"
+					></fv-tag>
 				</template>
 				<template v-slot:menu>
 					<div>
@@ -136,7 +137,7 @@ export default {
 				{
 					content: () => this.local("Invite Code"),
 					sortName: "invite_code",
-					width: 100,
+					width: 150,
 				},
 				{
 					content: () => this.local("Phone"),
@@ -165,6 +166,17 @@ export default {
 			return (item) => {
 				if (typeof item !== "object") item = new Date(item * 1000);
 				return this.$SDate.Format("YYYY-mm-dd HH:MM:SS", item);
+			};
+		},
+		getRole() {
+			return (item) => {
+				if (!item) return [];
+				let roles = item.split(",");
+				let formatRoles = [];
+				for (let role of roles) {
+					if (role) formatRoles.push({ text: role, type: "warning" });
+				}
+				return formatRoles;
 			};
 		},
 	},
@@ -287,7 +299,7 @@ export default {
 
 	.main-title {
 		@include nowrap;
-		@include color-orange-pink;
+		@include color-pku-dair;
 
 		font-size: 18px;
 		font-weight: 600;

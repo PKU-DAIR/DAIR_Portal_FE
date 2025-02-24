@@ -383,7 +383,7 @@ export default {
 
 	.main-title {
 		@include nowrap;
-		@include color-black-red;
+		@include color-pku-dair;
 
 		font-size: 18px;
 		font-weight: 600;

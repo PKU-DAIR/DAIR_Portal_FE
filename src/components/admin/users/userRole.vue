@@ -12,11 +12,12 @@
 		:is-footer="true"
 	>
 		<template v-slot:container>
-			<div class="panel-container">
+			<div class="panel-container" :class="[{ dark: theme === 'dark' }]">
 				<div class="panel-row">
 					<fv-persona
 						:src="userAvatar"
 						size="35"
+						:theme="theme"
 						:name="user.userid"
 						:showInfo="true"
 						@click.native="showAvatar = true"
@@ -191,7 +192,7 @@ export default {
 						role: item.id,
 					})
 					.then((res) => {
-                        res = res.data;
+						res = res.data;
 						if (res.code === 200) {
 							this.lock.role = true;
 						} else {
@@ -223,6 +224,14 @@ export default {
 	font-weight: 400;
 	line-height: 2;
 	border-radius: 6px;
+
+	&.dark {
+		color: whitesmoke;
+
+		.panel-row {
+			color: whitesmoke;
+		}
+	}
 
 	.panel-title {
 		font-size: 12px;
