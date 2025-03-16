@@ -143,6 +143,9 @@ export default {
 		id() {
 			if (this.id) this.getMember();
 		},
+		$route() {
+			this.getId();
+		},
 	},
 	computed: {
 		...mapGetters("Theme", ["color", "gradient", "theme"]),

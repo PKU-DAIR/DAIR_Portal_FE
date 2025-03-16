@@ -6,6 +6,9 @@ import tool from "./tools";
 import Login from "./Login";
 import Admin from "./Admin";
 import Team from "./Team";
+import Pub from "./Pub";
+import News from "./News";
+import Projs from "./Projs";
 
 Vue.use(VueRouter);
 
@@ -22,6 +25,9 @@ const routes = [
     },
     Login,
     Team,
+    Pub,
+    News,
+    Projs,
     Admin,
     {
         path: "/dev",

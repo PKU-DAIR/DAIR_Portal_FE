@@ -141,9 +141,10 @@ export default {
 	data() {
 		return {
 			navOptions: [
+				{ name: "News", href: "/news" },
+				{ name: "Projects", href: "/projs" },
 				{ name: "Team", href: "/team" },
-				{ name: "Publications" },
-				{ name: "Projects" },
+				{ name: "Publications", href: "/pub" },
 			],
 			img: {
 				defaultAvatar: defaultAvatar,

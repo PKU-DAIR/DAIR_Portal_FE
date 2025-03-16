@@ -39,37 +39,37 @@ export default {
             timeList: {
                 '>=0': {
                     1: {
-                        content: '刚刚',
+                        content: 'Just Now',
                         divide: 1
                     },
                     60: {
-                        content: '?秒前',
+                        content: '?s ago',
                         divide: 1
                     },
                     3600: {
-                        content: '?分钟前',
+                        content: '?m ago',
                         divide: 60
                     },
                     10800: {
-                        content: '?小时前',
+                        content: '?h ago',
                         divide: 3600
                     }
                 },
                 '<0': {
                     1: {
-                        content: '刚刚',
+                        content: 'Just Now',
                         divide: 1
                     },
                     60: {
-                        content: '?秒后',
+                        content: 'in ?s',
                         divide: 1
                     },
                     3600: {
-                        content: '?分钟后',
+                        content: 'in ?m',
                         divide: 60
                     },
                     10800: {
-                        content: '?小时后',
+                        content: 'in ?h',
                         divide: 3600
                     }
                 }
@@ -117,12 +117,12 @@ export default {
                         );
                     }
                 }
-                return `今天${this.$SDate.Format('HH:MM', target)}`;
+                return `Today ${this.$SDate.Format('HH:MM', target)}`;
             }
             if (d / 3600 < 24) {
                 if (dis >= 0)
-                    return `昨天${this.$SDate.Format('HH:MM', target)}`;
-                return `明天${this.$SDate.Format('HH:MM', target)}`;
+                    return `Yesterday ${this.$SDate.Format('HH:MM', target)}`;
+                return `Tomorrow ${this.$SDate.Format('HH:MM', target)}`;
             }
             if (target.getFullYear() == now.getFullYear())
                 return this.$SDate.Format('mm-dd HH:MM', target);
