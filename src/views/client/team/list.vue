@@ -43,7 +43,7 @@
 import { mapState, mapGetters } from "vuex";
 
 import groupMember from "@/components/team/groupMember.vue";
-import bottomBlock from "@/views/home/bottomBlock.vue";
+import bottomBlock from "@/views/client/home/bottomBlock.vue";
 
 import addMember from "@/components/admin/about/addMember.vue";
 

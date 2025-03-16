@@ -15,7 +15,7 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: () => AsyncLoad(import("@/views/home")),
+        component: () => AsyncLoad(import("@/views/client/home")),
         meta: {
             title: "PKU-DAIR"
         }

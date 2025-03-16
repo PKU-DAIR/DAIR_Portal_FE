@@ -9,7 +9,7 @@
 		>
 		</fv-persona>
 		<p class="mu-name">{{ member.name }}</p>
-		<p class="mu-info">{{ member.grade }}级{{ edu }}</p>
+		<p class="mu-info">{{ member.grade }} {{ edu }}</p>
 		<p class="mu-info">{{ member.major }}</p>
 		<div class="wise-info-block">
 			<div class="left-block">
@@ -31,7 +31,7 @@
 			<div class="right-block">
 				<span v-show="member.session" class="mu-wise-icon-info">
 					<i class="ms-Icon ms-Icon--Calendar"></i>
-					<p>{{ member.session }}届</p>
+					<p>{{ member.session }}'s</p>
 				</span>
 				<span v-show="member.toWhere" class="mu-wise-icon-info">
 					<i class="ms-Icon ms-Icon--Education"></i>
@@ -53,7 +53,7 @@
 			class="award-info-block"
 		>
 			<div class="award-info-title">
-				<p class="p-content">获得竞赛奖项</p>
+				<p class="p-content">Awards</p>
 			</div>
 			<div
 				v-for="(item, index) in member.awards"
@@ -158,10 +158,10 @@ export default {
 			return (item) => {
 				if (!item.level) return this.img.other;
 				let level = item.level;
-				if (["一等奖", "金"].includes(level)) return this.img.one;
-				if (["二等奖", "银"].includes(level)) return this.img.two;
-				if (["三等奖", "铜"].includes(level)) return this.img.three;
-				if (["特等", "全球"].includes(level)) return this.img.se;
+				if (["First", "金"].includes(level)) return this.img.one;
+				if (["Second", "银"].includes(level)) return this.img.two;
+				if (["Third", "铜"].includes(level)) return this.img.three;
+				if (["Special", "全球"].includes(level)) return this.img.se;
 				return this.img.other;
 			};
 		},
@@ -169,10 +169,10 @@ export default {
 			return (item) => {
 				if (!item.level) return "other";
 				let level = item.level;
-				if (["一等奖", "金"].includes(level)) return "one";
-				if (["二等奖", "银"].includes(level)) return "two";
-				if (["三等奖", "铜"].includes(level)) return "three";
-				if (["特等", "全球"].includes(level)) return "se";
+				if (["First", "金"].includes(level)) return "one";
+				if (["Second", "银"].includes(level)) return "two";
+				if (["Third", "铜"].includes(level)) return "three";
+				if (["Special", "全球"].includes(level)) return "se";
 				return "other";
 			};
 		},
