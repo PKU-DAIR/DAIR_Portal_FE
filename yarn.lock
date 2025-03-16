@@ -2439,6 +2439,11 @@ bfj@^6.1.1:
     hoopy "^0.1.4"
     tryer "^1.0.1"
 
+bibtex-parser@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/bibtex-parser/-/bibtex-parser-0.0.0.tgz#d3342fd597483a02490ae9393a08e1d8d1c5e71c"
+  integrity sha512-IIpyZinwT4kbwpJ+uPLGkNskJ/HWj5OYzvhSSIyOcStstf+FMQxIoNbsleUnsB4W0fmH1+AzUizLRJsuwjfOQg==
+
 big.js@^3.1.3:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.2.0.tgz#a5fc298b81b9e0dca2e458824784b65c52ba588e"

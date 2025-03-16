@@ -5,7 +5,7 @@
             <p>PKU-DAIR</p>
         </div>
         <div class="info-container">
-            <div class="info-block" :span="6">
+            <div v-show="false" class="info-block" :span="6">
                 <p>Research Group</p>
                 <a href="https://xinyizhang-pku.github.io/" title="zhang_xinyi@pku.edu.cn">Database: Xinyi Zhang</a>
                 <a href="https://scholar.google.com/citations?user=vFYm_QEAAAAJ&hl=zh-CN" title="ccchengfu@pku.edu.cn">ML Systems: Fangcheng Fu</a>
@@ -18,7 +18,7 @@
                 <a href="https://cs.pku.edu.cn/">School of Computer Science, PKU</a>
                 <a href="https://github.com/PKU-DAIR">Github of PKU-DAIR</a>
             </div>
-            <div class="info-block" :span="6">
+            <div v-show="false" class="info-block" :span="6">
                 <p>Contact</p>
                 <a>Phone: +86 10 62765821 (Office)</a>
                 <a>+86 10 62765822 (Fax)</a>
@@ -32,7 +32,7 @@
         </div>
         <div class="copyright">
             <p>© {{new Date().getFullYear()}} PKU DAIR Lab</p>
-            <p class="oth-item">School of Computer Science, Peking University, Beijing, China 100871</p>
+            <p class="oth-item">School of Computer Science, Peking University</p>
         </div>
     </div>
 </template>

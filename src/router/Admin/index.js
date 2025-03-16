@@ -13,6 +13,10 @@ export default {
         {
             path: 'about',
             component: () => AsyncLoad(import("@/views/admin/about"))
+        },
+        {
+            path: 'news',
+            component: () => AsyncLoad(import("@/views/admin/news"))
         }
     ]
 };

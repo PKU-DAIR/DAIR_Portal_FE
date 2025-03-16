@@ -10,6 +10,7 @@
     "dependencies": {
         "@creatorsn/powereditor": "^2.4.10",
         "axios": "^1.7.9",
+        "bibtex-parser": "^0.0.0",
         "core-js": "^3.6.4",
         "cropperjs": "^1.6.2",
         "dart-sass": "^1.25.0",

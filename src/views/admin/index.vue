@@ -56,8 +56,7 @@ export default {
 					key: 5,
 					name: () => this.local("News"),
 					icon: "DuplexPortraitTwoSidedLongEdge",
-					route: "law",
-					disabled: true,
+					route: "news"
 				},
 			],
 		};
