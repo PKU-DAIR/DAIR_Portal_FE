@@ -43,20 +43,20 @@ export default {
 				{
 					key: 1,
 					name: () => this.local("About"),
-					icon: "Info",
+					icon: "People",
 					route: "about",
 				},
 				{
 					key: 4,
-					name: () => this.local("Quick Instruction"),
-					icon: "LightningBolt",
-					route: "quick",
-				},
-				{
-					key: 5,
 					name: () => this.local("News"),
-					icon: "DuplexPortraitTwoSidedLongEdge",
+					icon: "Globe",
 					route: "news"
+				},
+                {
+					key: 5,
+					name: () => this.local("Publications"),
+					icon: "DuplexPortraitTwoSidedLongEdge",
+					route: "pub",
 				},
 			],
 		};

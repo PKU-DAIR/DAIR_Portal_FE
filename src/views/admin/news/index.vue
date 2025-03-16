@@ -432,6 +432,14 @@ export default {
 
 	&.dark {
 		background: rgba(36, 36, 36, 1);
+		.dair-news-edit-block {
+			border: rgba(36, 36, 36, 1) solid thin;
+			color: whitesmoke;
+
+			.control-banner {
+				background: rgba(36, 36, 36, 1);
+			}
+		}
 	}
 
 	.dair-news-loading-block {
@@ -512,12 +520,15 @@ export default {
 			top: 20px;
 			width: 100%;
 			height: calc(100% - 20px);
-			background: rgba(245, 245, 245, 1);
 			border: rgba(0, 0, 0, 0.05) solid thin;
 			border-top-left-radius: 5px;
 			border-top-right-radius: 5px;
 			box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.1);
 			overflow: hidden;
+
+			.title-info {
+				top: 40px;
+			}
 
 			.control-banner {
 				display: flex;
