@@ -25,6 +25,7 @@ export default {
 	position: fixed;
 	width: 100%;
 	height: 100%;
+    background: rgba(23, 17, 24, 1);
 	overflow: overlay;
 	overflow-x: hidden;
 }

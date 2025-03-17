@@ -24,7 +24,7 @@ export default {
 		},
 	},
 	mounted() {
-        this.i18nInit();
+		this.i18nInit();
 		this.timerInit();
 		this.refreshInfo();
 	},
@@ -35,10 +35,11 @@ export default {
 		}),
 		...mapMutations("user", {
 			setUserInfo: "setUserInfo",
+			setAvatar: "setAvatar",
 		}),
-        i18nInit() {
-            this.reviseI18N(i18n);
-        },
+		i18nInit() {
+			this.reviseI18N(i18n);
+		},
 		refreshInfo() {
 			this.$axios({
 				method: "get",
@@ -51,7 +52,21 @@ export default {
 							status: true,
 							...data,
 						});
+						this.getAvatar();
 					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+		getAvatar() {
+			this.$axios({
+				method: "get",
+				url: `/me/avatar`,
+			})
+				.then((res) => {
+					res = res.data;
+					if (res.code === 200) this.setAvatar(res.data);
 				})
 				.catch((err) => {
 					console.log(err);

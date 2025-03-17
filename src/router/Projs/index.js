@@ -2,6 +2,8 @@ import tool from "../tools";
 
 const AsyncLoad = tool.AsyncLoad;
 
+import newsWrap from "@/views/client/news/list.vue"
+
 export default {
     path: "/projs",
     component: () => AsyncLoad(import("@/views/client/projs/index.vue")),
@@ -11,7 +13,7 @@ export default {
     children: [
         {
             path: "",
-            component: () => AsyncLoad(import("@/views/client/projs/list.vue")),
+            component: newsWrap,
             meta: {
                 title: "Projects"
             }

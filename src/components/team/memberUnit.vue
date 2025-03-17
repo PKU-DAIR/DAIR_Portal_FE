@@ -106,7 +106,7 @@ export default {
 					? [this.member.educations[0].name]
 					: [];
 			if (this.member.grade) grade.unshift(this.member.grade);
-			return grade.join("级");
+			return grade.join(" ");
 		},
 	},
 	mounted() {

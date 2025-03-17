@@ -40,7 +40,7 @@
 								align-items: center;
 							"
 						>
-							<i class="ms-Icon ms-Icon--People"></i>
+							<i class="ms-Icon ms-Icon--Contact"></i>
 							<p style="margin-left: 5px">
 								{{ item.publisher_id }}
 							</p>
@@ -268,8 +268,15 @@ export default {
 }
 
 @media screen and (max-width: 750px) {
-	.news-list-block {
+	.dair-news-list-block {
 		grid-template-columns: 100%;
+		display: flex;
+		flex-direction: column;
+        align-items: center;
+
+		.dair-news-item {
+			width: calc(100% - 2px);
+		}
 	}
 
 	.news-pic {

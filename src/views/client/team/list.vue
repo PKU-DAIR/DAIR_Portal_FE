@@ -36,11 +36,18 @@
 			:theme="theme"
 			:updateMemberInfo="memberInfo"
 		></add-member>
+		<div class="ret-top-div" @click="retop">
+			<span
+				class="ms-Icon ms-Icon--ChevronUp"
+				style="color: rgba(242, 242, 242, 1)"
+			></span>
+		</div>
 	</div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import gsap from "gsap";
 
 import groupMember from "@/components/team/groupMember.vue";
 import bottomBlock from "@/views/client/home/bottomBlock.vue";
@@ -136,6 +143,12 @@ export default {
 					this.memberInfo.userid = null;
 				});
 		},
+		retop() {
+			gsap.to(document.querySelector(".about-wrap"), {
+				scrollTop: 0,
+				duration: 0.5,
+			});
+		},
 	},
 	beforeDestroy() {
 		for (let key in this.timer) {
@@ -225,6 +238,10 @@ export default {
 	.bottom-line {
 		margin-top: 50px;
 		height: 40px;
+	}
+
+    .ret-top-div {
+		@include retop;
 	}
 }
 

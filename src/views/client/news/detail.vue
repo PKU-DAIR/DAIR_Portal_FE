@@ -25,8 +25,8 @@
 				style="width: auto"
 			></time-rounder>
 			<span class="info">
-				<i class="ms-Icon ms-Icon--People"></i>
-				<p style="margin-left: 5px;">{{ news.publisher_id }}</p>
+				<i class="ms-Icon ms-Icon--Contact"></i>
+				<p style="margin-left: 5px">{{ news.publisher_id }}</p>
 			</span>
 		</div>
 	</div>
@@ -178,6 +178,14 @@ export default {
 				padding: 15px;
 				flex-direction: column;
 			}
+		}
+
+		.other-info {
+			@include HstartC;
+
+			width: calc(100% - 30px);
+			box-sizing: border-box;
+            line-height: 2;
 		}
 	}
 }

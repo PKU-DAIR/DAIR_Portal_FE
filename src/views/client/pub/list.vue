@@ -31,12 +31,12 @@
 						>
 							<i class="ms-Icon ms-Icon--SemiboldWeight"></i>
 						</fv-button>
-                        <fv-button
+						<fv-button
 							theme="dark"
 							background="rgba(36, 36, 36, 0.6)"
 							:is-box-shadow="true"
 							:disabled="!pub.url || pub.url == ''"
-							style="width: 35px; height: 35px; margin-left: 3px;"
+							style="width: 35px; height: 35px; margin-left: 3px"
 							title="URL"
 							@click="$Jump(pub.url)"
 						>
@@ -45,6 +45,12 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="ret-top-div" @click="retop">
+			<span
+				class="ms-Icon ms-Icon--ChevronUp"
+				style="color: rgba(242, 242, 242, 1)"
+			></span>
 		</div>
 		<bottom-block
 			:background="'rgba(245, 245, 245, 1)'"
@@ -55,6 +61,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import gsap from "gsap";
 
 import bottomBlock from "@/views/client/home/bottomBlock.vue";
 
@@ -155,6 +162,12 @@ export default {
 					});
 				});
 		},
+		retop() {
+			gsap.to(document.querySelector(".pub-wrap"), {
+				scrollTop: 0,
+				duration: 0.5,
+			});
+		},
 	},
 	beforeDestroy() {
 		for (let key in this.timer) {
@@ -237,8 +250,11 @@ export default {
 			color: whitesmoke;
 			display: flex;
 			flex-direction: column;
+			align-items: center;
 
 			.year-title {
+				position: relative;
+				width: 100%;
 				font-weight: bold;
 				user-select: none;
 			}
@@ -296,12 +312,35 @@ export default {
 		margin-top: 50px;
 		height: 40px;
 	}
+
+	.ret-top-div {
+		@include retop;
+
+        z-index: 3;
+	}
 }
 
 @media screen and (max-width: 985px) {
-	.logoBg1,
-	.logoBg2 {
-		display: none;
+	.pub-wrap {
+		.pub-contain-list {
+			.year-title {
+				text-align: center;
+			}
+
+			.pub-group-list {
+				.pub-item {
+					width: calc(100% - 20px);
+					margin-bottom: 25px;
+					flex-direction: column;
+
+					.right-block {
+						width: 100%;
+						margin-top: 3px;
+						justify-content: flex-start;
+					}
+				}
+			}
+		}
 	}
 }
 </style>

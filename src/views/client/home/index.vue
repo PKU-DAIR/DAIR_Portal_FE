@@ -19,7 +19,26 @@
 				</p>
 			</div>
 		</div>
-		<arrow-block style="width: 90%"></arrow-block>
+		<arrow-block style="width: 90%; margin-bottom: 75px;"></arrow-block>
+		<news-wrap
+			title="Recent News"
+			background="rgba(0, 0, 0, 1)"
+			:showButtomBlock="false"
+			:showViewAll="true"
+			viewAllBackground="rgba(149, 141, 241, 1)"
+			url="/news/client/top_news"
+			:hideWhenEmpty="false"
+            @show-all-click="$Go('/news')"
+		></news-wrap>
+		<news-wrap
+			title="Current Projects"
+			:showButtomBlock="false"
+			:showViewAll="true"
+            viewAllBackground="rgba(45, 80, 125, 1)"
+			url="/news/client/top_projs"
+            @show-all-click="$Go('/projs')"
+			:hideWhenEmpty="false"
+		></news-wrap>
 		<div class="d-block-1">
 			<div class="unit-block">
 				<p class="unit-title">Research</p>
@@ -59,6 +78,7 @@
 <script>
 import gsap from "gsap";
 import bannerBlock from "@/components/general/bannerBlock.vue";
+import newsWrap from "@/views/client/news/list.vue";
 import bottomBlock from "./bottomBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState } from "vuex";
@@ -66,6 +86,7 @@ import { mapState } from "vuex";
 export default {
 	components: {
 		bannerBlock,
+		newsWrap,
 		bottomBlock,
 		arrowBlock,
 	},

@@ -5,7 +5,7 @@
 			title="修改或发布文章"
 			width="600px"
 			height="auto"
-            :title-size="13"
+			:title-size="13"
 			:theme="theme"
 			:is-central-side="true"
 			:is-acrylic="true"
@@ -38,9 +38,26 @@
 							:theme="theme"
 							:options="typeList"
 							placeholder="选择类型"
-							ref="typeOptions"
 						>
 						</fv-combobox>
+					</div>
+					<div style="margin-top: 15px">
+						<p
+							ref="name"
+							class="panel-title"
+							style="margin-bottom: 5px"
+						>
+							选择类型
+						</p>
+						<fv-text-field
+							v-model="news.description"
+							:theme="theme"
+							placeholder="输入文章描述"
+							:border-width="2"
+							:reveal-border="true"
+							style="width: 100%; height: 80px; margin-top: 15px"
+							@keydown.enter="reviseTitle"
+						/>
 					</div>
 					<div style="margin-top: 15px">
 						<p
@@ -54,12 +71,21 @@
 							:theme="thisBanner ? 'dark' : theme"
 							:background="thisBanner ? color : ''"
 							:is-box-shadow="true"
+							:disabled="!lock.banner"
 							style="width: 120px; height: 35px"
 							@click="$refs.uploader.click()"
-							>{{
-								thisBanner ? "修改头图" : "添加头图"
-							}}</fv-button
 						>
+							<p v-show="lock.banner">
+								{{ thisBanner ? "修改头图" : "添加头图" }}
+							</p>
+							<fv-progress-ring
+								v-model="coverUploadProgress"
+								v-show="!lock.banner"
+								:r="12"
+								:border-width="2"
+								color="rgba(255, 255, 255, 1)"
+							></fv-progress-ring>
+						</fv-button>
 						<input
 							v-show="false"
 							type="file"
@@ -109,7 +135,7 @@ export default {
 		},
 		banner: {
 			default: "",
-		}
+		},
 	},
 	data() {
 		return {
@@ -118,6 +144,7 @@ export default {
 			show: this.value,
 			showResManager: false,
 			cover: null,
+			coverUploadProgress: 0,
 			currentOption: { key: "draw", value: "draw", text: "草稿" },
 			typeList: [
 				{
@@ -129,6 +156,16 @@ export default {
 					key: "proj",
 					value: "proj",
 					text: "Project",
+				},
+                {
+					key: "top_proj",
+					value: "top_proj",
+					text: "Top Project",
+				},
+                {
+					key: "top_news",
+					value: "top_news",
+					text: "Top News",
 				},
 				{
 					key: "draw",
@@ -181,10 +218,13 @@ export default {
 			if (!this.lock.type) return;
 			this.lock.type = false;
 			await this.$axios
-				.post("/news/update/type", {
+				.post("/news/update/info", {
 					id: this.news.id,
 					title: this.news.title,
 					news_type: this.currentOption.value,
+					description: this.news.description
+						? this.news.description
+						: "",
 				})
 				.then((data) => {
 					data = data.data;
@@ -214,15 +254,25 @@ export default {
 			if (this.$refs.uploader.files.length === 0) return;
 			if (!this.lock.banner) return;
 			this.lock.banner = false;
+			this.coverUploadProgress = 0;
 			let formData = new FormData();
 			formData.append("id", this.news.id);
 			formData.append("banner", this.$refs.uploader.files[0]);
 			this.$axios
-				.post("/upload_banner", formData)
+				.post("/upload_banner", formData, {
+					onUploadProgress: (progressEvent) => {
+						// 计算上传进度百分比
+						const percentCompleted = Math.round(
+							(progressEvent.loaded * 100) / progressEvent.total
+						);
+						this.coverUploadProgress = percentCompleted;
+					},
+				})
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
 						this.$refs.uploader.value = "";
+						this.getCover();
 					} else {
 						this.$barWarning(data.status, {
 							status: "warning",

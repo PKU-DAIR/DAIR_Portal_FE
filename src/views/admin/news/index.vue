@@ -45,7 +45,7 @@
 						reveal-border-color="rgba(149, 141, 241, 0.6)"
 						style="width: 40px; height: 35px; margin-left: 8px"
 					>
-						<i class="ms-Icon ms-Icon--Upload"></i>
+						<i class="ms-Icon ms-Icon--Edit"></i>
 					</fv-button>
 				</div>
 				<power-editor

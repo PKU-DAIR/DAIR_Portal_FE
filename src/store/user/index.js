@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 const user = {
     namespaced: true,
     state: {
@@ -16,8 +14,8 @@ const user = {
         },
     },
     mutations: {
-        setAvatar(state, { userId, avatar }) {
-            Vue.set(state.avatar, userId, avatar);
+        setAvatar(state, avatar) {
+            state.avatar = avatar;
         },
         setUserInfo(state, obj) {
             state.info = obj;
@@ -25,6 +23,7 @@ const user = {
         clearInfo(state) {
             state.info.status = false;
             state.info.userid = "";
+            state.avatar = null;
         }
     },
     actions: {

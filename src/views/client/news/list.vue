@@ -1,27 +1,76 @@
 <template>
-	<div class="pub-wrap" :class="[{ dark: theme === 'dark' }]">
+	<div
+		v-if="!hideWhenEmpty || objs.length > 0"
+		class="pub-wrap"
+		:class="[
+			{ dark: theme === 'dark', 'container-mode': !showButtomBlock },
+		]"
+		:style="{ background: background }"
+	>
 		<div class="title-block">
-			<p class="big-title">News</p>
-			<p class="title-line"></p>
+			<p class="big-title">{{ title }}</p>
+			<p class="title-line" :style="{ background: viewAllBackground }"></p>
 		</div>
 		<div class="pub-contain-list">
 			<news-list :theme="theme" :objs="objs"></news-list>
 		</div>
 		<bottom-block
+			v-if="showButtomBlock"
 			:background="'rgba(245, 245, 245, 1)'"
 			:isDarkFont="true"
 		></bottom-block>
+		<div class="ret-top-div" @click="retop">
+			<span
+				class="ms-Icon ms-Icon--ChevronUp"
+				style="color: rgba(242, 242, 242, 1)"
+			></span>
+		</div>
+		<fv-button
+			v-show="showViewAll"
+			theme="dark"
+			:background="viewAllBackground"
+			@click="$emit('show-all-click')"
+			style="width: 120px; height: 40px; margin: 25px"
+			>Show All</fv-button
+		>
 	</div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import gsap from "gsap";
 
 import newsList from "@/components/news/newsList.vue";
 import bottomBlock from "@/views/client/home/bottomBlock.vue";
 
 export default {
 	name: "about",
+	props: {
+		title: {
+			default: "News",
+		},
+		url: {
+			default: "/news/client/news",
+		},
+		limit: {
+			default: 99999,
+		},
+		background: {
+			default: "",
+		},
+		showViewAll: {
+			default: false,
+		},
+		viewAllBackground: {
+			default: "",
+		},
+		showButtomBlock: {
+			default: true,
+		},
+		hideWhenEmpty: {
+			default: false,
+		},
+	},
 	components: {
 		newsList,
 		bottomBlock,
@@ -60,7 +109,7 @@ export default {
 		getClientNews() {
 			this.$axios({
 				method: "get",
-				url: `/news/client/news?offset=0&limit=99999`,
+				url: `${this.url}?offset=0&limit=${this.limit}`,
 			})
 				.then((res) => {
 					res = res.data;
@@ -75,6 +124,12 @@ export default {
 				.catch((err) => {
 					console.log(err);
 				});
+		},
+		retop() {
+			gsap.to(document.querySelector(".pub-wrap"), {
+				scrollTop: 0,
+				duration: 0.5,
+			});
 		},
 	},
 	beforeDestroy() {
@@ -96,6 +151,12 @@ export default {
 	align-items: center;
 	overflow: overlay;
 	overflow-x: hidden;
+
+	&.container-mode {
+		position: relative;
+		height: auto;
+		overflow: visible;
+	}
 
 	&.dark {
 		background: rgba(23, 17, 24, 1);
@@ -132,7 +193,7 @@ export default {
 		user-select: none;
 
 		.big-title {
-			font-size: 42px;
+			font-size: 32px;
 			font-weight: bold;
 
 			&.sec {
@@ -216,6 +277,10 @@ export default {
 	.bottom-line {
 		margin-top: 50px;
 		height: 40px;
+	}
+
+	.ret-top-div {
+		@include retop;
 	}
 }
 

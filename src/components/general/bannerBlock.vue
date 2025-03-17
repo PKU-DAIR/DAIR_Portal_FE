@@ -43,6 +43,7 @@
 				<fv-callout
 					v-if="islogin"
 					:lockScroll="true"
+					:theme="theme"
 					:position="'bottomRight'"
 					:beak="10"
 					:space="0"
@@ -53,6 +54,25 @@
 						<fv-img :src="avatar"></fv-img>
 					</div>
 					<main class="drop-down-block">
+						<div class="drop-down-item">
+							<fv-animated-icon
+								icon="IDBadge"
+								style="width: 100%; margin: 10px 0px"
+								@click="show.profile = true"
+							>
+								<template v-slot:content>
+									<div
+										style="
+											margin-left: 15px;
+											font-size: 13px;
+											user-select: none;
+										"
+									>
+										User Profile
+									</div>
+								</template>
+							</fv-animated-icon>
+						</div>
 						<div
 							v-if="role.includes('admin')"
 							class="drop-down-item"
@@ -91,7 +111,7 @@
 											user-select: none;
 										"
 									>
-										注销
+										{{ local("Logout") }}
 									</div>
 								</template>
 							</fv-animated-icon>
@@ -101,6 +121,85 @@
 			</div>
 			<transition :name="show.mobileNav ? 'move-top-to-bottom' : ''">
 				<div v-show="show.mobileNav" class="s-link-block">
+					<fv-callout
+						v-if="islogin"
+						:theme="theme"
+						:lockScroll="true"
+						:position="'bottomCenter'"
+						:beak="10"
+						:space="0"
+						:popper-style="{ width: '150px' }"
+						:visible.sync="show.mobileMenu"
+					>
+						<div v-if="islogin" class="sosd-avatar-container">
+							<fv-img :src="avatar"></fv-img>
+						</div>
+						<main class="drop-down-block">
+							<div class="drop-down-item">
+								<fv-animated-icon
+									value="bounceRotate"
+									icon="IDBadge"
+									style="width: 100%; margin: 10px 0px"
+									@click="show.profile = true"
+								>
+									<template v-slot:content>
+										<div
+											style="
+												margin-left: 15px;
+												font-size: 13px;
+												user-select: none;
+											"
+										>
+											User Profile
+										</div>
+									</template>
+								</fv-animated-icon>
+							</div>
+							<div
+								v-if="role.includes('admin')"
+								class="drop-down-item"
+							>
+								<fv-animated-icon
+									value="bounceRotate"
+									icon="Settings"
+									style="width: 100%; margin: 10px 0px"
+									@click="$Go('/a')"
+								>
+									<template v-slot:content>
+										<div
+											style="
+												margin-left: 15px;
+												font-size: 13px;
+												user-select: none;
+											"
+										>
+											Admin Center
+										</div>
+									</template>
+								</fv-animated-icon>
+							</div>
+							<hr style="opacity: 0.3" />
+							<div class="drop-down-item">
+								<fv-animated-icon
+									icon="AzureKeyVault"
+									style="width: 100%; margin: 10px 0px"
+									@click="logout"
+								>
+									<template v-slot:content>
+										<div
+											style="
+												margin-left: 15px;
+												font-size: 13px;
+												user-select: none;
+											"
+										>
+											{{ local("Logout") }}
+										</div>
+									</template>
+								</fv-animated-icon>
+							</div>
+						</main>
+					</fv-callout>
 					<a
 						v-for="(item, index) in navOptions"
 						:key="`b: ${index}`"
@@ -114,11 +213,23 @@
 						>{{ item.name }}</a
 					>
 					<fv-button
+						v-if="!islogin && !$route.fullPath.startsWith('/login')"
+						background="#244362"
+						theme="dark"
+						font-size="12"
+						font-weight="600"
+						border-radius="12"
+						:is-box-shadow="true"
+						style="width: 180px; height: 30px; margin-top: 15px"
+						@click="$Go('/login')"
+						>Login</fv-button
+					>
+					<fv-button
 						theme="dark"
 						background="transparent"
 						border-radius="15"
 						border-color="rgba(242,242,242,0.8)"
-						style="width: 150px"
+						style="width: 120px; margin-top: 25px"
 						@click="show.mobileNav ^= true"
 						>Close</fv-button
 					>
@@ -130,14 +241,20 @@
 				@click="show.mobileNav ^= true"
 			></span>
 		</div>
+		<profile-block v-model="show.profile"></profile-block>
 	</div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 
+import profileBlock from "@/components/general/profile";
+
 export default {
+	components: {
+		profileBlock,
+	},
 	data() {
 		return {
 			navOptions: [
@@ -150,7 +267,10 @@ export default {
 				defaultAvatar: defaultAvatar,
 			},
 			show: {
+				menu: false,
 				mobileNav: false,
+				mobileMenu: false,
+				profile: false,
 			},
 		};
 	},
@@ -160,6 +280,8 @@ export default {
 			userInfo: (state) => state.user.info,
 			userAvatar: (state) => state.user.avatar,
 		}),
+		...mapGetters(["local"]),
+		...mapGetters("Theme", ["color", "gradient", "theme"]),
 		role() {
 			if (!this.userInfo) return "";
 			if (!this.userInfo.role) return "";
@@ -180,7 +302,7 @@ export default {
 		}),
 		logout() {
 			this.clearInfo();
-			localStorage.removeItem("ApiKey");
+			localStorage.removeItem("ApiToken");
 		},
 	},
 };
