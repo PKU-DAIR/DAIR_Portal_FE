@@ -420,7 +420,7 @@
 					</fv-Combobox>
 					<fv-text-box
 						v-model="item.region"
-						:placeholder="'福州大学·福州'"
+						:placeholder="'北京大学·北京'"
 						:theme="theme"
 						underline
 						:prefix="'地点'"
