@@ -3,7 +3,7 @@
 		<div class="manage-content-block">
 			<fv-navigation-view
 				v-model="currentNav"
-                theme="dark"
+				theme="dark"
 				:title="local(`Management`)"
 				:options="navList"
 				:expand.sync="isExpand"
@@ -38,25 +38,31 @@ export default {
 					key: 0,
 					name: () => this.local("Users"),
 					icon: "GuestUser",
-					route: "",
+					route: "/a/",
 				},
 				{
 					key: 1,
 					name: () => this.local("About"),
 					icon: "People",
-					route: "about",
+					route: "/a/about",
 				},
 				{
 					key: 4,
 					name: () => this.local("News"),
 					icon: "Globe",
-					route: "news"
+					route: "/a/news",
 				},
-                {
+				{
 					key: 5,
 					name: () => this.local("Publications"),
 					icon: "DuplexPortraitTwoSidedLongEdge",
-					route: "pub",
+					route: "/a/pub",
+				},
+				{
+					key: -1,
+					name: () => this.local("Home"),
+					icon: "Home",
+					route: "/",
 				},
 			],
 		};
@@ -75,7 +81,7 @@ export default {
 	},
 	methods: {
 		handleItemClick(item) {
-			this.$Go(`/a/${item.route}`);
+			this.$Go(`${item.route}`);
 		},
 		routeFormat() {
 			let path = this.$route.path;
@@ -96,7 +102,7 @@ export default {
 .manage-container {
 	@include app;
 
-    background: rgba(23, 17, 24, 1);
+	background: rgba(23, 17, 24, 1);
 	display: flex;
 	flex-direction: column;
 

@@ -288,18 +288,31 @@ export default {
 				});
 				return;
 			}
-			navigator.clipboard
-				.writeText(this.metadata.bib)
-				.then(() => {
-					this.$barWarning("Successfully Copied", {
-						status: "correct",
+			if (navigator.clipboard) {
+				navigator.clipboard
+					.writeText(this.metadata.bib)
+					.then(() => {
+						this.$barWarning("Successfully Copied", {
+							status: "correct",
+						});
+					})
+					.catch((err) => {
+						this.$barWarning(err, {
+							status: "error",
+						});
 					});
-				})
-				.catch((err) => {
-					this.$barWarning(err, {
-						status: "error",
-					});
+			} else {
+				// 回退到 document.execCommand
+				const input = document.createElement("input");
+				input.value = this.metadata.bib;
+				document.body.appendChild(input);
+				input.select();
+				document.execCommand("copy");
+				document.body.removeChild(input);
+				this.$barWarning("Successfully Copied", {
+					status: "correct",
 				});
+			}
 		},
 		async addPub() {
 			if (this.metadata == "") {
