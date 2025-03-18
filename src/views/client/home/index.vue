@@ -19,7 +19,7 @@
 				</p>
 			</div>
 		</div>
-		<arrow-block style="width: 90%; margin-bottom: 75px;"></arrow-block>
+		<arrow-block style="width: 90%; max-width: 1368px; margin-bottom: 75px"></arrow-block>
 		<news-wrap
 			title="Recent News"
 			background="rgba(0, 0, 0, 1)"
@@ -28,41 +28,53 @@
 			viewAllBackground="rgba(149, 141, 241, 1)"
 			url="/news/client/top_news"
 			:hideWhenEmpty="false"
-            @show-all-click="$Go('/news')"
+			@show-all-click="$Go('/news')"
 		></news-wrap>
 		<news-wrap
 			title="Current Projects"
 			:showButtomBlock="false"
 			:showViewAll="true"
-            viewAllBackground="rgba(45, 80, 125, 1)"
+			viewAllBackground="rgba(45, 80, 125, 1)"
 			url="/news/client/top_projs"
-            @show-all-click="$Go('/projs')"
+			@show-all-click="$Go('/projs')"
 			:hideWhenEmpty="false"
 		></news-wrap>
 		<div class="d-block-1">
-			<div class="unit-block">
-				<p class="unit-title">Research</p>
+			<div
+				v-for="(item, index) in unitBlockList"
+				:key="index"
+				class="unit-block"
+			>
+				<p class="unit-title">{{ item.title }}</p>
 				<p class="unit-content">
-					Welcome to the DAIR Lab! We are part of the School of
-					Computer Science at Peking University (PKU).
+					{{ item.content }}
 				</p>
-				<p class="unit-link">Read More</p>
+				<p
+					class="unit-link"
+					@click="
+						() => {
+							item.url ? $Jump(item.url) : '';
+						}
+					"
+				>
+					Read More
+				</p>
 			</div>
-			<div class="unit-block">
-				<p class="unit-title">Research</p>
-				<p class="unit-content">
-					Welcome to the DAIR Lab! We are part of the School of
-					Computer Science at Peking University (PKU).
-				</p>
-				<p class="unit-link">Read More</p>
-			</div>
-			<div class="unit-block">
-				<p class="unit-title">Research</p>
-				<p class="unit-content">
-					Welcome to the DAIR Lab! We are part of the School of
-					Computer Science at Peking University (PKU).
-				</p>
-				<p class="unit-link">Read More</p>
+		</div>
+		<div class="d-block-2" :style="{ height: `${screenWidth / 2.58}px` }">
+			<img class="team-banner" :src="img.banner" alt="" />
+			<div class="mask-container">
+				<fv-button
+					theme="dark"
+					background="rgba(105, 113, 213, 1)"
+					:border-radius="6"
+                    :font-size="24"
+                    :font-weight="'bold'"
+					:is-box-shadow="true"
+					style="width: 200px; height: 85px"
+                    @click="$Go('/team')"
+					>About us</fv-button
+				>
 			</div>
 		</div>
 		<bottom-block></bottom-block>
@@ -83,6 +95,8 @@ import bottomBlock from "./bottomBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState } from "vuex";
 
+import banner from "@/assets/team/banner/team.jpg";
+
 export default {
 	components: {
 		bannerBlock,
@@ -92,6 +106,29 @@ export default {
 	},
 	data() {
 		return {
+			unitBlockList: [
+				{
+					title: "Research Directions",
+					content:
+						"Our lab explores innovative areas such as ML System, Data-Centric, Database and AutoML. We focus on developing algorithms and systems that understand, learn, and interact with the world intelligently.",
+					url: "https://github.com/PKU-DAIR/Starter-Guide?tab=readme-ov-file#ai%E7%B3%BB%E7%BB%9F%E6%96%B9%E5%90%91-",
+				},
+				{
+					title: "Research Publications",
+					content:
+						"Discover our latest research contributions through our published papers. Our work covers theoretical foundations and practical applications in ML System, Data-Centric and related fields.",
+					url: "/pub",
+				},
+				{
+					title: "Open Source Projects",
+					content:
+						"We actively contribute to the AI community through open-source projects. Explore our tools, libraries, and frameworks designed to advance research and collaboration in AI.",
+					url: "/projs",
+				},
+			],
+			img: {
+				banner,
+			},
 			show: {
 				mobileNav: false,
 			},
@@ -134,10 +171,11 @@ export default {
 		min-height: 600px;
 		height: auto;
 		flex-shrink: 0;
+		padding-top: 200px;
 		color: rgba(234, 233, 238, 1);
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 
 		.left-block {
 			@include HcenterVcenterC;
@@ -213,7 +251,42 @@ export default {
 				color: rgba(200, 194, 201, 1);
 				border-bottom: rgba(200, 194, 201, 1) solid 2px;
 				text-align: left;
+				user-select: none;
+				transition: all 0.3s;
+				cursor: pointer;
+
+				&:hover {
+					transform: translateY(5%);
+				}
+
+				&:active {
+					transform: translateY(5%) scale(0.9);
+				}
 			}
+		}
+	}
+
+	.d-block-2 {
+		position: relative;
+		width: 100%;
+		height: auto;
+		flex-shrink: 0;
+
+		.team-banner {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+            object-position: 50% 50%;
+		}
+
+		.mask-container {
+            @include HcenterVcenter;
+
+			position: relative;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
 		}
 	}
 

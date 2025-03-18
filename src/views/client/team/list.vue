@@ -3,7 +3,7 @@
 		<div class="about-title-block">
 			<p class="big-title">About us</p>
 			<p class="big-title sec">PKU-DAIR</p>
-			<p class="sec-title">xxxx ● xxxx ● xxxx</p>
+			<p class="sec-title">ML System ● Data-Centric ● Database ● AutoML</p>
 		</div>
 		<fv-button
 			v-show="info.userid"

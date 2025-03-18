@@ -314,7 +314,7 @@ export default {
 	width: 100%;
 	height: auto;
 	background-size: cover;
-	z-index: 2;
+	z-index: 30;
 
 	.sosd-avatar-container {
 		position: relative;
