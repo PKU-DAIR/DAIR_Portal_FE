@@ -279,6 +279,7 @@ export default {
 
 	&.dark {
 		background: rgba(36, 36, 36, 1);
+        color: whitesmoke;
 
 		.draw-list-block {
 			.draw-item {

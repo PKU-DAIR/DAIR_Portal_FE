@@ -307,6 +307,7 @@
 						}}
 					</p>
 					<fv-button
+						v-if="isManager"
 						v-show="member.userid"
 						theme="dark"
 						background="rgba(173, 38, 45, 1)"
