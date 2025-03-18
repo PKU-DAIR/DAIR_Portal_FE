@@ -100,7 +100,7 @@ export default {
 						resolve(Img);
 					},
 					"image/jpeg",
-					1
+					0.9
 				);
 			});
 			this.blobToBase64(blob, (base64) => {

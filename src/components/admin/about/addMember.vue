@@ -23,7 +23,7 @@
 					<fv-text-box
 						v-model="member.id"
 						:theme="theme"
-						:placeholder="'请输入ID'"
+						:placeholder="'暂无简历ID'"
 						underline
 						disabled
 						:border-width="2"
@@ -883,9 +883,11 @@ export default {
 				this.member.userid = this.updateMemberInfo.userid;
 		},
 		async getMemberDetailInfo() {
+			let prefix = "/get_member";
+			if (!this.isManager) prefix = "/get_member_client";
 			await this.$axios({
 				method: "get",
-				url: `/get_member?id=${this.updateMemberInfo.id}`,
+				url: `${prefix}?id=${this.updateMemberInfo.id}`,
 			})
 				.then((res) => {
 					res = res.data;
