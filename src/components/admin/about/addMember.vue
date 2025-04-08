@@ -5,7 +5,7 @@
 		width="calc(100% - 30px)"
 		height="1200px"
 		:theme="theme"
-		background="rgba(30, 30, 30, 0.6)"
+		background="rgba(70, 70, 70, 0.6)"
 		title-size="13.8"
 		:is-central-side="true"
 		:is-acrylic="true"
@@ -76,9 +76,10 @@
 							: 'rotate-fold-bottom-to-top'
 					"
 				>
-					<div v-show="show.avatar" class="panel-row">
+					<div v-show="show.avatar" class="panel-row" style="width: 350px;">
 						<choose-avatar
 							ref="avatar"
+                            :theme="theme"
 							@update-base64="avatar = $event"
 							@update-img="avatarBlob = $event"
 						>
@@ -88,14 +89,15 @@
 				<div
 					v-show="show.avatar"
 					class="panel-row"
-					style="justify-content: center"
+					style="width: 350px; justify-content: center"
 				>
 					<fv-button
 						:theme="theme"
+                        icon="ChevronUp"
 						:is-box-shadow="true"
 						style="width: 120px; margin-left: 5px"
 						@click="show.avatar = false"
-						>关闭</fv-button
+						>折叠</fv-button
 					>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
@@ -261,6 +263,23 @@
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
+                <div class="panel-row" style="margin-top: 15px">
+					<p class="panel-title">外部跳转</p>
+				</div>
+				<div class="panel-row">
+					<fv-text-box
+						v-model="member.external"
+						:placeholder="'请输入外部简历URL'"
+						left-icon="Link"
+						:theme="theme"
+						underline
+						:border-width="2"
+						:border-color="'rgba(120, 120, 120, 0.1)'"
+						:background="'rgba(60, 60, 60, 1)'"
+						:focus-border-color="'rgba(0, 90, 158, 1)'"
+						:is-box-shadow="true"
+					></fv-text-box>
+				</div>
 				<div class="panel-row" style="margin-top: 15px">
 					<p class="panel-title">职级/职称</p>
 				</div>
@@ -400,15 +419,15 @@
 						:is-box-shadow="true"
 						style="width: 120px; height: 35px"
 					></fv-text-box>
-					<fv-Combobox
+					<fv-search-box
 						v-model="item.competitionName"
 						placeholder="请选择成果"
 						:theme="theme"
 						:options="awardList"
 						:is-box-shadow="true"
-						style="width: 250px"
+						style="width: 250px; flex: 1"
 					>
-					</fv-Combobox>
+					</fv-search-box>
 					<fv-Combobox
 						v-model="item.level"
 						placeholder="请选择获奖等级"
@@ -628,6 +647,7 @@ export default {
 				awards: [],
 				email: "",
 				mobile: "",
+				external: "",
 			},
 			avatar: null,
 			avatarBlob: null,
@@ -924,13 +944,6 @@ export default {
 							}
 							if (key === "awards") {
 								data[key].forEach((el) => {
-									let competitionNameObj =
-										this.awardList.find(
-											(it) =>
-												it.text === el.competitionName
-										);
-									if (competitionNameObj)
-										el.competitionName = competitionNameObj;
 									let levelObj = this.awardLevelList.find(
 										(it) => it.text === el.level
 									);
@@ -1017,7 +1030,7 @@ export default {
 			this.member.awards.forEach((it) => {
 				awards.push({
 					competitionName: it.competitionName
-						? it.competitionName.text
+						? it.competitionName
 						: "",
 					level: it.level ? it.level.text : "",
 					session: it.session,
@@ -1058,6 +1071,7 @@ export default {
 					postAddress: this.member.postAddress,
 					awards: this.formatAwardsPost(),
 					userid: this.member.userid ? this.member.userid : null,
+					external: this.member.external ? this.member.external : "",
 				})
 				.then((data) => {
 					data = data.data;
@@ -1120,6 +1134,7 @@ export default {
 					postAddress: this.member.postAddress,
 					awards: this.formatAwardsPost(),
 					userid: this.member.userid ? this.member.userid : null,
+					external: this.member.external ? this.member.external : "",
 				})
 				.then((data) => {
 					data = data.data;

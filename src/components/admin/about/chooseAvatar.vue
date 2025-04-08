@@ -1,5 +1,5 @@
 <template>
-	<div class="choose-avatar-container">
+	<div class="choose-avatar-container" :class="[{ dark: theme === 'dark' }]">
 		<div ref="shower" class="shower-container"></div>
 		<div class="wrapper-container">
 			<img
@@ -38,6 +38,9 @@ export default {
 	props: {
 		themeColor: {
 			default: "rgba(149, 141, 241, 1)",
+		},
+		theme: {
+			default: "light",
 		},
 	},
 	data() {
@@ -138,6 +141,16 @@ export default {
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
+
+	&.dark {
+		.shower-container {
+			background: rgba(120, 120, 120, 0.9);
+		}
+
+		.wrapper-container {
+			background: rgba(120, 120, 120, 0.9);
+		}
+	}
 
 	.shower-container {
 		position: relative;

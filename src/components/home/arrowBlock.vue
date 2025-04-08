@@ -63,6 +63,8 @@ export default {
     width: 100%;
     height: auto;
     color: whitesmoke;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
     user-select: none;
 
     .arrow-row-block {
@@ -72,7 +74,7 @@ export default {
         width: 100%;
 
         .arrow-unit {
-            font-size: 12px;
+            font-size: 13.5px;
         }
     }
 }

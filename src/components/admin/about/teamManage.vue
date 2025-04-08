@@ -38,7 +38,7 @@
 							<fv-text-box
 								v-model="groupName"
 								underline
-								:placeholder="'输入分组名称'"
+								:placeholder="'输入分组名称 (尾部+$[数字]可排序)'"
 								:theme="theme"
 								:border-width="2"
 								:border-color="'transparent'"

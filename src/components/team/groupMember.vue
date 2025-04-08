@@ -25,11 +25,11 @@
 					:avatarDict="avatarDict"
 					:groupFilter="groupFilter"
 					:size="size"
-                    :theme="theme"
+					:theme="theme"
 					class="group-detail-every"
 					v-for="(item, index) in thisMembers(group)"
 					:key="index"
-					@click.native="$Go(`/team/cv/${item.id}`)"
+					@click.native="handleUnitClick(item)"
 				>
 				</member-unit>
 			</div>
@@ -90,7 +90,17 @@ export default {
 	},
 	computed: {
 		thisGroups() {
-			return this.groups ? this.groups : [];
+			let groups = this.groups ? this.groups : [];
+			groups.forEach((it) => {
+				let mit = it.name.split("$");
+				it.name = mit[0];
+				if (mit.length > 1) it.index = parseFloat(mit[1]);
+				else it.index = 9999999;
+			});
+			groups = groups.sort((a, b) => {
+				return a.index - b.index;
+			});
+			return groups;
 		},
 		thisMembers() {
 			return (group) => {
@@ -123,6 +133,10 @@ export default {
 			hash = hash >>> 0; // 确保哈希值为正数
 			return hash % range; // 取模运算，将哈希值限制在0到range-1
 		},
+		handleUnitClick(item) {
+			if (!item.external) this.$Go(`/team/cv/${item.id}`);
+			else this.$Jump(item.external);
+		},
 	},
 };
 </script>
@@ -133,10 +147,8 @@ export default {
 	height: auto;
 	margin: 60px auto 0;
 
-    &.dark
-    {
-        
-    }
+	&.dark {
+	}
 
 	.title-block {
 		position: relative;
@@ -163,16 +175,16 @@ export default {
 		height: auto;
 		border: 1px solid transparent;
 		display: flex;
-        flex-direction: column;
+		flex-direction: column;
 		justify-content: center;
-        align-items: center;
+		align-items: center;
 		user-select: none;
 
 		.group-name {
 			position: relative;
 			width: auto;
 			height: 30px;
-            margin-bottom: 75px;
+			margin-bottom: 75px;
 			flex-shrink: 0;
 			padding: 3px 15px;
 			border-radius: 20px;

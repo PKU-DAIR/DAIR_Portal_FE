@@ -65,6 +65,28 @@
 							class="panel-title"
 							style="margin-bottom: 5px"
 						>
+							外部跳转
+						</p>
+						<fv-text-box
+							v-model="news.external"
+							:placeholder="'请输入外部URL (指定后将直接跳转至外部链接)'"
+							left-icon="Link"
+							:theme="theme"
+							underline
+							:border-width="2"
+							:border-color="'rgba(120, 120, 120, 0.1)'"
+							:background="'rgba(60, 60, 60, 1)'"
+							:focus-border-color="'rgba(0, 90, 158, 1)'"
+							:is-box-shadow="true"
+							style="width: 100%; margin-top: 15px"
+						></fv-text-box>
+					</div>
+					<div style="margin-top: 15px">
+						<p
+							ref="name"
+							class="panel-title"
+							style="margin-bottom: 5px"
+						>
 							添加头图
 						</p>
 						<fv-button
@@ -139,7 +161,11 @@ export default {
 	},
 	data() {
 		return {
-			news: {},
+			news: {
+				title: "",
+				description: "",
+				external: "",
+			},
 			thisBanner: this.banner,
 			show: this.value,
 			showResManager: false,
@@ -157,12 +183,12 @@ export default {
 					value: "proj",
 					text: "Project",
 				},
-                {
+				{
 					key: "top_proj",
 					value: "top_proj",
 					text: "Top Project",
 				},
-                {
+				{
 					key: "top_news",
 					value: "top_news",
 					text: "Top News",
@@ -190,6 +216,7 @@ export default {
 			);
 		},
 		obj(val) {
+			if (val && !val.external) val.external = "";
 			this.news = val;
 			this.currentOption = this.typeList.find(
 				(it) => it.value === val.news_type
@@ -225,6 +252,7 @@ export default {
 					description: this.news.description
 						? this.news.description
 						: "",
+					external: this.news.external,
 				})
 				.then((data) => {
 					data = data.data;

@@ -1,7 +1,8 @@
 <template>
 	<div class="home-container">
 		<banner-block></banner-block>
-		<div class="d-block-1">
+		<fv-img class="main-bg" :src="img.mainBG" alt="" :style="{ height: `${screenWidth / 1.98}px` }"></fv-img>
+		<div class="d-block-1" style="margin-bottom: 150px;" :style="{ height: `${screenWidth / 2.18}px` }">
 			<div class="left-block">
 				<div class="intro-title-block">
 					<p class="intro-title">DAIR Lab</p>
@@ -19,10 +20,9 @@
 				</p>
 			</div>
 		</div>
-		<arrow-block style="width: 90%; max-width: 1368px; margin-bottom: 75px"></arrow-block>
 		<news-wrap
 			title="Recent News"
-			background="rgba(0, 0, 0, 1)"
+			background="rgba(16, 11, 16, 1)"
 			:showButtomBlock="false"
 			:showViewAll="true"
 			viewAllBackground="rgba(149, 141, 241, 1)"
@@ -30,6 +30,9 @@
 			:hideWhenEmpty="false"
 			@show-all-click="$Go('/news')"
 		></news-wrap>
+        <arrow-block
+			style="width: 90%; max-width: 1368px; margin: 175px 0px;"
+		></arrow-block>
 		<news-wrap
 			title="Current Projects"
 			:showButtomBlock="false"
@@ -67,12 +70,16 @@
 				<fv-button
 					theme="dark"
 					background="rgba(105, 113, 213, 1)"
-					:border-radius="6"
-                    :font-size="24"
-                    :font-weight="'bold'"
+					:border-radius="12"
+					:font-size="screenWidth / 80"
+					:font-weight="'bold'"
 					:is-box-shadow="true"
-					style="width: 200px; height: 85px"
-                    @click="$Go('/team')"
+					style="min-width: 200px; height: 85px"
+					:style="{
+						width: `${screenWidth / 10}px`,
+						height: `${screenWidth / 2.58 / 9}px`,
+					}"
+					@click="$Go('/team')"
 					>About us</fv-button
 				>
 			</div>
@@ -95,6 +102,7 @@ import bottomBlock from "./bottomBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState } from "vuex";
 
+import mainBG from "@/assets/pku/pku.jpg";
 import banner from "@/assets/team/banner/team.jpg";
 
 export default {
@@ -127,6 +135,7 @@ export default {
 				},
 			],
 			img: {
+				mainBG,
 				banner,
 			},
 			show: {
@@ -164,6 +173,16 @@ export default {
 	overflow: auto;
 	overflow-x: hidden;
 
+	.main-bg {
+		position: absolute;
+		width: 100%;
+		min-height: 600px;
+		object-fit: cover;
+		object-position: 50% 50%;
+        opacity: 0.2;
+        filter: saturate(0.6);
+	}
+
 	.d-block-1 {
 		position: relative;
 		width: 100%;
@@ -184,20 +203,22 @@ export default {
 			width: 40%;
 			max-width: 400px;
 			height: 100%;
+            line-height: 2;
 
 			.intro-title-block {
 				@include HcenterVcenterC;
 
 				position: relative;
-				width: 300px;
+				width: 350px;
 
 				.intro-title {
-					font-weight: 400;
-					font-size: 36px;
+					font-weight: 600;
+					font-size: 58px;
 				}
 
 				.intro-sub-title {
-					font-size: 15px;
+					font-size: 18px;
+                    font-weight: 600;
 				}
 			}
 		}
@@ -213,8 +234,8 @@ export default {
 			.intro-content {
 				max-width: 500px;
 				font-weight: 400;
-				font-size: 16px;
-				line-height: 1.5;
+				font-size: 24px;
+				line-height: 2;
 				color: rgba(200, 194, 201, 1);
 				text-align: left;
 			}
@@ -277,11 +298,11 @@ export default {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-            object-position: 50% 50%;
+			object-position: 50% 50%;
 		}
 
 		.mask-container {
-            @include HcenterVcenter;
+			@include HcenterVcenter;
 
 			position: relative;
 			width: 100%;

@@ -12,11 +12,14 @@
 		>
 		</fv-persona>
 		<p class="mu-name">{{ member.name }}</p>
-		<p v-show="showTitle" class="mu-title">
+		<p v-show="computeStaff" class="mu-title">
 			{{ computedTitle }}
 		</p>
-		<p v-show="showGrade" class="mu-info">{{ computedGrade }}</p>
-		<p class="mu-info">{{ member.major }}</p>
+		<p v-show="showGrade && !computeStaff" class="mu-info">
+			{{ computedGrade }}
+		</p>
+		<p v-show="showMajor" class="mu-info">{{ member.major }}</p>
+		<p v-show="true" class="mu-info email" @click="sendEmail($event, member.email)">{{ member.email }}</p>
 		<p v-show="member.postAddress" class="mu-info">
 			{{ member.postAddress }}
 		</p>
@@ -42,6 +45,9 @@ export default {
 		showGrade: {
 			default: true,
 		},
+		showMajor: {
+			default: false,
+		},
 		render: {
 			default: true,
 		},
@@ -57,6 +63,7 @@ export default {
 			member: {
 				id: "",
 				name: "",
+				email: "",
 				grade: "",
 				major: "",
 				teams: [],
@@ -105,8 +112,17 @@ export default {
 				this.member.educations.length > 0
 					? [this.member.educations[0].name]
 					: [];
-			if (this.member.grade) grade.unshift(this.member.grade);
+			if (this.member.grade && !this.computeStaff)
+				grade.unshift(this.member.grade);
 			return grade.join(" ");
+		},
+		computeStaff() {
+			let groups = this.member.groups;
+			if (!groups) return false;
+			if (!Array.isArray(groups)) return false;
+			for (let item of groups)
+				if (item.name.indexOf("Staff") >= 0) return true;
+			return false;
 		},
 	},
 	mounted() {
@@ -179,6 +195,20 @@ export default {
 				});
 			return photo;
 		},
+		sendEmail(event, email) {
+			event.stopPropagation();
+			const recipient = email; // 收件人
+			const subject = ""; // 邮件主题
+			const body = "From the PKU-DAIR Protal Site."; // 邮件正文
+
+			// 构建 mailto 链接
+			const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(
+				subject
+			)}&body=${encodeURIComponent(body)}`;
+
+			// 打开默认邮件客户端
+			window.location.href = mailtoLink;
+		},
 	},
 	beforeDestroy() {
 		for (let key in this.timer) {
@@ -198,6 +228,7 @@ export default {
 	align-items: center;
 	overflow: hidden;
 	user-select: none;
+	cursor: pointer;
 
 	&.dark {
 		.mu-name,
@@ -243,6 +274,12 @@ export default {
 		display: flex;
 		justify-content: center;
 		text-align: center;
+
+		&.email {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 }
 </style>

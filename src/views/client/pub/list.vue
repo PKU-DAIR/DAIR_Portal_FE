@@ -253,7 +253,7 @@ export default {
 	.pub-contain-list {
 		position: relative;
 		width: 100%;
-		max-width: 1368px;
+		max-width: 1300px;
 		height: auto;
 
 		.pub-group-list {
@@ -267,7 +267,7 @@ export default {
 
 			.year-title {
 				position: relative;
-				width: 100%;
+				width: calc(100% - 20px);
 				font-weight: bold;
 				user-select: none;
 			}
@@ -276,7 +276,7 @@ export default {
 				@include HbetweenVcenter;
 
 				position: relative;
-				width: 100%;
+				width: calc(100% - 20px);
 				min-height: 120px;
 				height: auto;
 				line-height: 2;

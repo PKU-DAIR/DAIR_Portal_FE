@@ -209,7 +209,7 @@ export default {
 	.pub-contain-list {
 		position: relative;
 		width: 100%;
-		max-width: 1368px;
+		max-width: 1300px;
 		height: auto;
 
 		.pub-group-list {

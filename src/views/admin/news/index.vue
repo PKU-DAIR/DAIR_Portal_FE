@@ -327,7 +327,6 @@ export default {
 							status: "correct",
 						});
 						this.unsave = false;
-						return;
 					} else {
 						this.$barWarning(data.message, {
 							status: "error",

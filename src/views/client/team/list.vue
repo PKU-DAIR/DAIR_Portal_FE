@@ -1,9 +1,15 @@
 <template>
 	<div class="about-wrap" :class="[{ dark: theme === 'dark' }]">
-		<div class="about-title-block">
+		<div v-if="false" class="about-title-block">
 			<p class="big-title">About us</p>
 			<p class="big-title sec">PKU-DAIR</p>
-			<p class="sec-title">ML System ● Data-Centric ● Database ● AutoML</p>
+			<p class="sec-title">
+				ML System ● Data-Centric ● Database ● AutoML
+			</p>
+		</div>
+		<div class="title-block">
+			<p class="big-title">Team</p>
+			<p class="title-line"></p>
 		</div>
 		<fv-button
 			v-show="info.userid"
@@ -25,6 +31,7 @@
 			:members="objs"
 			:theme="theme"
 			:size="screenWidth > 1024 ? 120 : 80"
+			:showTeam="false"
 		></group-member>
 		<bottom-block
 			:background="'rgba(245, 245, 245, 1)'"
@@ -183,6 +190,40 @@ export default {
 		.sec-title {
 			color: rgba(199, 212, 231, 1);
 		}
+
+		.title-block {
+			.title-line {
+				width: 200px;
+				height: 3px;
+				margin-top: 15px;
+				border-radius: 3px;
+				background: rgba(0, 90, 158, 1);
+			}
+		}
+	}
+
+	.title-block {
+		@include HcenterVcenterC;
+
+		position: relative;
+		width: 100%;
+		padding: 35px 0px;
+		padding-top: 135px;
+		line-height: 1.5;
+		user-select: none;
+
+		.big-title {
+			font-size: 42px;
+			font-weight: bold;
+
+			&.sec {
+				color: rgba(99, 112, 131, 1);
+			}
+		}
+
+		.sec-title {
+			font-size: 16px;
+		}
 	}
 
 	.about-title-block {
@@ -240,7 +281,7 @@ export default {
 		height: 40px;
 	}
 
-    .ret-top-div {
+	.ret-top-div {
 		@include retop;
 	}
 }

@@ -130,6 +130,10 @@ export default {
 			return item.publisher;
 		},
 		viewDetail(item) {
+			if (item.external) {
+				this.$Jump(item.external);
+				return;
+			}
 			this.$Go(`/news/d/${item.id}`);
 		},
 		pCancelFavor(item) {
@@ -272,7 +276,7 @@ export default {
 		grid-template-columns: 100%;
 		display: flex;
 		flex-direction: column;
-        align-items: center;
+		align-items: center;
 
 		.dair-news-item {
 			width: calc(100% - 2px);

@@ -78,7 +78,7 @@
 					borderRadius="50"
 					fontSize="16"
 					fontWeight="600"
-					style="width: 50px; height: 50px; margin-top: 20px"
+					style="width: 50px; height: 50px; margin-top: 20px; flex-shrink: 0;"
 					:disabled="Apply.Lock"
 					@click="handleApply"
 				>
@@ -178,6 +178,7 @@ export default {
 		@include HcenterVcenterC;
 
 		height: 150px;
+        flex-shrink: 0;
 
 		p {
 			&:first-child {
@@ -201,15 +202,17 @@ export default {
 		position: relative;
 		width: 80%;
 		max-width: 450px;
+        min-height: 250px;
 		height: auto;
 		background: rgba(0, 0, 0, 1);
 		border: rgba(90, 90, 90, 0.1) solid thin;
 		border-radius: 12px;
+        box-sizing: border-box;
 		box-shadow: 0 0px 3px 0 rgba(54, 60, 85, 0.05),
 			0 0px 3px 0 rgba(66, 73, 21, 0.22);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-		overflow: hidden;
+		overflow: overlay;
 
 		.s1 {
 			@include FullRelative;
