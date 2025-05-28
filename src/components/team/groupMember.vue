@@ -145,6 +145,7 @@ export default {
 .group-wrap {
 	width: 100%;
 	height: auto;
+    max-width: 1368px;
 	margin: 60px auto 0;
 
 	&.dark {
@@ -182,9 +183,10 @@ export default {
 
 		.group-name {
 			position: relative;
+            min-width: 130px;
 			width: auto;
 			height: 30px;
-			margin-bottom: 75px;
+			margin: 35px 0px 50px 0px;
 			flex-shrink: 0;
 			padding: 3px 15px;
 			border-radius: 20px;

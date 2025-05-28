@@ -19,7 +19,13 @@
 			{{ computedGrade }}
 		</p>
 		<p v-show="showMajor" class="mu-info">{{ member.major }}</p>
-		<p v-show="true" class="mu-info email" @click="sendEmail($event, member.email)">{{ member.email }}</p>
+		<p
+			v-show="true"
+			class="mu-info email"
+			@click="sendEmail($event, member.email)"
+		>
+			{{ member.email }}
+		</p>
 		<p v-show="member.postAddress" class="mu-info">
 			{{ member.postAddress }}
 		</p>
@@ -271,14 +277,29 @@ export default {
 		margin-top: 5px;
 		font-size: 13.8px;
 		color: rgba(109, 120, 138, 1);
+        white-space: nowrap;
+        text-overflow: ellipsis;
 		display: flex;
 		justify-content: center;
 		text-align: center;
+        overflow: hidden;
 
 		&.email {
 			&:hover {
 				text-decoration: underline;
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 985px) {
+	.member-unit-container {
+        .mu-name {
+            font-size: 12px;
+        }
+
+		.mu-info {
+			font-size: 8px;
 		}
 	}
 }
