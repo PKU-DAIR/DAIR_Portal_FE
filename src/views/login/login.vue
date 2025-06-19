@@ -1,12 +1,8 @@
 <template>
 	<div class="login-block">
 		<transition name="scale-up-to-up">
-			<fv-progress-bar
-				v-show="login.lock"
-				:loading="true"
-				foreground="#FF8B00"
-				style="position: absolute; left: 0px; top: 0px; width: 100%"
-			></fv-progress-bar>
+			<fv-progress-bar v-show="login.lock" :loading="true" foreground="#FF8B00"
+				style="position: absolute; left: 0px; top: 0px; width: 100%"></fv-progress-bar>
 		</transition>
 		<div class="main-block">
 			<span v-show="false" class="border-top"></span>
@@ -14,49 +10,22 @@
 				<p class="main-title">
 					<img src="@/assets/logo/pku_dair.svg" alt />
 				</p>
-				<fv-text-box
-					theme="dark"
-					v-model="user.identity"
-					placeholder="User ID (Letter, Number or Email)"
-					borderWidth="2"
-					:revealBorder="true"
-					:border-radius="6"
-					border-color="rgba(200, 200, 200, 0.1)"
-					focusBorderColor="rgba(221, 151, 45, 0.1)"
-					:is-box-shadow="true"
-					background="rgba(120, 120, 120, 0.7)"
-					style="width: 90%; height: 50px; margin-top: 35px"
-					@keyup="handleEnter"
-				></fv-text-box>
-				<fv-text-box
-					theme="dark"
-					v-model="user.password"
-					placeholder="密码"
-					type="password"
-					borderWidth="2"
-					:revealBorder="true"
-					:border-radius="6"
-					border-color="rgba(200, 200, 200, 0.1)"
-					focusBorderColor="rgba(221, 151, 45, 0.1)"
-					:is-box-shadow="true"
-					background="rgba(120, 120, 120, 0.7)"
-					style="width: 90%; height: 50px; margin-top: 15px"
-					@keyup="handleEnter"
-				></fv-text-box>
-				<fv-button
-					background="linear-gradient(45deg, #ec008c, #da4453)"
-					theme="dark"
-					borderRadius="6"
-					fontSize="16"
-					fontWeight="600"
-					:is-box-shadow="true"
-					style="width: 90%; height: 40px; margin-top: 20px"
-					:disabled="login.lock"
-					@click="handleLogin"
-					>Login</fv-button
-				>
+				<fv-text-box theme="dark" v-model="user.identity" placeholder="User ID (Letter, Number or Email)"
+					borderWidth="2" :revealBorder="true" :border-radius="6" border-color="rgba(200, 200, 200, 0.1)"
+					focusBorderColor="rgba(221, 151, 45, 0.1)" :is-box-shadow="true"
+					background="rgba(120, 120, 120, 0.7)" style="width: 90%; height: 50px; margin-top: 35px"
+					@keyup="handleEnter"></fv-text-box>
+				<fv-text-box theme="dark" v-model="user.password" placeholder="密码" type="password" borderWidth="2"
+					:revealBorder="true" :border-radius="6" border-color="rgba(200, 200, 200, 0.1)"
+					focusBorderColor="rgba(221, 151, 45, 0.1)" :is-box-shadow="true"
+					background="rgba(120, 120, 120, 0.7)" style="width: 90%; height: 50px; margin-top: 15px"
+					@keyup="handleEnter"></fv-text-box>
+				<fv-button background="linear-gradient(45deg, #ec008c, #da4453)" theme="dark" borderRadius="6"
+					fontSize="16" fontWeight="600" :is-box-shadow="true"
+					style="width: 90%; height: 40px; margin-top: 20px" :disabled="login.lock"
+					@click="handleLogin">Login</fv-button>
 				<div class="s2">
-					<p class="to-apply">Forgot</p>
+					<p class="to-apply" @click="forgotPassword">Forgot</p>
 					<p class="to-apply" style="margin: 0px 8px">·</p>
 					<p class="to-apply" @click="$Go('/login/apply')">
 						No Account Yet ?
@@ -73,7 +42,7 @@
 <script>
 import axios from "@/api/config.js";
 
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
 	name: "DAIRLogin",
@@ -90,7 +59,11 @@ export default {
 			},
 		};
 	},
-	mounted() {},
+	computed: {
+		...mapGetters(["local"]),
+		...mapGetters("Theme", ["color", "gradient", "theme"]),
+	},
+	mounted() { },
 	methods: {
 		...mapMutations("user", {
 			setUserInfo: "setUserInfo",
@@ -132,6 +105,14 @@ export default {
 					});
 					this.login.lock = false;
 				});
+		},
+		forgotPassword() {
+			this.$infoBox(this.local("Please try to contact the admin to reset your password."), {
+				status: 'error',
+				theme: this.theme,
+				confirmTitle: "Confirm",
+				cancelTitle: "Cancel"
+			})
 		},
 		handleEnter(event) {
 			if (event.keyCode == 13) this.handleLogin();
@@ -234,6 +215,7 @@ export default {
 	0% {
 		width: 0;
 	}
+
 	100% {
 		width: 100%;
 	}

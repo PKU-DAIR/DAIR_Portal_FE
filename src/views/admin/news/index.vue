@@ -56,7 +56,7 @@
 					:language="'cn'"
 					:theme="theme"
 					:editorOutSideBackground="'transparent'"
-					:toolbarHeight="100"
+					:toolbarHeight="120"
 					fontSize="16"
 					ref="editor"
 					style="

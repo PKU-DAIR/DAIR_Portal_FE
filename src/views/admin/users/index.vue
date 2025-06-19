@@ -2,45 +2,21 @@
 	<div class="m-laws-block">
 		<div class="row between">
 			<h1 class="main-title">{{ local("Users Management") }}</h1>
-			<fv-text-box
-				v-model="currentSearch"
-				:theme="theme"
-				:placeholder="local('Filter in the Result')"
-				icon="Filter"
-				borderWidth="2"
-				:revealBorder="true"
-				:is-box-shadow="true"
-			></fv-text-box>
+			<fv-text-box v-model="currentSearch" :theme="theme" :placeholder="local('Filter in the Result')"
+				icon="Filter" borderWidth="2" :revealBorder="true" :is-box-shadow="true"></fv-text-box>
 		</div>
 		<div class="row command-bar">
-			<fv-command-bar
-				:options="cmd"
-				:theme="theme"
-				background="transparent"
-				style="flex: 1"
-			></fv-command-bar>
+			<fv-command-bar :options="cmd" :theme="theme" background="transparent" style="flex: 1"></fv-command-bar>
 		</div>
 		<div class="row main-table">
-			<fv-details-list
-				v-model="objs"
-				:theme="theme"
-				:head="head"
-				:filter="currentSearch"
-				:foreground="color"
-				style="width: 100%; height: 100%"
-				:multiSelection="true"
-				@rightclick="currentItem = $event"
-				@choose-items="currentChoosen = $event"
-			>
+			<fv-details-list v-model="objs" :theme="theme" :head="head" :filter="currentSearch" :foreground="color"
+				style="width: 100%; height: 100%" :multiSelection="true" @rightclick="currentItem = $event"
+				@choose-items="currentChoosen = $event">
 				<template v-slot:column_0="x">
 					<p class="sec">{{ x.row_index + 1 }}</p>
 				</template>
 				<template v-slot:column_1="x">
-					<p
-						class="sec highlight"
-						:title="x.item.id"
-						@click="showUserRole(x.item)"
-					>
+					<p class="sec highlight" :title="x.item.id" @click="showUserRole(x.item)">
 						{{ x.item.userid }}
 					</p>
 				</template>
@@ -50,43 +26,29 @@
 					</p>
 				</template>
 				<template v-slot:column_3="x">
-					<fv-tag
-						:theme="theme"
-						:value="x.item.gender ? [{ text: x.item.gender }] : []"
-					></fv-tag>
+					<fv-tag :theme="theme" :value="x.item.gender ? [{ text: x.item.gender }] : []"></fv-tag>
 				</template>
 				<template v-slot:column_4="x">
-					<fv-tag
-						:theme="theme"
-						:value="[{ text: x.item.email }]"
-					></fv-tag>
+					<fv-tag :theme="theme" :value="[{ text: x.item.email }]"></fv-tag>
 				</template>
 				<template v-slot:column_5="x">
-					<fv-tag
-						:theme="theme"
-						:value="[{ text: x.item.invite_code }]"
-					></fv-tag>
+					<fv-tag :theme="theme" :value="[{ text: x.item.invite_code }]"></fv-tag>
 				</template>
 				<template v-slot:column_6="x">
-					<fv-tag
-						:theme="theme"
-						:value="[{ text: x.item.phone }]"
-					></fv-tag>
+					<fv-tag :theme="theme" :value="[{ text: x.item.phone }]"></fv-tag>
 				</template>
 				<template v-slot:column_7="x">
-					<fv-tag
-						:theme="theme"
-						:value="getRole(x.item.role)"
-					></fv-tag>
+					<fv-tag :theme="theme" :value="getRole(x.item.role)"></fv-tag>
 				</template>
 				<template v-slot:menu>
 					<div>
-						<span @click="show.userRole = true"
-							><i
-								class="ms-Icon ms-Icon--GuestUser"
-								:style="{ color: color }"
-							></i>
+						<span @click="show.userRole = true"><i class="ms-Icon ms-Icon--GuestUser"
+								:style="{ color: color }"></i>
 							<p>{{ local("User Role") }}</p>
+						</span>
+						<span @click="resetPassword(currentItem)"><i class="ms-Icon ms-Icon--Lock"
+								:style="{ color: 'rgba(200, 38, 45, 1)' }"></i>
+							<p>{{ local("Reset Password") }}</p>
 						</span>
 					</div>
 				</template>
@@ -113,7 +75,7 @@ export default {
 						this.local("User number") + " " + this.objs.length,
 					icon: "Group",
 					iconColor: "rgba(0, 90, 158, 1)",
-					func: () => {},
+					func: () => { },
 				},
 			],
 			head: [
@@ -203,6 +165,32 @@ export default {
 			this.currentItem = item;
 			this.show.userRole = true;
 		},
+		resetPassword(item) {
+			if (!item.userid) return;
+			this.$infoBox(this.local("Are you sure to reset this user's password to its userid?"), {
+				status: 'error',
+				theme: this.theme,
+				confirmTitle: "Confirm",
+				cancelTitle: "Cancel",
+				confirm: () => {
+					this.$axios.post("/user/reset_pwd", {
+						userid: item.userid
+					})
+						.then((res) => {
+							res = res.data;
+							if (res.code === 200) {
+								this.$barWarning(this.local('Reset Complete.'), {
+									status: 'correct',
+									theme: this.theme
+								})
+							}
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+				}
+			})
+		}
 	},
 };
 </script>

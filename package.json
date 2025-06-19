@@ -8,7 +8,7 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
-        "@creatorsn/powereditor": "^2.4.10",
+        "@creatorsn/powereditor": "^2.5.7",
         "axios": "^1.7.9",
         "bibtex-parser": "^0.0.0",
         "core-js": "^3.6.4",

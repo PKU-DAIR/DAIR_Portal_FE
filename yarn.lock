@@ -963,10 +963,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@creatorsn/powereditor@^2.4.10":
-  version "2.4.10"
-  resolved "https://registry.yarnpkg.com/@creatorsn/powereditor/-/powereditor-2.4.10.tgz#a21aebcae8f58c4cda133cd0b1384506b0e3752f"
-  integrity sha512-nPr8A3bR88JZQmB8vW/JSQnCII8+P3ggrE0mjy8MaiAO/cisInBwtkrDg4MABqU790HsKmyoIV2YwcpWJZ+oAw==
+"@creatorsn/powereditor@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@creatorsn/powereditor/-/powereditor-2.5.7.tgz#2cc404ea36f1c02c377447834c2275945b620641"
+  integrity sha512-gYD1z+N0r/waN8tdNGDlEAW6njw9A/L3yYth7cPGFyntsXTckY4PQfLKoMrx6kUbzvpZXkHCqKGNnRnYNCM38g==
   dependencies:
     "@tiptap/core" "2.3.0"
     "@tiptap/extension-bubble-menu" "2.3.0"
@@ -1000,6 +1000,7 @@
     markdown-it-mark "^3.0.1"
     markdown-it-sub "^1.0.0"
     markdown-it-sup "^1.0.0"
+    onecolor "^4.1.0"
     simplify-js "^1.2.4"
     vfluentdesign "1.2.51"
 
