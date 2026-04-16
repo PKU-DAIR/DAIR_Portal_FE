@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 import userRole from "@/components/admin/users/userRole.vue";
 
@@ -295,3 +295,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

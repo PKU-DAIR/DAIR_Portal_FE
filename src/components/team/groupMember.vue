@@ -29,7 +29,7 @@
 					class="group-detail-every"
 					v-for="(item, index) in thisMembers(group)"
 					:key="index"
-					@click.native="handleUnitClick(item)"
+					@click="handleUnitClick(item)"
 				>
 				</member-unit>
 			</div>
@@ -251,3 +251,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

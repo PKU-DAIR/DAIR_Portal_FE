@@ -142,10 +142,10 @@ export default {
 				if (!this.avatar) {
 					if (!this.member.photo) return;
 					if (!this.avatarDict[this.member.photo]) {
-						this.$set(this.avatarDict, this.member.photo, {
+						this.avatarDict[this.member.photo] = {
 							status: "lock",
 							data: "",
-						});
+						}
 						this.getMemberPhoto(this.member.photo);
 					} else if (
 						this.avatarDict[this.member.photo].status === "finished"
@@ -158,7 +158,7 @@ export default {
 			this.avatar = null;
 			for (let key in this.member) {
 				if (this.value[key]) {
-					this.$set(this.member, key, this.value[key]);
+					this.member[key] = this.value[key];
 				}
 			}
 		},
@@ -182,16 +182,16 @@ export default {
 						photo = data.data;
 						// this.blobToBase64(photo, (base64) => {
 						// 	this.avatar = base64;
-						// 	this.$set(this.avatarDict, id, {
+						// 	this.avatarDict[id] = {
 						// 		status: "finished",
 						// 		data: base64,
 						// 	});
 						// });
 						this.avatar = photo;
-						this.$set(this.avatarDict, id, {
+						this.avatarDict[id] = {
 							status: "finished",
 							data: photo,
-						});
+						}
 					}
 				})
 				.catch((err) => {
@@ -216,7 +216,7 @@ export default {
 			window.location.href = mailtoLink;
 		},
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		for (let key in this.timer) {
 			clearInterval(this.timer[key]);
 		}
@@ -304,3 +304,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

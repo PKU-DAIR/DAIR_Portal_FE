@@ -93,7 +93,7 @@
 			:total="total"
 			:background="
 				theme === 'dark' ? 'rgba(50, 50, 50, 1)' : 'whitesmoke'
-			"
+"
 			:foreground="color"
 			:shadow="true"
 			style="margin: 5px 0px"
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 import metadataPanel from "@/components/admin/pub/metadataPanel.vue";
 
@@ -374,3 +374,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

@@ -42,7 +42,7 @@
 <script>
 import axios from "@/api/config.js";
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "@/stores/mapHelpers";
 
 export default {
 	name: "DAIRLogin",
@@ -221,3 +221,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

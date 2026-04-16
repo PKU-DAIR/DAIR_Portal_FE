@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 import majorManage from "@/components/admin/about/majorManage.vue";
 import addMember from "@/components/admin/about/addMember.vue";
 import teamManage from "@/components/admin/about/teamManage.vue";
@@ -391,3 +391,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

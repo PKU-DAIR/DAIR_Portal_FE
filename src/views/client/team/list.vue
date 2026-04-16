@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from "@/stores/mapHelpers";
 import gsap from "gsap";
 
 import groupMember from "@/components/team/groupMember.vue";
@@ -157,7 +157,7 @@ export default {
 			});
 		},
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		for (let key in this.timer) {
 			clearInterval(this.timer[key]);
 		}
@@ -293,3 +293,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

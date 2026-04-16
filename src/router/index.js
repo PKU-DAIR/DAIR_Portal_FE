@@ -1,7 +1,4 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-
-import tool from "./tools";
+import { createRouter, createWebHistory } from "vue-router";
 
 import Login from "./Login";
 import Admin from "./Admin";
@@ -10,18 +7,14 @@ import Pub from "./Pub";
 import News from "./News";
 import Projs from "./Projs";
 
-Vue.use(VueRouter);
-
-const AsyncLoad = tool.AsyncLoad;
-
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: () => AsyncLoad(import("@/views/client/home")),
+        component: () => import("@/views/client/home/index.vue"),
         meta: {
-            title: "PKU-DAIR"
-        }
+            title: "PKU-DAIR",
+        },
     },
     Login,
     Team,
@@ -32,14 +25,17 @@ const routes = [
     {
         path: "/dev",
         name: "Dev",
-        component: () => AsyncLoad(import("@/views/dev"))
-    }
+        component: () => import("@/views/dev/index.vue"),
+    },
 ];
 
-const router = new VueRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
-    routes
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes,
 });
 
 export default router;
+
+
+
+

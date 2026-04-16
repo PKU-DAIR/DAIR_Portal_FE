@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 import timeRounder from "@/components/general/timeRounder.vue";
 import newsBanner from "@/components/news/newsBanner.vue";
 
@@ -190,3 +190,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

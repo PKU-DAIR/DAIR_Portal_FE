@@ -7,7 +7,7 @@
 <script>
 import i18n from "@/js/i18n.js";
 
-import { mapMutations } from "vuex";
+import { mapMutations } from "@/stores/mapHelpers";
 
 export default {
 	name: "App",
@@ -84,7 +84,7 @@ export default {
 			}
 		},
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		this.clearTimer();
 	},
 };
@@ -135,3 +135,7 @@ body {
 	}
 }
 </style>
+
+
+
+

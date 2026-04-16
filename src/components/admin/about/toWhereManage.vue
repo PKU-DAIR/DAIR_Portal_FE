@@ -9,7 +9,7 @@
 			theme === 'dark'
 				? 'rgba(36, 36, 36, 0.8)'
 				: 'rgba(255, 255, 255, 0.6)'
-		"
+"
 		title-size="13.8"
 		:is-central-side="true"
 		:is-acrylic="true"
@@ -95,19 +95,17 @@
 <script>
 export default {
 	props: {
-		value: {
+		modelValue: {
 			default: () => false,
 		},
-		model: {
-			default: () => ({}),
-		},
+
 		theme: {
 			default: "light",
 		},
 	},
 	data() {
 		return {
-			thisValue: this.value,
+			thisValue: this.modelValue,
 			objs: [],
 			towhereName: "",
 			lock: {
@@ -116,11 +114,11 @@ export default {
 		};
 	},
 	watch: {
-		value(val) {
+		modelValue(val) {
 			this.thisValue = val;
 		},
 		thisValue(val) {
-			this.$emit("input", val);
+			this.$emit("update:modelValue", val);
 		},
 	},
 	computed: {},
@@ -138,7 +136,7 @@ export default {
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
-							this.$set(item, "lock", true);
+							item.lock = true;
 						});
 						this.objs = objs;
 					}
@@ -183,7 +181,7 @@ export default {
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
-					this.$set(item, "lock", false);
+					item.lock = false;
 					this.$axios
 						.post("/remove_towhere", { id: item.id })
 						.then((data) => {
@@ -201,7 +199,7 @@ export default {
 							});
 						})
 						.finally(() => {
-							this.$set(item, "lock", true);
+							item.lock = true;
 						});
 				},
 			});
@@ -260,3 +258,9 @@ export default {
 	}
 }
 </style>
+
+
+
+
+
+

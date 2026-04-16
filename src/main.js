@@ -1,26 +1,35 @@
-import Vue from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
+import App from "./App.vue";
 import router from "@/router";
-import store from "@/store";
 
-import Vuex from "vuex";
-import VFluent from "vfluentdesign";
-import "vfluentdesign/lib/index.css";
-import "@/style/global.scss";
+import VueFluent from "@creatorsn/vfluent3";
+import "@creatorsn/vfluent3/style.css";
 
-import custom_axios from "@/api/config.js";
+import PowerEditor from "@creatorsn/powereditor3";
+import "@creatorsn/powereditor3/powereditor3.css";
 
-Vue.use(VFluent, Vuex);
+import customAxios from "@/api/config";
 
-import PowerEditor from "@creatorsn/powereditor";
+const app = createApp(App);
 
-import "@creatorsn/powereditor/lib/powereditor.css";
-Vue.use(PowerEditor);
+app.use(VueFluent);
+app.use(PowerEditor);
+app.use(createPinia());
+app.use(router);
 
-Vue.config.productionTip = false
+app.config.globalProperties.$axios = customAxios;
+app.config.globalProperties.$Go = (str) => {
+    router.push(str);
+};
+app.config.globalProperties.$Back = () => {
+    router.back();
+};
+app.config.globalProperties.$Jump = (str) => {
+    window.open(str);
+};
 
-//beforeEach//
 router.beforeEach((to, from, next) => {
     if (to.meta.title) {
         document.title = to.meta.title;
@@ -28,20 +37,6 @@ router.beforeEach((to, from, next) => {
     next();
 });
 
-new Vue({
-    router,
-    store,
-    beforeCreate() {
-        Vue.prototype.$axios = custom_axios;
-        Vue.prototype.$Go = str => {
-            this.$router.push(str);
-        };
-        Vue.prototype.$Back = () => {
-            this.$router.back();
-        };
-        Vue.prototype.$Jump = str => {
-            window.open(str);
-        };
-    },
-    render: h => h(App),
-}).$mount('#app')
+app.mount("#app");
+
+

@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 import one from "@/assets/cv_award/one.svg";
 import two from "@/assets/cv_award/two.svg";
 import three from "@/assets/cv_award/three.svg";
@@ -633,3 +633,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

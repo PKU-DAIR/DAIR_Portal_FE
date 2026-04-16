@@ -24,7 +24,7 @@
 						() => {
 							if (item.href) $Go(item.href);
 						}
-					"
+"
 					>{{ item.name }}</a
 				>
 				<fv-button
@@ -48,7 +48,7 @@
 					:beak="10"
 					:space="0"
 					:popper-style="{ width: '150px' }"
-					:visible.sync="show.menu"
+					v-model:visible="show.menu"
 				>
 					<div v-if="islogin" class="sosd-avatar-container">
 						<fv-img :src="avatar"></fv-img>
@@ -66,7 +66,7 @@
 											margin-left: 15px;
 											font-size: 13px;
 											user-select: none;
-										"
+"
 									>
 										User Profile
 									</div>
@@ -89,7 +89,7 @@
 											margin-left: 15px;
 											font-size: 13px;
 											user-select: none;
-										"
+"
 									>
 										Admin Center
 									</div>
@@ -109,7 +109,7 @@
 											margin-left: 15px;
 											font-size: 13px;
 											user-select: none;
-										"
+"
 									>
 										{{ local("Logout") }}
 									</div>
@@ -129,7 +129,7 @@
 						:beak="10"
 						:space="0"
 						:popper-style="{ width: '150px' }"
-						:visible.sync="show.mobileMenu"
+						v-model:visible="show.mobileMenu"
 					>
 						<div v-if="islogin" class="sosd-avatar-container">
 							<fv-img :src="avatar"></fv-img>
@@ -148,7 +148,7 @@
 												margin-left: 15px;
 												font-size: 13px;
 												user-select: none;
-											"
+"
 										>
 											User Profile
 										</div>
@@ -171,7 +171,7 @@
 												margin-left: 15px;
 												font-size: 13px;
 												user-select: none;
-											"
+"
 										>
 											Admin Center
 										</div>
@@ -191,7 +191,7 @@
 												margin-left: 15px;
 												font-size: 13px;
 												user-select: none;
-											"
+"
 										>
 											{{ local("Logout") }}
 										</div>
@@ -209,7 +209,7 @@
 							() => {
 								if (item.href) $Go(item.href);
 							}
-						"
+"
 						>{{ item.name }}</a
 					>
 					<fv-button
@@ -246,10 +246,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "@/stores/mapHelpers";
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 
-import profileBlock from "@/components/general/profile";
+import profileBlock from "@/components/general/profile/index.vue";
 
 export default {
 	components: {
@@ -487,3 +487,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

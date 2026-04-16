@@ -21,7 +21,7 @@
 export default {
     name: 'rightMenu',
     props: {
-        value: {
+        modelValue: {
             default: false
         },
         rightMenuWidth: {
@@ -33,18 +33,18 @@ export default {
     },
     data() {
         return {
-            thisValue: this.value,
+            thisValue: this.modelValue,
             posX: 0,
             posY: 0,
             rightMenuHeight: 0
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.thisValue = val;
         },
         thisValue(val) {
-            this.$emit('input', val);
+            this.$emit('update:modelValue', val);
             if (this.rightMenuHeight == 0) {
                 this.rightMenuHeight = this.$el.clientHeight;
                 this.$emit('update-height', this.rightMenuHeight);
@@ -195,3 +195,7 @@ export default {
     transform: scaleY(0);
 }
 </style>
+
+
+
+

@@ -7,7 +7,7 @@
 		height="80%"
 		:background="
 			theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.6)'
-		"
+"
 		title-size="13.8"
 		:is-central-side="true"
 		:is-acrylic="true"
@@ -37,7 +37,7 @@
 <script>
 import profile from "@/components/general/profile/profile.vue";
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "@/stores/mapHelpers";
 
 export default {
 	name: "Profile",
@@ -45,21 +45,21 @@ export default {
 		profile,
 	},
 	props: {
-		value: {
+		modelValue: {
 			default: false,
 		},
 	},
 	data() {
 		return {
-			show: this.value,
+			show: this.modelValue,
 		};
 	},
 	watch: {
-		value() {
-			this.show = this.value;
+		modelValue() {
+			this.show = this.modelValue;
 		},
 		show() {
-			this.$emit("input", this.show);
+			this.$emit("update:modelValue", this.show);
 		},
 	},
 	computed: {
@@ -100,3 +100,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

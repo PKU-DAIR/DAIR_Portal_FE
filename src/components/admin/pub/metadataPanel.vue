@@ -47,7 +47,7 @@
 								width: 135px;
 								height: 35px;
 								margin-left: 15px;
-							"
+"
 							@click="CopyBibtex"
 						>
 							{{ local("Copy BibTex") }}
@@ -212,12 +212,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-var parse = require("bibtex-parser");
+import { mapGetters } from "@/stores/mapHelpers";
+import parse from "bibtex-parser";
 
 export default {
 	props: {
-		value: {
+		modelValue: {
 			default: false,
 		},
 		item: {
@@ -229,7 +229,7 @@ export default {
 	},
 	data() {
 		return {
-			thisValue: this.value,
+			thisValue: this.modelValue,
 			metaInfoList: [],
 			metadata: {
 				id: "",
@@ -260,11 +260,11 @@ export default {
 		};
 	},
 	watch: {
-		value(val) {
+		modelValue(val) {
 			this.thisValue = val;
 		},
 		thisValue(val) {
-			this.$emit("input", val);
+			this.$emit("update:modelValue", val);
 		},
 		item() {
 			this.metadata.id = "";
@@ -574,3 +574,9 @@ export default {
 	}
 }
 </style>
+
+
+
+
+
+

@@ -20,7 +20,7 @@
 						:theme="theme"
 						:name="user.userid"
 						:showInfo="true"
-						@click.native="showAvatar = true"
+						@click="showAvatar = true"
 					>
 						<template v-slot:name>
 							<p style="text-align: left">{{ user.userid }}</p>
@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 export default {
 	props: {
-		value: {
+		modelValue: {
 			default: false,
 		},
 		user: {
@@ -80,7 +80,7 @@ export default {
 	},
 	data() {
 		return {
-			thisValue: this.value,
+			thisValue: this.modelValue,
 			userAvatar: "",
 			rolesList: [],
 			userRoles: [],
@@ -90,11 +90,11 @@ export default {
 		};
 	},
 	watch: {
-		value(val) {
+		modelValue(val) {
 			this.thisValue = val;
 		},
 		thisValue(val) {
-			this.$emit("input", val);
+			this.$emit("update:modelValue", val);
 		},
 		user() {
 			this.getUserAvatar();
@@ -140,10 +140,10 @@ export default {
 				let index = this.userRoles.findIndex((it) => it === item.id);
 				if (index >= 0) {
 					item.selected = true;
-					this.$set(this.rolesList, i, item);
+					this.rolesList[i] = item;
 				} else {
 					item.selected = false;
-					this.$set(this.rolesList, i, item);
+					this.rolesList[i] = item;
 				}
 			}
 		},
@@ -176,7 +176,7 @@ export default {
 							this.lock.role = true;
 						} else {
 							item.selected = !event;
-							this.$set(this.rolesList, index, item);
+							this.rolesList[index] = item;
 						}
 					})
 					.catch((err) => {
@@ -197,7 +197,7 @@ export default {
 							this.lock.role = true;
 						} else {
 							item.selected = !event;
-							this.$set(this.rolesList, index, item);
+							this.rolesList[index] = item;
 						}
 					})
 					.catch((err) => {
@@ -257,3 +257,9 @@ export default {
 	}
 }
 </style>
+
+
+
+
+
+

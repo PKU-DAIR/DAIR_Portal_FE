@@ -9,7 +9,7 @@
 			theme === 'dark'
 				? 'rgba(36, 36, 36, 0.8)'
 				: 'rgba(255, 255, 255, 0.6)'
-		"
+"
 		title-size="13.8"
 		:is-central-side="true"
 		:is-acrylic="true"
@@ -59,7 +59,7 @@
 									width: 120px;
 									height: 35px;
 									margin-left: 5px;
-								"
+"
 								@click="updateTeamGroup(item, groupName)"
 							>
 								添加组别
@@ -90,7 +90,7 @@
 												group.name,
 												true
 											)
-										"
+"
 										>删除</fv-button
 									>
 								</template>
@@ -104,7 +104,7 @@
 									item.show
 										? 'rgba(0, 120, 120, 1)'
 										: '#FF8B00'
-								"
+"
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="
@@ -112,7 +112,7 @@
 										$event.stopPropagation();
 										updateClientTeam(item);
 									}
-								"
+"
 								>{{
 									item.show ? "取消展示" : "展示"
 								}}</fv-button
@@ -176,19 +176,17 @@
 <script>
 export default {
 	props: {
-		value: {
+		modelValue: {
 			default: () => false,
 		},
-		model: {
-			default: () => ({}),
-		},
+
 		theme: {
 			default: "light",
 		},
 	},
 	data() {
 		return {
-			thisValue: this.value,
+			thisValue: this.modelValue,
 			objs: [],
 			clientTeams: [],
 			teamName: "",
@@ -199,11 +197,11 @@ export default {
 		};
 	},
 	watch: {
-		value(val) {
+		modelValue(val) {
 			this.thisValue = val;
 		},
 		thisValue(val) {
-			this.$emit("input", val);
+			this.$emit("update:modelValue", val);
 		},
 	},
 	computed: {},
@@ -221,7 +219,7 @@ export default {
 					if (data.status === "success") {
 						let objs = data.data;
 						objs.forEach((item) => {
-							this.$set(item, "lock", true);
+							item.lock = true;
 						});
 						this.objs = objs;
 						this.getClientTeams();
@@ -273,7 +271,7 @@ export default {
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
-					this.$set(item, "lock", false);
+					item.lock = false;
 					this.$axios
 						.post("/remove_team", { id: item.id })
 						.then((data) => {
@@ -294,7 +292,7 @@ export default {
 							});
 						})
 						.finally(() => {
-							this.$set(item, "lock", true);
+							item.lock = true;
 						});
 				},
 			});
@@ -323,7 +321,7 @@ export default {
 								item.show = false;
 								item.groups = [];
 							}
-							this.$set(this.objs, this.objs.indexOf(item), item);
+							this.objs[this.objs.indexOf(item)] = item;
 						}
 					}
 				})
@@ -489,3 +487,9 @@ export default {
 	}
 }
 </style>
+
+
+
+
+
+

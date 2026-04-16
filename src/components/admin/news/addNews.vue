@@ -49,7 +49,7 @@
 export default {
 	name: "add-news",
 	props: {
-		value: {
+		modelValue: {
 			default: false,
 		},
 		theme: {
@@ -59,17 +59,17 @@ export default {
 	data() {
 		return {
 			name: "",
-			show: this.value,
+			show: this.modelValue,
 			lock: true,
 		};
 	},
 	mounted() {},
 	watch: {
-		value() {
-			this.show = this.value;
+		modelValue() {
+			this.show = this.modelValue;
 		},
 		show() {
-			this.$emit("input", this.show);
+			this.$emit("update:modelValue", this.show);
 			this.name = "";
 		},
 	},
@@ -132,3 +132,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

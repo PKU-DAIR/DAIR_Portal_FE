@@ -38,7 +38,7 @@
 								padding: 0px 5px;
 								display: flex;
 								align-items: center;
-							"
+"
 						>
 							<i class="ms-Icon ms-Icon--Contact"></i>
 							<p style="margin-left: 5px">
@@ -289,3 +289,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

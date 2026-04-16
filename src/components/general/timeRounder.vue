@@ -129,7 +129,7 @@ export default {
             else return this.$SDate.Format('YYYY-mm-dd HH:MM', target);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         for (let key in this.timer) {
             clearInterval(this.timer[key]);
         }
@@ -155,3 +155,6 @@ export default {
     }
 }
 </style>
+
+
+

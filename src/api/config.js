@@ -1,20 +1,18 @@
-import axios from 'axios'
+import axios from "axios";
 
-const isdev = (process.env.NODE_ENV === "development")
+const isdev = import.meta.env.DEV;
 
-let ax = axios.create();
+const ax = axios.create();
 
-// config here
 if (isdev) {
     ax.defaults.baseURL = "http://100.64.0.18:8000";
 } else {
-    ax.defaults.baseURL = "/api"
+    ax.defaults.baseURL = "/api";
 }
 
-
-ax.interceptors.request.use(config => {
+ax.interceptors.request.use((config) => {
     let token = localStorage.getItem("ApiToken");
-    let expired = localStorage.getItem("ApiTokenExpiredAt");
+    const expired = localStorage.getItem("ApiTokenExpiredAt");
     if (!expired || new Date(expired) < new Date()) {
         token = null;
         localStorage.removeItem("ApiToken");
@@ -27,3 +25,5 @@ ax.interceptors.request.use(config => {
 });
 
 export default ax;
+
+

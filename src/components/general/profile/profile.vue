@@ -8,7 +8,7 @@
 					:theme="theme"
 					:name="obj.name ? obj.name : obj.userid"
 					:showInfo="true"
-					@click.native="showAvatar = true"
+					@click="showAvatar = true"
 				>
 					<template v-slot:name>
 						<p>{{ obj.name ? obj.name : obj.userid }}</p>
@@ -27,7 +27,7 @@
 					margin-top: 15px;
 					display: flex;
 					flex-direction: column;
-				"
+"
 			>
 				<div class="personal-info-block">
 					<div v-show="isAdmin" class="row">
@@ -93,7 +93,7 @@
 										setInformation();
 									});
 								}
-							"
+"
 						></fv-toggle-switch>
 					</div>
 					<div class="row">
@@ -106,7 +106,7 @@
 									'YYYY-mm-dd HH:MM',
 									new Date(obj.apply_time)
 								)
-							"
+"
 						/>
 					</div>
 					<div class="row">
@@ -119,7 +119,7 @@
 									'YYYY-mm-dd HH:MM',
 									new Date(obj.last_login)
 								)
-							"
+"
 						/>
 					</div>
 					<div class="row">
@@ -156,7 +156,7 @@
 								!oriPwd ||
 								!newPwd ||
 								!confirmPwd
-							"
+"
 							style="width: 250px; margin-top: 15px"
 							@click="changePwd"
 							>{{ local("Change Password") }}</fv-button
@@ -170,7 +170,7 @@
 					display: flex;
 					justify-content: space-around;
 					margin-top: 25px;
-				"
+"
 			>
 				<fv-button
 					v-show="!isedit"
@@ -203,7 +203,7 @@
 					theme === 'dark'
 						? 'rgba(50, 50, 50, 0.8)'
 						: 'rgba(255, 255, 255, 0.6)'
-				"
+"
 				title-size="13.8"
 				:is-central-side="true"
 				:is-acrylic="true"
@@ -243,7 +243,7 @@
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 import chooseAvatar from "@/components/general/profile/chooseAvatar.vue";
 
-import { mapGetters, mapState, mapMutations } from "vuex";
+import { mapGetters, mapState, mapMutations } from "@/stores/mapHelpers";
 
 export default {
 	name: "u_info",
@@ -655,3 +655,7 @@ export default {
 	transform: scaleY(1);
 }
 </style>
+
+
+
+

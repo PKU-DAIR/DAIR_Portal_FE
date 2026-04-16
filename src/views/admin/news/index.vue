@@ -12,9 +12,9 @@
 			<draw-list
 				:loadingList="loadingList"
 				:objs="objs"
-				:search.sync="search"
+				v-model:search="search"
 				:currentNews="currentNews"
-				:currentPage.sync="currentPage"
+				v-model:currentPage="currentPage"
 				:news_Total="news_Total"
 				@add-finish="ShowFirst"
 				@revise-finish="getNews"
@@ -25,7 +25,7 @@
 							firstOrDefault();
 						});
 					}
-				"
+"
 				@load-more="getContinue"
 			></draw-list>
 		</div>
@@ -65,7 +65,7 @@
 						height: calc(100% - 15px);
 						flex: 1;
 						font-size: 16px;
-					"
+"
 					@save-json="Save($event)"
 				>
 					<template v-slot:front-content>
@@ -73,7 +73,7 @@
 							v-if="currentBanner"
 							:src="currentBanner"
 							style="width: 100%; height: 250px; cursor: pointer"
-							@click.native="show.newsType = true"
+							@click="show.newsType = true"
 						></fv-img>
 					</template>
 					<template v-slot:custom-buttons>
@@ -117,7 +117,7 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-					"
+"
 				>
 					<p class="p-icon" style="font-size: 72px">&#xF408;</p>
 					<p>创建文章开始创作</p>
@@ -128,7 +128,7 @@
 			v-model="show.newsType"
 			:theme="theme"
 			:obj="currentNews"
-			:banner.sync="currentBanner"
+			v-model:banner="currentBanner"
 			@finish="getNews"
 		></revise-news-type>
 	</div>
@@ -138,7 +138,7 @@
 import drawList from "@/components/admin/news/drawList.vue";
 import reviseNewsType from "@/components/admin/news/reviseNewsTypeBlock.vue";
 
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from "@/stores/mapHelpers";
 
 export default {
 	components: {
@@ -412,7 +412,7 @@ export default {
 			}
 		},
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		window.removeEventListener("keydown", this.shortCutEvent);
 	},
 };
@@ -536,3 +536,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

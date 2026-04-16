@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<div>
 		<fv-panel
 			v-model="show"
@@ -144,12 +144,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 export default {
 	name: "revise-news-type",
 	props: {
-		value: {
+		modelValue: {
 			default: true,
 		},
 		obj: {
@@ -167,7 +167,7 @@ export default {
 				external: "",
 			},
 			thisBanner: this.banner,
-			show: this.value,
+			show: this.modelValue,
 			showResManager: false,
 			cover: null,
 			coverUploadProgress: 0,
@@ -206,11 +206,11 @@ export default {
 		};
 	},
 	watch: {
-		value(val) {
+		modelValue(val) {
 			this.show = val;
 		},
 		show(val) {
-			this.$emit("input", val);
+			this.$emit("update:modelValue", val);
 			this.currentOption = this.typeList.find(
 				(it) => it.value === this.obj.news_type
 			);
@@ -364,3 +364,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

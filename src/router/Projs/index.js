@@ -6,7 +6,7 @@ import newsWrap from "@/views/client/news/list.vue"
 
 export default {
     path: "/projs",
-    component: () => AsyncLoad(import("@/views/client/projs/index.vue")),
+    component: AsyncLoad(() => import("@/views/client/projs/index.vue")),
     meta: {
         title: "Projects"
     },
@@ -20,3 +20,6 @@ export default {
         }
     ]
 }
+
+
+

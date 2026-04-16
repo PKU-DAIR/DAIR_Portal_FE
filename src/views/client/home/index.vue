@@ -58,7 +58,7 @@
 						() => {
 							item.url ? $Jump(item.url) : '';
 						}
-					"
+"
 				>
 					Read More
 				</p>
@@ -100,7 +100,7 @@ import bannerBlock from "@/components/general/bannerBlock.vue";
 import newsWrap from "@/views/client/news/list.vue";
 import bottomBlock from "./bottomBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
-import { mapState } from "vuex";
+import { mapState } from "@/stores/mapHelpers";
 
 import mainBG from "@/assets/pku/pku.jpg";
 import banner from "@/assets/team/banner/team.jpg";
@@ -385,3 +385,8 @@ export default {
 	}
 }
 </style>
+
+
+
+
+

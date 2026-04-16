@@ -10,7 +10,7 @@
 					theme === 'dark'
 						? 'rgba(50, 50, 50, 1)'
 						: 'rgba(255, 255, 255, 1)'
-				"
+"
 				border-color="rgba(0, 0, 0, 0.1)"
 				focus-border-color="rgba(149, 141, 241, 1)"
 				icon="Search"
@@ -79,7 +79,7 @@
 								$event.stopPropagation();
 								rightClick($event, item);
 							}
-						"
+"
 					></i>
 				</div>
 			</div>
@@ -123,7 +123,7 @@
 						margin: 8px 15px;
 						border: thin;
 						border-bottom: rgba(0, 0, 0, 0.1) solid thin;
-					"
+"
 				/>
 				<span @click="show.reviseNewsType = true">
 					<i
@@ -140,7 +140,7 @@
 			:total="news_Total"
 			:background="
 				theme === 'dark' ? 'rgba(50, 50, 50, 1)' : 'whitesmoke'
-			"
+"
 			:foreground="color"
 			:disabled="loadingList"
 			:maxVisual="4"
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 import addNews from "@/components/admin/news/addNews.vue";
 import reviseNewsType from "@/components/admin/news/reviseNewsTypeBlock.vue";
@@ -432,3 +432,7 @@ export default {
 	transform: translateX(-75px);
 }
 </style>
+
+
+
+

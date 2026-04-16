@@ -58,13 +58,13 @@
 							width: 100%;
 							display: flex;
 							flex-direction: column;
-						"
+"
 					>
 						<fv-persona
 							:src="avatar"
 							size="60"
 							background="rgba(245, 245, 245, 1)"
-							@click.native="show.avatar ^= true"
+							@click="show.avatar ^= true"
 						>
 						</fv-persona>
 					</div>
@@ -74,7 +74,7 @@
 						show.avatar
 							? 'rotate-fold-top-to-bottom'
 							: 'rotate-fold-bottom-to-top'
-					"
+"
 				>
 					<div v-show="show.avatar" class="panel-row" style="width: 350px;">
 						<choose-avatar
@@ -351,7 +351,7 @@
 						width: 90%;
 						height: 250px;
 						box-sizing: border-box;
-					"
+"
 					@choose-items="userChoosen = $event"
 				></user-table>
 				<fv-button
@@ -527,7 +527,7 @@
 							theme === 'dark'
 								? 'rgba(36, 36, 36, 1)'
 								: 'rgba(255, 255, 255, 1)'
-						"
+"
 					>
 						<template v-slot:custom-buttons-front="x">
 							<fv-button
@@ -535,12 +535,12 @@
 									theme === 'dark'
 										? 'rgba(200, 200, 200, 1)'
 										: ''
-								"
+"
 								:background="
 									theme === 'dark'
 										? 'rgba(36, 36, 36, 1)'
 										: 'rgba(255, 255, 255, 1)'
-								"
+"
 								:class="[x.defaultClass]"
 								:isBoxShadow="true"
 								:title="'导入Markdown'"
@@ -554,7 +554,7 @@
 										width: 16px;
 										height: 16px;
 										object-fit: contain;
-									"
+"
 								/>
 							</fv-button>
 						</template>
@@ -613,7 +613,7 @@ export default {
 		userTable,
 	},
 	props: {
-		value: {
+		modelValue: {
 			default: false,
 		},
 		updateMemberInfo: {
@@ -628,7 +628,7 @@ export default {
 	},
 	data() {
 		return {
-			thisValue: this.value,
+			thisValue: this.modelValue,
 			member: {
 				id: "",
 				name: "",
@@ -676,7 +676,7 @@ export default {
 		};
 	},
 	watch: {
-		value(val) {
+		modelValue(val) {
 			this.thisValue = val;
 			if (val) {
 				this.getMajors();
@@ -692,7 +692,7 @@ export default {
 			}
 		},
 		thisValue(val) {
-			this.$emit("input", val);
+			this.$emit("update:modelValue", val);
 		},
 		async "updateMemberInfo.id"() {
 			this.refreshMemberInfo();
@@ -1318,3 +1318,9 @@ export default {
 	}
 }
 </style>
+
+
+
+
+
+

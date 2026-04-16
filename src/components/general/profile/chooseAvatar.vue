@@ -33,7 +33,7 @@
 import "cropperjs/dist/cropper.css";
 import Cropper from "cropperjs";
 
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 export default {
 	name: "cutting_tool",
@@ -184,3 +184,7 @@ export default {
 	}
 }
 </style>
+
+
+
+

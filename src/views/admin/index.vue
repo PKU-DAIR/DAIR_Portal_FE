@@ -6,7 +6,7 @@
 				theme="dark"
 				:title="local(`Management`)"
 				:options="navList"
-				:expand.sync="isExpand"
+				v-model:expand="isExpand"
 				:foreground="color"
 				:flyout-display="1368"
 				:mobile-display="1024"
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "@/stores/mapHelpers";
 
 export default {
 	data() {
@@ -120,3 +120,7 @@ export default {
 	}
 }
 </style>
+
+
+
+
