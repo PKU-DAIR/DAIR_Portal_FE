@@ -22,7 +22,7 @@
 							:border-width="2"
 							:reveal-border="true"
 							style="width: 100%; height: 40px; margin-top: 15px"
-							@keydown.enter="reviseTitle"
+							@keydown.enter="reviseType"
 						/>
 					</div>
 					<div style="margin-top: 15px">
@@ -56,7 +56,7 @@
 							:border-width="2"
 							:reveal-border="true"
 							style="width: 100%; height: 80px; margin-top: 15px"
-							@keydown.enter="reviseTitle"
+							@keydown.enter="reviseType"
 						/>
 					</div>
 					<div style="margin-top: 15px">
@@ -215,14 +215,14 @@ export default {
 		show(val) {
 			this.$emit("update:modelValue", val);
 			this.currentOption = this.typeList.find(
-				(it) => it.value === this.obj.news_type
+				(it) => it.value === this.obj.news_type,
 			);
 		},
 		obj(val) {
 			if (val && !val.external) val.external = "";
 			this.news = val;
 			this.currentOption = this.typeList.find(
-				(it) => it.value === val.news_type
+				(it) => it.value === val.news_type,
 			);
 			this.getCover();
 		},
@@ -242,6 +242,12 @@ export default {
 			if (this.news.title == "") {
 				this.$swiftWarning(this.$refs.name, {
 					replaceTitle: "标题不能为空",
+				});
+				return 0;
+			}
+			if (!this.currentOption || !this.currentOption.value) {
+				this.$barWarning("请选择发布类型", {
+					status: "warning",
 				});
 				return 0;
 			}
@@ -294,7 +300,7 @@ export default {
 					onUploadProgress: (progressEvent) => {
 						// 计算上传进度百分比
 						const percentCompleted = Math.round(
-							(progressEvent.loaded * 100) / progressEvent.total
+							(progressEvent.loaded * 100) / progressEvent.total,
 						);
 						this.coverUploadProgress = percentCompleted;
 					},
@@ -349,8 +355,17 @@ export default {
 	height: 100%;
 	padding: 15px 15px 55px 15px;
 	color: rgba(28, 30, 41, 1);
-	font-family: Akkurat Std, -apple-system, BlinkMacSystemFont, Segoe UI,
-		Roboto, Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family:
+		Akkurat Std,
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		Helvetica Neue,
+		sans-serif;
 	font-weight: 400;
 
 	.panel-title {
@@ -367,8 +382,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
-

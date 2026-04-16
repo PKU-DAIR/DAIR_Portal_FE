@@ -23,12 +23,7 @@ const routes = [
     Pub,
     News,
     Projs,
-    Admin,
-    {
-        path: "/dev",
-        name: "Dev",
-        component: () => import("@/views/dev/index.vue"),
-    },
+    Admin
 ];
 
 const router = createRouter({
