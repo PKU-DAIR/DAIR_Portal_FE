@@ -243,7 +243,10 @@
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 import chooseAvatar from "@/components/general/profile/chooseAvatar.vue";
 
-import { mapGetters, mapState, mapMutations } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 export default {
 	name: "u_info",
@@ -288,12 +291,12 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["local"]),
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
-		...mapState({
-			userInfo: (state) => state.user.info,
-			userAvatar: (state) => state.user.avatar,
-		}),
+		...mapState(useApp, ["local"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
+		...mapState(useUser, {
+            userInfo: "info",
+            userAvatar: "avatar",
+        }),
 		isAdmin() {
 			if (!this.userInfo || !this.userInfo.role) return;
 			let index = this.userInfo.role.indexOf("admin");
@@ -308,10 +311,10 @@ export default {
 		this.getInformation();
 	},
 	methods: {
-		...mapMutations("Theme", {
+		...mapActions(useTheme, {
 			reviseTheme: "reviseTheme",
 		}),
-		...mapMutations("user", {
+		...mapActions(useUser, {
 			setUserInfo: "setUserInfo",
 			setAvatar: "setAvatar",
 		}),

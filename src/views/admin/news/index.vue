@@ -138,7 +138,10 @@
 import drawList from "@/components/admin/news/drawList.vue";
 import reviseNewsType from "@/components/admin/news/reviseNewsTypeBlock.vue";
 
-import { mapState, mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 export default {
 	components: {
@@ -190,10 +193,10 @@ export default {
 		},
 	},
 	computed: {
-		...mapState({
+		...mapState(useApp, {
 			screenSize: (state) => state.screenWidth,
 		}),
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {
 		this.getNews(() => {

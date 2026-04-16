@@ -1,30 +1,37 @@
 import { defineStore } from "pinia";
+import { reactive, ref } from "vue";
 
-export const useApp = defineStore("useApp", {
-    state: () => ({
-        screenWidth: 999999999,
-        config: {
-            language: "en",
-        },
-        i18n: {},
-    }),
-    getters: {
-        local: (state) => (text) => {
-            const result = state.i18n[text];
-            if (!result) {
-                return text;
-            }
-            return result[state.config.language];
-        },
-    },
-    actions: {
-        setScreenWidth(width) {
-            this.screenWidth = width;
-        },
-        reviseI18N(i18n) {
-            this.i18n = i18n;
-        },
-    },
+export const useApp = defineStore("useApp", () => {
+    const screenWidth = ref(999999999);
+    const config = reactive({
+        language: "en",
+    });
+    const i18n = ref({});
+
+    const local = (text) => {
+        const result = i18n.value[text];
+        if (!result) {
+            return text;
+        }
+        return result[config.language];
+    };
+
+    const setScreenWidth = (width) => {
+        screenWidth.value = width;
+    };
+
+    const reviseI18N = (nextI18N) => {
+        i18n.value = nextI18N;
+    };
+
+    return {
+        screenWidth,
+        config,
+        i18n,
+        local,
+        setScreenWidth,
+        reviseI18N,
+    };
 });
 
 

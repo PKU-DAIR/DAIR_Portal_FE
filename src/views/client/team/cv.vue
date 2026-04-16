@@ -112,7 +112,10 @@
 </template>
 
 <script>
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 import one from "@/assets/cv_award/one.svg";
 import two from "@/assets/cv_award/two.svg";
 import three from "@/assets/cv_award/three.svg";
@@ -148,7 +151,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 		edu() {
 			if (
 				Array.isArray(this.member.educations) &&

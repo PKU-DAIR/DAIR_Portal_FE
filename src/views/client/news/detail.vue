@@ -33,7 +33,10 @@
 </template>
 
 <script>
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 import timeRounder from "@/components/general/timeRounder.vue";
 import newsBanner from "@/components/news/newsBanner.vue";
 
@@ -61,7 +64,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 		computeContent() {
 			return (content) => {
 				try {

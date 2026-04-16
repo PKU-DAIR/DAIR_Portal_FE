@@ -7,7 +7,10 @@
 <script>
 import i18n from "@/js/i18n.js";
 
-import { mapMutations } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 export default {
 	name: "App",
@@ -29,11 +32,11 @@ export default {
 		this.refreshInfo();
 	},
 	methods: {
-		...mapMutations({
+		...mapActions(useApp, {
 			reviseI18N: "reviseI18N",
 			setScreenWidth: "setScreenWidth",
 		}),
-		...mapMutations("user", {
+		...mapActions(useUser, {
 			setUserInfo: "setUserInfo",
 			setAvatar: "setAvatar",
 		}),

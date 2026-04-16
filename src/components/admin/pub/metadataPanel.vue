@@ -212,7 +212,10 @@
 </template>
 
 <script>
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 import parse from "bibtex-parser";
 
 export default {
@@ -277,7 +280,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["local"]),
+		...mapState(useApp, ["local"]),
 	},
 	mounted() {},
 	methods: {

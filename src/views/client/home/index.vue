@@ -100,7 +100,10 @@ import bannerBlock from "@/components/general/bannerBlock.vue";
 import newsWrap from "@/views/client/news/list.vue";
 import bottomBlock from "./bottomBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
-import { mapState } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 import mainBG from "@/assets/pku/pku.jpg";
 import banner from "@/assets/team/banner/team.jpg";
@@ -145,7 +148,7 @@ export default {
 	},
 	watch: {},
 	computed: {
-		...mapState({
+		...mapState(useApp, {
 			screenWidth: "screenWidth",
 		}),
 	},

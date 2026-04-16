@@ -152,7 +152,10 @@
 </template>
 
 <script>
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 import addNews from "@/components/admin/news/addNews.vue";
 import reviseNewsType from "@/components/admin/news/reviseNewsTypeBlock.vue";
@@ -213,7 +216,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 		newsIcon() {
 			return (item) => {
 				switch (item.news_type) {

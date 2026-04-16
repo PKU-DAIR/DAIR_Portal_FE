@@ -33,7 +33,10 @@
 import "cropperjs/dist/cropper.css";
 import Cropper from "cropperjs";
 
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 export default {
 	name: "cutting_tool",
@@ -63,7 +66,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["local"]),
+		...mapState(useApp, ["local"]),
 	},
 	mounted() {
 		this.init();

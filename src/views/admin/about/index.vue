@@ -102,7 +102,10 @@
 </template>
 
 <script>
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 import majorManage from "@/components/admin/about/majorManage.vue";
 import addMember from "@/components/admin/about/addMember.vue";
 import teamManage from "@/components/admin/about/teamManage.vue";
@@ -215,7 +218,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {
 		this.getMembers();

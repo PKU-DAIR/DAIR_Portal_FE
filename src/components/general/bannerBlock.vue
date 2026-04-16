@@ -246,7 +246,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 
 import profileBlock from "@/components/general/profile/index.vue";
@@ -275,13 +278,15 @@ export default {
 		};
 	},
 	computed: {
-		...mapState({
+		...mapState(useApp, {
 			screenWidth: "screenWidth",
-			userInfo: (state) => state.user.info,
-			userAvatar: (state) => state.user.avatar,
 		}),
-		...mapGetters(["local"]),
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useUser, {
+			userInfo: "info",
+			userAvatar: "avatar",
+		}),
+		...mapState(useApp, ["local"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 		role() {
 			if (!this.userInfo) return "";
 			if (!this.userInfo.role) return "";
@@ -297,7 +302,7 @@ export default {
 		},
 	},
 	methods: {
-		...mapMutations("user", {
+		...mapActions(useUser, {
 			clearInfo: "clearInfo",
 		}),
 		logout() {

@@ -53,7 +53,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 import gsap from "gsap";
 
 import groupMember from "@/components/team/groupMember.vue";
@@ -89,10 +92,10 @@ export default {
 		},
 	},
 	computed: {
-		...mapState("user", {
+		...mapState(useUser, {
 			info: (state) => state.info,
 		}),
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {
 		this.getClientTeams();

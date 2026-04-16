@@ -7,11 +7,13 @@ import Pub from "./Pub";
 import News from "./News";
 import Projs from "./Projs";
 
+import home from "@/views/client/home/index.vue";
+
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: () => import("@/views/client/home/index.vue"),
+        component: home,
         meta: {
             title: "PKU-DAIR",
         },
@@ -32,6 +34,13 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
+    next();
 });
 
 export default router;

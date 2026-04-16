@@ -37,7 +37,10 @@
 <script>
 import profile from "@/components/general/profile/profile.vue";
 
-import { mapGetters, mapMutations } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 export default {
 	name: "Profile",
@@ -63,12 +66,12 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["local"]),
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useApp, ["local"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {},
 	methods: {
-		...mapMutations("user", {
+		...mapActions(useUser, {
 			clearInfo: "clearInfo",
 		}),
 		logout() {

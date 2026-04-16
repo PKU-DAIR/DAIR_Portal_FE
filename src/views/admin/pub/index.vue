@@ -109,7 +109,10 @@
 </template>
 
 <script>
-import { mapGetters } from "@/stores/mapHelpers";
+import { mapState, mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
 
 import metadataPanel from "@/components/admin/pub/metadataPanel.vue";
 
@@ -177,8 +180,8 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["local"]),
-		...mapGetters("Theme", ["color", "gradient", "theme"]),
+		...mapState(useApp, ["local"]),
+		...mapState(useTheme, ["color", "gradient", "theme"]),
 		getDate() {
 			return (item) => {
 				if (typeof item !== "object") item = new Date(item * 1000);
