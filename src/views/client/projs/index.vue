@@ -1,9 +1,11 @@
 <template>
 	<div class="projs-container">
 		<banner-block></banner-block>
-		<keep-alive>
-			<router-view :title="'Projects'" url="/news/client/projs"></router-view>
-		</keep-alive>
+		<router-view v-slot="{ Component }">
+			<keep-alive>
+				<component :is="Component"></component>
+			</keep-alive>
+		</router-view>
 	</div>
 </template>
 

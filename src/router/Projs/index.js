@@ -2,7 +2,7 @@ import tool from "../tools";
 
 const AsyncLoad = tool.AsyncLoad;
 
-import newsWrap from "@/views/client/news/list.vue"
+import newsWrap from "@/views/client/news/list.vue";
 
 export default {
     path: "/projs",
@@ -14,12 +14,16 @@ export default {
         {
             path: "",
             component: newsWrap,
+            props: {
+                title: "Projects",
+                url: "/news/client/projs",
+            },
             meta: {
-                title: "Projects"
-            }
-        }
-    ]
-}
+                title: "Projects",
+            },
+        },
+    ],
+};
 
 
 
