@@ -294,12 +294,12 @@ export default {
 			if (event.keyCode === 9) {
 				event.preventDefault();
 				if (
-					this.getEditor().editor.isActive("bulletList") ||
-					this.getEditor().editor.isActive("orderedList")
+					this.getEditor().editor().isActive("bulletList") ||
+					this.getEditor().editor().isActive("orderedList")
 				)
 					return;
 				if (this.readonly) return;
-				this.getEditor().editor.commands.insertContent("    ");
+				this.getEditor().editor().commands.insertContent("    ");
 			}
 		},
 		getEditor() {

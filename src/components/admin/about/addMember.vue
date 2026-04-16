@@ -952,7 +952,7 @@ export default {
 								});
 							}
 						}
-						this.$refs.editor.editor.commands.setContent(
+						this.$refs.editor.editor().commands.setContent(
 							this.computeContent(this.member.introduction)
 						);
 					} else {
@@ -1052,7 +1052,7 @@ export default {
 					session: this.member.session,
 					major: this.member.major.name,
 					introduction: JSON.stringify(
-						this.$refs.editor.editor.getJSON()
+						this.$refs.editor.editor().getJSON()
 					),
 					photo: "",
 					title: this.member.title,
@@ -1115,7 +1115,7 @@ export default {
 					session: this.member.session,
 					major: this.member.major.name,
 					introduction: JSON.stringify(
-						this.$refs.editor.editor.getJSON()
+						this.$refs.editor.editor().getJSON()
 					),
 					photo: this.member.photo,
 					title: this.member.title,
@@ -1167,7 +1167,7 @@ export default {
 				reader.onload = (e) => {
 					let mdContent = e.target.result;
 					let obj = this.$refs.editor.computeMarkdown(mdContent);
-					this.$refs.editor.editor.commands.setContent(obj);
+					this.$refs.editor.editor().commands.setContent(obj);
 					this.$refs.md_input.value = "";
 				};
 				reader.readAsText(file);
@@ -1176,7 +1176,7 @@ export default {
 		markdownTemplate() {
 			let mdContent = cv_template.content;
 			let obj = this.$refs.editor.computeMarkdown(mdContent);
-			this.$refs.editor.editor.commands.setContent(obj);
+			this.$refs.editor.editor().commands.setContent(obj);
 		},
 		selectUser() {
 			if (this.userChoosen.length !== 1) return;
@@ -1217,7 +1217,7 @@ export default {
 				if (Array.isArray(this.member[key])) this.member[key] = [];
 				else this.member[key] = "";
 			}
-			this.$refs.editor.editor.commands.clearContent();
+			this.$refs.editor.editor().commands.clearContent();
 			this.avatar = null;
 			this.avatarBlob = null;
 		},

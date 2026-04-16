@@ -24,7 +24,7 @@
 						() => {
 							if (item.href) $Go(item.href);
 						}
-"
+					"
 					>{{ item.name }}</a
 				>
 				<fv-button
@@ -48,96 +48,15 @@
 					:beak="10"
 					:space="0"
 					:popper-style="{ width: '150px' }"
-					v-model:visible="show.menu"
+					v-model="show.menu"
 				>
 					<div v-if="islogin" class="sosd-avatar-container">
 						<fv-img :src="avatar"></fv-img>
 					</div>
-					<main class="drop-down-block">
-						<div class="drop-down-item">
-							<fv-animated-icon
-								icon="IDBadge"
-								style="width: 100%; margin: 10px 0px"
-								@click="show.profile = true"
-							>
-								<template v-slot:content>
-									<div
-										style="
-											margin-left: 15px;
-											font-size: 13px;
-											user-select: none;
-"
-									>
-										User Profile
-									</div>
-								</template>
-							</fv-animated-icon>
-						</div>
-						<div
-							v-if="role.includes('admin')"
-							class="drop-down-item"
-						>
-							<fv-animated-icon
-								value="bounceRotate"
-								icon="Settings"
-								style="width: 100%; margin: 10px 0px"
-								@click="$Go('/a')"
-							>
-								<template v-slot:content>
-									<div
-										style="
-											margin-left: 15px;
-											font-size: 13px;
-											user-select: none;
-"
-									>
-										Admin Center
-									</div>
-								</template>
-							</fv-animated-icon>
-						</div>
-						<hr style="opacity: 0.3" />
-						<div class="drop-down-item">
-							<fv-animated-icon
-								icon="AzureKeyVault"
-								style="width: 100%; margin: 10px 0px"
-								@click="logout"
-							>
-								<template v-slot:content>
-									<div
-										style="
-											margin-left: 15px;
-											font-size: 13px;
-											user-select: none;
-"
-									>
-										{{ local("Logout") }}
-									</div>
-								</template>
-							</fv-animated-icon>
-						</div>
-					</main>
-				</fv-callout>
-			</div>
-			<transition :name="show.mobileNav ? 'move-top-to-bottom' : ''">
-				<div v-show="show.mobileNav" class="s-link-block">
-					<fv-callout
-						v-if="islogin"
-						:theme="theme"
-						:lockScroll="true"
-						:position="'bottomCenter'"
-						:beak="10"
-						:space="0"
-						:popper-style="{ width: '150px' }"
-						v-model:visible="show.mobileMenu"
-					>
-						<div v-if="islogin" class="sosd-avatar-container">
-							<fv-img :src="avatar"></fv-img>
-						</div>
+					<template v-slot:main>
 						<main class="drop-down-block">
 							<div class="drop-down-item">
 								<fv-animated-icon
-									value="bounceRotate"
 									icon="IDBadge"
 									style="width: 100%; margin: 10px 0px"
 									@click="show.profile = true"
@@ -148,7 +67,7 @@
 												margin-left: 15px;
 												font-size: 13px;
 												user-select: none;
-"
+											"
 										>
 											User Profile
 										</div>
@@ -171,7 +90,7 @@
 												margin-left: 15px;
 												font-size: 13px;
 												user-select: none;
-"
+											"
 										>
 											Admin Center
 										</div>
@@ -191,7 +110,7 @@
 												margin-left: 15px;
 												font-size: 13px;
 												user-select: none;
-"
+											"
 										>
 											{{ local("Logout") }}
 										</div>
@@ -199,6 +118,91 @@
 								</fv-animated-icon>
 							</div>
 						</main>
+					</template>
+				</fv-callout>
+			</div>
+			<transition :name="show.mobileNav ? 'move-top-to-bottom' : ''">
+				<div v-show="show.mobileNav" class="s-link-block">
+					<fv-callout
+						v-if="islogin"
+						:theme="theme"
+						:lockScroll="true"
+						:position="'bottomCenter'"
+						:beak="10"
+						:space="0"
+						:popper-style="{ width: '150px' }"
+						v-model="show.mobileMenu"
+					>
+						<div v-if="islogin" class="sosd-avatar-container">
+							<fv-img :src="avatar"></fv-img>
+						</div>
+						<template v-slot:main>
+							<main class="drop-down-block">
+								<div class="drop-down-item">
+									<fv-animated-icon
+										value="bounceRotate"
+										icon="IDBadge"
+										style="width: 100%; margin: 10px 0px"
+										@click="show.profile = true"
+									>
+										<template v-slot:content>
+											<div
+												style="
+													margin-left: 15px;
+													font-size: 13px;
+													user-select: none;
+												"
+											>
+												User Profile
+											</div>
+										</template>
+									</fv-animated-icon>
+								</div>
+								<div
+									v-if="role.includes('admin')"
+									class="drop-down-item"
+								>
+									<fv-animated-icon
+										value="bounceRotate"
+										icon="Settings"
+										style="width: 100%; margin: 10px 0px"
+										@click="$Go('/a')"
+									>
+										<template v-slot:content>
+											<div
+												style="
+													margin-left: 15px;
+													font-size: 13px;
+													user-select: none;
+												"
+											>
+												Admin Center
+											</div>
+										</template>
+									</fv-animated-icon>
+								</div>
+								<hr style="opacity: 0.3" />
+								<div class="drop-down-item">
+									<fv-animated-icon
+										icon="AzureKeyVault"
+										style="width: 100%; margin: 10px 0px"
+										@click="logout"
+									>
+										<template v-slot:content>
+											<div
+												style="
+													margin-left: 15px;
+													font-size: 13px;
+													user-select: none;
+												"
+											>
+												{{ local("Logout") }}
+											</div>
+										</template>
+									</fv-animated-icon>
+								</div>
+							</main>
+						</template>
 					</fv-callout>
 					<a
 						v-for="(item, index) in navOptions"
@@ -209,7 +213,7 @@
 							() => {
 								if (item.href) $Go(item.href);
 							}
-"
+						"
 						>{{ item.name }}</a
 					>
 					<fv-button
@@ -325,6 +329,7 @@ export default {
 		position: relative;
 		width: 30px;
 		height: 30px;
+		max-height: 30px;
 		margin-right: 15px;
 		border-radius: 50%;
 		display: flex;
@@ -492,7 +497,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
