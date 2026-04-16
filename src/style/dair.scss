@@ -78,6 +78,12 @@ $theme-orange-5: #a66400;
     @include sas-color(linear-gradient(30deg, rgba(50, 49, 48, 1), rgba(132, 151, 176, 1)));
 }
 
+@mixin nowrap {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 @mixin a-link {
     @include nowrap;
 

@@ -1,7 +1,7 @@
 <template>
     <div class="arrow-container">
         <div class="arrow-row-block" v-for="(item, i) in rows" :key="i">
-            <p class="arrow-unit" v-for="(item, j) in cols" :key="`${i},${j}`" :style="getArrowStyle(i, j)">�?</p>
+            <p class="arrow-unit" v-for="(item, j) in cols" :key="`${i},${j}`" :style="getArrowStyle(i, j)">→</p>
         </div>
     </div>
 </template>

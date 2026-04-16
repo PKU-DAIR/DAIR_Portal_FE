@@ -15,7 +15,7 @@
 	>
 		<template v-slot:container>
 			<div class="panel-container" :class="[{ dark: theme === 'dark' }]">
-				<profile :refresh="show"></profile>
+				<profile-hub :refresh="show"></profile-hub>
 			</div>
 		</template>
 		<template v-slot:footer>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import profile from "@/components/general/profile/profile.vue";
+import profileHub from "@/components/general/profile/profileHub.vue";
 
 import { mapState, mapActions } from "pinia";
 import { useApp } from "@/stores/useApp";
@@ -45,7 +45,7 @@ import { useUser } from "@/stores/useUser";
 export default {
 	name: "Profile",
 	components: {
-		profile,
+		profileHub,
 	},
 	props: {
 		modelValue: {
