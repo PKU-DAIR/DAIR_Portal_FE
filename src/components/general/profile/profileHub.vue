@@ -27,7 +27,7 @@
 					margin-top: 15px;
 					display: flex;
 					flex-direction: column;
-"
+				"
 			>
 				<div class="personal-info-block">
 					<div v-show="isAdmin" class="row">
@@ -93,7 +93,7 @@
 										setInformation();
 									});
 								}
-"
+							"
 						></fv-toggle-switch>
 					</div>
 					<div class="row">
@@ -104,9 +104,9 @@
 							:value="
 								$SDate.Format(
 									'YYYY-mm-dd HH:MM',
-									new Date(obj.apply_time)
+									new Date(obj.apply_time),
 								)
-"
+							"
 						/>
 					</div>
 					<div class="row">
@@ -117,9 +117,9 @@
 							:value="
 								$SDate.Format(
 									'YYYY-mm-dd HH:MM',
-									new Date(obj.last_login)
+									new Date(obj.last_login),
 								)
-"
+							"
 						/>
 					</div>
 					<div class="row">
@@ -156,7 +156,7 @@
 								!oriPwd ||
 								!newPwd ||
 								!confirmPwd
-"
+							"
 							style="width: 250px; margin-top: 15px"
 							@click="changePwd"
 							>{{ local("Change Password") }}</fv-button
@@ -170,7 +170,7 @@
 					display: flex;
 					justify-content: space-around;
 					margin-top: 25px;
-"
+				"
 			>
 				<fv-button
 					v-show="!isedit"
@@ -203,7 +203,7 @@
 					theme === 'dark'
 						? 'rgba(50, 50, 50, 0.8)'
 						: 'rgba(255, 255, 255, 0.6)'
-"
+				"
 				title-size="13.8"
 				:is-central-side="true"
 				:is-acrylic="true"
@@ -294,9 +294,9 @@ export default {
 		...mapState(useApp, ["local"]),
 		...mapState(useTheme, ["color", "gradient", "theme"]),
 		...mapState(useUser, {
-            userInfo: "info",
-            userAvatar: "avatar",
-        }),
+			userInfo: "info",
+			userAvatar: "avatar",
+		}),
 		isAdmin() {
 			if (!this.userInfo || !this.userInfo.role) return;
 			let index = this.userInfo.role.indexOf("admin");
@@ -328,7 +328,7 @@ export default {
 						let data = res.data.data;
 						this.obj = data;
 						this.currentOption = this.genderList.find(
-							(it) => it.value === this.obj.gender
+							(it) => it.value === this.obj.gender,
 						);
 					}
 				})
@@ -337,6 +337,12 @@ export default {
 				});
 		},
 		async setInformation() {
+			if (!this.currentOption) {
+				this.$barWarning(this.local("Please Select Gender"), {
+					status: "warning",
+				});
+				return;
+			}
 			await this.$axios
 				.post("/update_me", {
 					name: this.obj.name,
@@ -377,7 +383,7 @@ export default {
 							// 计算上传进度百分比
 							const percentCompleted = Math.round(
 								(progressEvent.loaded * 100) /
-									progressEvent.total
+									progressEvent.total,
 							);
 							console.log(percentCompleted);
 						},
@@ -389,7 +395,7 @@ export default {
 								this.local("Successfully Revised Avatar"),
 								{
 									status: "correct",
-								}
+								},
 							);
 							this.showAvatar = false;
 							this.getAvatar();
@@ -435,11 +441,11 @@ export default {
 			) {
 				this.$barWarning(
 					this.local(
-						"Please confirm your new password is consistant."
+						"Please confirm your new password is consistant.",
 					),
 					{
 						status: "warning",
-					}
+					},
 				);
 				return;
 			}
@@ -629,8 +635,17 @@ export default {
 	height: 100%;
 	padding: 15px 15px 55px 15px;
 	color: rgba(28, 30, 41, 1);
-	font-family: Akkurat Std, -apple-system, BlinkMacSystemFont, Segoe UI,
-		Roboto, Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family:
+		Akkurat Std,
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		Helvetica Neue,
+		sans-serif;
 	font-weight: 400;
 
 	.panel-title {
@@ -658,7 +673,3 @@ export default {
 	transform: scaleY(1);
 }
 </style>
-
-
-
-

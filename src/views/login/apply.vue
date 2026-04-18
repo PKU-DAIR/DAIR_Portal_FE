@@ -182,7 +182,7 @@ export default {
 
 		p {
 			&:first-child {
-				@include ms-fontSize-28;
+				font-size: 28px;
 
 				color: rgba(50, 49, 48, 1);
 			}
