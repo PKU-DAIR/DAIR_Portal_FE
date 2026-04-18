@@ -101,7 +101,7 @@
 						<input
 							class="info-unit-edit"
 							disabled="true"
-							:value="
+							:model-value="
 								$SDate.Format(
 									'YYYY-mm-dd HH:MM',
 									new Date(obj.apply_time),
@@ -114,7 +114,7 @@
 						<input
 							class="info-unit-edit"
 							disabled="true"
-							:value="
+							:model-value="
 								$SDate.Format(
 									'YYYY-mm-dd HH:MM',
 									new Date(obj.last_login),

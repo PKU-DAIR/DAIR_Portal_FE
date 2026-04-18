@@ -50,7 +50,7 @@
 				</div>
 				<power-editor
 					v-if="currentNews.id != null"
-					:value="currentContent"
+					:model-value="currentContent"
 					:placeholder="'写点什么吧...'"
 					:editable="currentNews.id != null"
 					:language="'cn'"

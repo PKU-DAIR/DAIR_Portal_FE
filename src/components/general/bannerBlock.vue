@@ -79,7 +79,7 @@
 								class="drop-down-item"
 							>
 								<fv-animated-icon
-									value="bounceRotate"
+									model-value="bounceRotate"
 									icon="Settings"
 									style="width: 100%; margin: 10px 0px"
 									@click="$Go('/a')"
@@ -140,7 +140,7 @@
 							<main class="drop-down-block">
 								<div class="drop-down-item">
 									<fv-animated-icon
-										value="bounceRotate"
+										model-value="bounceRotate"
 										icon="IDBadge"
 										style="width: 100%; margin: 10px 0px"
 										@click="show.profile = true"
@@ -163,7 +163,7 @@
 									class="drop-down-item"
 								>
 									<fv-animated-icon
-										value="bounceRotate"
+										model-value="bounceRotate"
 										icon="Settings"
 										style="width: 100%; margin: 10px 0px"
 										@click="$Go('/a')"

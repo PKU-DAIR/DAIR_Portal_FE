@@ -21,7 +21,7 @@
 			</div>
 			<div class="group-detail">
 				<member-unit
-					:value="item"
+					:model-value="item"
 					:avatarDict="avatarDict"
 					:groupFilter="groupFilter"
 					:size="size"

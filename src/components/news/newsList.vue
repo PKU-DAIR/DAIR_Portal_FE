@@ -28,7 +28,7 @@
 				<div class="dair-news-info">
 					<div class="info">
 						<time-rounder
-							:value="new Date(item.update_time)"
+							:model-value="new Date(item.update_time)"
 							foreground="rgba(149, 141, 241, 0.6)"
 							style="width: auto"
 						></time-rounder>

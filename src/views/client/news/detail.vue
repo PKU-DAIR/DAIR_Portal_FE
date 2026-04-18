@@ -5,7 +5,7 @@
 		</div>
 		<div class="wise-cv-block" style="z-index: 1">
 			<power-editor
-				:value="computeContent(news.content)"
+				:model-value="computeContent(news.content)"
 				:placeholder="'News Content...'"
 				:editable="false"
 				:theme="theme"
@@ -20,7 +20,7 @@
 		</div>
 		<div class="other-info">
 			<time-rounder
-				:value="new Date(news.publish_time)"
+				:model-value="new Date(news.publish_time)"
 				foreground="rgba(149, 141, 241, 0.6)"
 				style="width: auto"
 			></time-rounder>

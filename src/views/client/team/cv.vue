@@ -95,7 +95,7 @@
 		</div>
 		<div class="wise-cv-block" style="z-index: 1">
 			<power-editor
-				:value="computeContent(member.introduction)"
+				:model-value="computeContent(member.introduction)"
 				:placeholder="'填写你的简历...'"
 				:editable="false"
 				:theme="theme"

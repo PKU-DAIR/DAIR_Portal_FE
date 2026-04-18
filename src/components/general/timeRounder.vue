@@ -24,7 +24,7 @@
 <script>
 export default {
     props: {
-        value: {
+        modelValue: {
             default: () => new Date()
         },
         icon: {
@@ -75,14 +75,14 @@ export default {
                 }
             },
             content: '',
-            target: this.value,
+            target: this.modelValue,
             timer: {
                 default: null
             }
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.target = val;
         }
     },

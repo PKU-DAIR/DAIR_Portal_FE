@@ -26,19 +26,19 @@
 					</p>
 				</template>
 				<template v-slot:column_3="x">
-					<fv-tag :theme="theme" :value="x.item.gender ? [{ text: x.item.gender }] : []"></fv-tag>
+					<fv-tag :theme="theme" :model-value="x.item.gender ? [{ text: x.item.gender }] : []"></fv-tag>
 				</template>
 				<template v-slot:column_4="x">
-					<fv-tag :theme="theme" :value="[{ text: x.item.email }]"></fv-tag>
+					<fv-tag :theme="theme" :model-value="[{ text: x.item.email }]"></fv-tag>
 				</template>
 				<template v-slot:column_5="x">
-					<fv-tag :theme="theme" :value="[{ text: x.item.invite_code }]"></fv-tag>
+					<fv-tag :theme="theme" :model-value="[{ text: x.item.invite_code }]"></fv-tag>
 				</template>
 				<template v-slot:column_6="x">
-					<fv-tag :theme="theme" :value="[{ text: x.item.phone }]"></fv-tag>
+					<fv-tag :theme="theme" :model-value="[{ text: x.item.phone }]"></fv-tag>
 				</template>
 				<template v-slot:column_7="x">
-					<fv-tag :theme="theme" :value="getRole(x.item.role)"></fv-tag>
+					<fv-tag :theme="theme" :model-value="getRole(x.item.role)"></fv-tag>
 				</template>
 				<template v-slot:menu>
 					<div>

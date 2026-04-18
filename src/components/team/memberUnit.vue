@@ -35,7 +35,7 @@
 <script>
 export default {
 	props: {
-		value: {
+		modelValue: {
 			type: Object,
 			default: () => {},
 		},
@@ -87,7 +87,7 @@ export default {
 		};
 	},
 	watch: {
-		async "value.id"() {
+		async "modelValue.id"() {
 			this.refreshInfo();
 		},
 	},
@@ -157,8 +157,8 @@ export default {
 		async refreshInfo() {
 			this.avatar = null;
 			for (let key in this.member) {
-				if (this.value[key]) {
-					this.member[key] = this.value[key];
+				if (this.modelValue[key]) {
+					this.member[key] = this.modelValue[key];
 				}
 			}
 		},

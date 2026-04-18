@@ -2,7 +2,7 @@
 	<div class="draw-list-container" :class="[{ dark: theme === 'dark' }]">
 		<div class="draw-banner-block">
 			<fv-text-box
-				:value="thisSearch"
+				:model-value="thisSearch"
 				:theme="theme"
 				placeholder="搜索"
 				:border-width="2"
@@ -63,12 +63,12 @@
 				</span>
 				<div class="info-block">
 					<time-rounder
-						:value="new Date(item.update_time)"
+						:model-value="new Date(item.update_time)"
 						foreground="rgba(149, 141, 241, 0.6)"
 						style="width: auto; flex: 1"
 					></time-rounder>
 					<time-rounder
-						:value="new Date(item.publish_time)"
+						:model-value="new Date(item.publish_time)"
 						foreground="rgba(120, 120, 120, 0.6)"
 						style="width: auto; flex: 1"
 					></time-rounder>

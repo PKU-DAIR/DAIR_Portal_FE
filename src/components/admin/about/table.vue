@@ -52,7 +52,7 @@
 		<div class="page-block">
 			<fv-Pagination
 				:total="config.pages"
-				:value="config.currentPage"
+				:model-value="config.currentPage"
                 :theme="theme"
 				@page-click="handleClickPage"
 				@next-click="handleClickPage"

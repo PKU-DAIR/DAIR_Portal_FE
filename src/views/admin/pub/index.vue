@@ -3,7 +3,7 @@
 		<div class="row between">
 			<h1 class="main-title">{{ local("Publications Management") }}</h1>
 			<fv-text-box
-				:value="currentSearch"
+				:model-value="currentSearch"
 				:theme="theme"
 				:placeholder="local('Filter in the Result')"
 				icon="Filter"
@@ -57,14 +57,14 @@
 				<template v-slot:column_3="x">
 					<fv-tag
 						:theme="theme"
-						:value="x.item.author ? [{ text: x.item.author }] : []"
+						:model-value="x.item.author ? [{ text: x.item.author }] : []"
 						:title="x.item.author"
 					></fv-tag>
 				</template>
 				<template v-slot:column_4="x">
 					<fv-tag
 						:theme="theme"
-						:value="[{ text: x.item.year }]"
+						:model-value="[{ text: x.item.year }]"
 					></fv-tag>
 				</template>
 				<template v-slot:menu>
