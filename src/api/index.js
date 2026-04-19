@@ -1,8 +1,8 @@
 import * as api from './api';
 
 export default {
-    install: (Vue) => {
-        Vue.prototype.$api = api;
+    install(app) {
+        app.config.globalProperties.$api = api;
     },
 };
 

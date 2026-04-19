@@ -13,6 +13,8 @@ import "@creatorsn/powereditor3/powereditor3.css";
 import customAxios from "@/api/config";
 import { useApp } from "@/stores/useApp";
 
+import apiPlugin from '@/api'
+
 const app = createApp(App);
 
 app.use(VueFluent);
@@ -37,5 +39,6 @@ app.config.globalProperties.local = (text) => {
     return appStore.local(text);
 };
 
+app.use(apiPlugin);
 app.mount("#app");
 
