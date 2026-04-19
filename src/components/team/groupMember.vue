@@ -9,15 +9,16 @@
 			class="group-block"
 		>
 			<div
+				v-show="hasMember(group)"
 				class="group-name"
 				:style="{
-					background:
+					borderColor:
 						colorList[
 							hashStringToRange(group.name, colorList.length)
 						],
 				}"
 			>
-				{{ group.name }}
+				{{ local(group.name) }}
 			</div>
 			<div class="group-detail">
 				<member-unit
@@ -25,6 +26,7 @@
 					:avatarDict="avatarDict"
 					:groupFilter="groupFilter"
 					:size="size"
+					:delayLoadAvatar="1500"
 					:theme="theme"
 					class="group-detail-every"
 					v-for="(item, index) in thisMembers(group)"
@@ -38,6 +40,9 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useApp } from "@/stores/useApp";
+
 import memberUnit from "./memberUnit.vue";
 
 export default {
@@ -111,20 +116,24 @@ export default {
 						continue;
 					}
 					let groupIndex = item.groups.findIndex(
-						(it) => it.name === group.name
+						(it) => it.name === group.name,
 					);
 
 					let teamIndex = item.teams.findIndex(
-						(it) => it.name === this.teamName
+						(it) => it.name === this.teamName,
 					);
 					if (groupIndex >= 0 && teamIndex >= 0) objs.push(item);
 				}
 				return objs;
 			};
 		},
+		hasMember() {
+			return (group) => this.thisMembers(group).length > 0;
+		},
 	},
 	mounted() {},
 	methods: {
+		...mapActions(useApp, ["local"]),
 		hashStringToRange(str, range) {
 			let hash = 5381; // 初始化哈希值为一个常量
 			for (let i = 0; i < str.length; i++) {
@@ -145,7 +154,7 @@ export default {
 .group-wrap {
 	width: 100%;
 	height: auto;
-    max-width: 1368px;
+	max-width: 1368px;
 	margin: 60px auto 0;
 
 	&.dark {
@@ -183,19 +192,18 @@ export default {
 
 		.group-name {
 			position: relative;
-            min-width: 130px;
-			width: auto;
-			height: 30px;
+			min-width: 130px;
+			width: 200px;
+			height: 40px;
 			margin: 35px 0px 50px 0px;
 			flex-shrink: 0;
 			padding: 3px 15px;
-			border-radius: 20px;
+			border-bottom: 2px solid transparent;
+			border-radius: 2px;
 			color: whitesmoke;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1),
-				0px 0px 3px rgba(235, 96, 147, 0.2);
 			cursor: default;
 			user-select: none;
 		}
@@ -251,8 +259,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
-

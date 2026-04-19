@@ -8,8 +8,11 @@
 		:style="{ background: background }"
 	>
 		<div class="title-block">
-			<p class="big-title">{{ title }}</p>
-			<p class="title-line" :style="{ background: viewAllBackground }"></p>
+			<p class="big-title">{{ local(title) }}</p>
+			<p
+				class="title-line"
+				:style="{ background: viewAllBackground }"
+			></p>
 		</div>
 		<div class="pub-contain-list">
 			<news-list :theme="theme" :objs="objs"></news-list>
@@ -295,7 +298,3 @@ export default {
 	}
 }
 </style>
-
-
-
-

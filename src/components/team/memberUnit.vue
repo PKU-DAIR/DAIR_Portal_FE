@@ -57,6 +57,9 @@ export default {
 		render: {
 			default: true,
 		},
+		delayLoadAvatar: {
+			default: 0,
+		},
 		size: {
 			default: 120,
 		},
@@ -133,9 +136,17 @@ export default {
 	},
 	mounted() {
 		this.refreshInfo();
-		this.timerInit();
+		this.delayLoadAvatarInit();
 	},
 	methods: {
+		delayLoadAvatarInit() {
+			if (this.delayLoadAvatar <= 0) this.timerInit();
+			else {
+				setTimeout(() => {
+					this.timerInit();
+				}, this.delayLoadAvatar);
+			}
+		},
 		timerInit() {
 			clearInterval(this.timer.avatar);
 			this.timer.avatar = setInterval(() => {
@@ -145,7 +156,7 @@ export default {
 						this.avatarDict[this.member.photo] = {
 							status: "lock",
 							data: "",
-						}
+						};
 						this.getMemberPhoto(this.member.photo);
 					} else if (
 						this.avatarDict[this.member.photo].status === "finished"
@@ -191,7 +202,7 @@ export default {
 						this.avatarDict[id] = {
 							status: "finished",
 							data: photo,
-						}
+						};
 					}
 				})
 				.catch((err) => {
@@ -209,7 +220,7 @@ export default {
 
 			// 构建 mailto 链接
 			const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(
-				subject
+				subject,
 			)}&body=${encodeURIComponent(body)}`;
 
 			// 打开默认邮件客户端
@@ -277,12 +288,12 @@ export default {
 		margin-top: 5px;
 		font-size: 13.8px;
 		color: rgba(109, 120, 138, 1);
-        white-space: nowrap;
-        text-overflow: ellipsis;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		display: flex;
 		justify-content: center;
 		text-align: center;
-        overflow: hidden;
+		overflow: hidden;
 
 		&.email {
 			&:hover {
@@ -294,9 +305,9 @@ export default {
 
 @media screen and (max-width: 985px) {
 	.member-unit-container {
-        .mu-name {
-            font-size: 12px;
-        }
+		.mu-name {
+			font-size: 12px;
+		}
 
 		.mu-info {
 			font-size: 8px;
@@ -304,8 +315,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
-

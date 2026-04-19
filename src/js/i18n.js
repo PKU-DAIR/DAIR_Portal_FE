@@ -301,8 +301,17 @@ const dict = {
     "No Picture Selected": ["No Picture Selected", "未选择图片"],
     "Successfully Revised Avatar": ["Successfully Revised Avatar", "头像修改成功"],
     "Input old password": ["Input old password", "请输入旧密码"],
-    "Successfully Updated": ["Successfully Updated", "更新成功"]
-};
+    "Successfully Updated": ["Successfully Updated", "更新成功"],
+    "Faculty": ["Faculty", "教师"],
+    "Scientific Staff": ["Scientific Staff", "科研人员"],
+    "Postdocs": ["Postdocs", "博士后"],
+    "Administration": ["Administration", "行政"],
+    "Ph.D. Students": ["Ph.D. Students", "博士生"],
+    "Master Students": ["Master Students", "硕士生"],
+    "Research Assistantship": ["Research Assistantship", "研究助理"],
+    "Undergraduates": ["Undergraduates", "本科生"],
+    "Alumni": ["Alumni", "校友"],
+ };
 
 export default Object.fromEntries(
     Object.entries(dict).map(([key, [en, cn]]) => [key, { en, cn }])
