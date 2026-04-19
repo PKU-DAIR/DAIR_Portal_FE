@@ -30,11 +30,15 @@
 			</div>
 			<div class="info-block" :span="6">
 				<p>{{ local("Quick Links") }}</p>
-				<a href="https://www.pku.edu.cn/">{{ local("Peking University") }}</a>
-				<a href="https://cs.pku.edu.cn/"
-					>{{ local("School of Computer Science, PKU") }}</a
-				>
-				<a href="https://github.com/PKU-DAIR">{{ local("Github of PKU-DAIR") }}</a>
+				<a href="https://www.pku.edu.cn/">{{
+					local("Peking University")
+				}}</a>
+				<a href="https://cs.pku.edu.cn/">{{
+					local("School of Computer Science, PKU")
+				}}</a>
+				<a href="https://github.com/PKU-DAIR">{{
+					local("Github of PKU-DAIR")
+				}}</a>
 			</div>
 			<div v-show="false" class="info-block" :span="6">
 				<p>{{ local("Contact") }}</p>
@@ -45,19 +49,33 @@
 			</div>
 			<div class="info-block" :span="6">
 				<p>{{ local("Developer") }}</p>
-				<a href="https://github.com/aleversn" title="lpc@pku.edu.cn"
-					>{{ local("Peichao Lai") }}</a
-				>
+				<a href="https://github.com/aleversn" title="lpc@pku.edu.cn">{{
+					local("Peichao Lai")
+				}}</a>
 			</div>
 		</div>
 		<div class="copyright">
-			<p>{{ local("©") }} {{ new Date().getFullYear() }} {{ local("PKU DAIR Lab") }}</p>
+			<p>
+				{{ local("©") }} {{ new Date().getFullYear() }}
+				{{ local("PKU DAIR Lab") }}
+			</p>
 			<p class="oth-item">
 				{{ local("School of Computer Science, Peking University") }}
 			</p>
 		</div>
 	</div>
 </template>
+
+<script>
+import { useApp } from "@/stores/useApp";
+import { mapActions } from "pinia";
+
+export default {
+	methods: {
+		...mapActions(useApp, ["local"]),
+	},
+};
+</script>
 
 <style lang="scss" scoped>
 .bottom-block {
@@ -167,7 +185,3 @@
 	}
 }
 </style>
-
-
-
-

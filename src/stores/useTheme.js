@@ -3,7 +3,7 @@ import onecolor from "onecolor";
 import { computed, ref } from "vue";
 
 export const useTheme = defineStore("useTheme", () => {
-    const themeColor = ref("rgba(45, 80, 125, 1)");
+    const themeColor = ref("rgba(53, 193, 216, 1)");
     const theme = ref("dark");
 
     const color = computed(() => themeColor.value);

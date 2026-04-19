@@ -32,6 +32,7 @@
 			v-show="showViewAll"
 			theme="dark"
 			:background="viewAllBackground"
+            :borderRadius="20"
 			@click="$emit('show-all-click')"
 			style="width: 120px; height: 40px; margin: 25px"
 			>{{ local("Show All") }}</fv-button

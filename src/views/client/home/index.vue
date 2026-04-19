@@ -13,7 +13,11 @@
 			</div>
 			<div class="right-block">
 				<p class="intro-content">
-					{{ local("Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.") }}
+					{{
+						local(
+							"Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.",
+						)
+					}}
 				</p>
 			</div>
 		</div>
@@ -63,10 +67,10 @@
 		</fv-ScrollStory>
 		<fv-ScrollStory name="scale-up-to-up" style="width: 100%">
 			<news-wrap
-				:title="local('Current Projects')"
+				:title="local('Open Projects')"
 				:showButtomBlock="false"
 				:showViewAll="true"
-				viewAllBackground="rgba(45, 80, 125, 1)"
+				viewAllBackground="linear-gradient(90deg, rgba(05, 113, 213,1) 0%, rgba(99, 110, 224, 1) 100%)"
 				url="/news/client/top_projs"
 				@show-all-click="$Go('/projs')"
 				:hideWhenEmpty="false"
@@ -77,15 +81,15 @@
 			<div class="mask-container">
 				<fv-button
 					theme="dark"
-					background="rgba(105, 113, 213, 1)"
-					:border-radius="12"
+					background="linear-gradient(90deg, rgba(105, 113, 213, 1) 0%, rgba(99, 110, 224, 1) 100%)"
+					:border-radius="20"
 					:font-size="screenWidth / 80"
 					:font-weight="'bold'"
 					:is-box-shadow="true"
 					style="min-width: 200px; height: 85px"
 					:style="{
 						width: `${screenWidth / 10}px`,
-						height: `${screenWidth / 2.58 / 9}px`,
+						height: `${screenWidth / 2.58 / 10}px`,
 					}"
 					@click="$Go('/team')"
 					>{{ local("About us") }}</fv-button
@@ -111,6 +115,7 @@ import effectBlock from "@/components/home/effectBlock/effectBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState, mapActions } from "pinia";
 import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
 
 import mainBG from "@/assets/pku/pku.jpg";
 import banner from "@/assets/team/banner/team.jpg";
@@ -160,6 +165,7 @@ export default {
 			screenWidth: "screenWidth",
 		}),
 		...mapState(useApp, ["local"]),
+		...mapState(useTheme, ["color", "gradient"]),
 	},
 	methods: {
 		retop() {

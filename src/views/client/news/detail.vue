@@ -21,7 +21,7 @@
 		<div class="other-info">
 			<time-rounder
 				:model-value="new Date(news.publish_time)"
-				foreground="rgba(149, 141, 241, 0.6)"
+				foreground="rgba(232, 222, 247, 1)"
 				style="width: auto"
 			></time-rounder>
 			<span class="info">

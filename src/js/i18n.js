@@ -311,7 +311,8 @@ const dict = {
     "Research Assistantship": ["Research Assistantship", "研究助理"],
     "Undergraduates": ["Undergraduates", "本科生"],
     "Alumni": ["Alumni", "校友"],
- };
+    "Open Projects": ["Open Projects", "开源项目"],
+};
 
 export default Object.fromEntries(
     Object.entries(dict).map(([key, [en, cn]]) => [key, { en, cn }])
