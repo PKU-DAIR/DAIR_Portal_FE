@@ -25,7 +25,7 @@
 							firstOrDefault();
 						});
 					}
-"
+				"
 				@load-more="getContinue"
 			></draw-list>
 		</div>
@@ -58,6 +58,7 @@
 					:editorOutSideBackground="'transparent'"
 					:toolbarHeight="120"
 					fontSize="16"
+					:imgInterceptor="imgIntercept"
 					ref="editor"
 					style="
 						position: relative;
@@ -65,7 +66,7 @@
 						height: calc(100% - 15px);
 						flex: 1;
 						font-size: 16px;
-"
+					"
 					@save-json="Save($event)"
 				>
 					<template v-slot:front-content>
@@ -93,7 +94,11 @@
 							class="power-editor-cmd-btn"
 							background="rgba(0, 204, 153, 1)"
 							:isBoxShadow="true"
-							:title="lock.save ? local('Unsaved edits') : local('Saving')"
+							:title="
+								lock.save
+									? local('Unsaved edits')
+									: local('Saving')
+							"
 						>
 							<fv-progress-ring
 								v-show="!lock.save"
@@ -117,7 +122,7 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-"
+					"
 				>
 					<p class="p-icon" style="font-size: 72px">&#xF408;</p>
 					<p>{{ local("Create an article to start writing") }}</p>
@@ -250,11 +255,13 @@ export default {
 			if (this.loadingList) return 0;
 			this.loadingList = true;
 			this.$api.News.GetMyNewsList(
-				this.objs[this.objs.length - 1].id
+				this.objs[this.objs.length - 1].id,
 			).then((data) => {
 				this.loadingList = false;
 				if (data.length == 0) {
-					this.$barWarning(this.local("No more data"), { status: "correct" });
+					this.$barWarning(this.local("No more data"), {
+						status: "correct",
+					});
 					return 0;
 				}
 				this.objs = this.objs.concat(data);
@@ -313,7 +320,9 @@ export default {
 			else content = json;
 			// content = await this.updateImgPerformance(content);
 			if (this.currentNews.id == null) {
-				this.$barWarning(this.local("No article is currently bound"), { status: "warning" });
+				this.$barWarning(this.local("No article is currently bound"), {
+					status: "warning",
+				});
 				return 0;
 			}
 			await this.$axios
@@ -375,7 +384,7 @@ export default {
 						let blobItem = this.base64toBlob(src);
 						let url = await this.$api.News.AddImagesWithOutId(
 							undefined,
-							blobItem
+							blobItem,
 						);
 						if (url && url.length) url = url[0];
 						arr[i].attrs.src = url;
@@ -397,19 +406,87 @@ export default {
 			}
 			return new Blob([u8arr], { type: mime });
 		},
+		// imgIntercept () {},
+		async imgIntercept({
+			getImage,
+			interceptImage,
+			showStatus,
+			updateStatus,
+			updateImage,
+		}) {
+			if (!this.currentNews.id) return;
+			setTimeout(async () => {
+				let src = getImage();
+				let blob = false;
+				if (src.startsWith("data:image")) {
+					blob = this.base64toBlob(src);
+				} else if (
+					src.startsWith("file:///") ||
+					src.startsWith("blob:")
+				) {
+					const response = await fetch(src);
+					blob = await response.blob();
+				}
+				if (!blob) return;
+				let oriUrl = interceptImage("");
+				let formData = new FormData();
+				formData.append("id", this.currentNews.id);
+				formData.append("image", blob, "image.jpg");
+				showStatus(true);
+				this.$api.News.UploadNewsImage(
+					formData,
+					null,
+					(progress) => {
+						const { loaded, total } = progress;
+						let percent = total
+							? Math.floor((loaded / total) * 100)
+							: 0;
+						updateStatus(
+							percent < 100,
+							percent,
+							this.local("Uploading Image..."),
+						);
+					},
+				)
+					.then((res) => {
+						showStatus(false);
+						if (res.code === 200) {
+							let imageName = res.data.image_name;
+							let targetUrl =
+								this.$server +
+								"/get_news_image?newsid=" +
+								encodeURIComponent(this.currentNews.id) +
+								"&image_name=" +
+								encodeURIComponent(imageName);
+							updateImage(targetUrl);
+						}
+					})
+					.catch((err) => {
+						console.error(err);
+						showStatus(false);
+						updateImage(oriUrl);
+						this.$barWarning(this.local("Upload Image Failed"), {
+							status: "warning",
+						});
+					});
+			}, 3000);
+		},
 		switchNews($event) {
 			this.mobileNewsEdit = true;
 			if (this.unsave) {
-				this.$infoBox(this.local("Are you sure to discard the edited content?"), {
-					status: "warning",
-					title: "即将离开",
-					confirmTitle: "确定",
-					cancelTitle: this.local("Cancel"),
-					confirm: () => {
-						this.getCurrent($event.id);
+				this.$infoBox(
+					this.local("Are you sure to discard the edited content?"),
+					{
+						status: "warning",
+						title: "即将离开",
+						confirmTitle: "确定",
+						cancelTitle: this.local("Cancel"),
+						confirm: () => {
+							this.getCurrent($event.id);
+						},
+						cancel: () => {},
 					},
-					cancel: () => {},
-				});
+				);
 			} else {
 				this.getCurrent($event.id);
 			}
@@ -539,8 +616,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
-

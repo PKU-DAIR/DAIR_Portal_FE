@@ -3749,6 +3749,115 @@ export class News {
   }
  
   /**
+  * @summary Upload News Image
+  * @param {UserModel.Body_UploadNewsImage} [body_uploadnewsimage] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async UploadNewsImage(body_uploadnewsimage,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/upload_news_image',
+        data:body_uploadnewsimage,
+        params:{},
+        headers:{
+          "Content-Type":"multipart/form-data"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get News Image
+  * @param {String} [newsid] 
+  * @param {String} [image_name] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetNewsImage(newsid,image_name,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/get_news_image',
+        data:{},
+        params:{newsid,image_name},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
   * @summary Delete News
   * @param {String} [id] 
   * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
@@ -3900,6 +4009,22 @@ News.GetNewsBanner.fullPath=`${axios.defaults.baseURL}/get_news_banner`
 * @description GetNewsBanner url链接，不包含baseURL
 */
 News.GetNewsBanner.path=`/get_news_banner`
+/**
+* @description UploadNewsImage url链接，包含baseURL
+*/
+News.UploadNewsImage.fullPath=`${axios.defaults.baseURL}/upload_news_image`
+/**
+* @description UploadNewsImage url链接，不包含baseURL
+*/
+News.UploadNewsImage.path=`/upload_news_image`
+/**
+* @description GetNewsImage url链接，包含baseURL
+*/
+News.GetNewsImage.fullPath=`${axios.defaults.baseURL}/get_news_image`
+/**
+* @description GetNewsImage url链接，不包含baseURL
+*/
+News.GetNewsImage.path=`/get_news_image`
 /**
 * @description DeleteNews url链接，包含baseURL
 */

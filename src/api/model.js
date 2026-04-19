@@ -111,6 +111,30 @@ export class Body_UploadNewsBanner {
     banner=undefined
     
 }
+export class Body_UploadNewsImage {
+  
+    /**
+     *
+     * @param {String} id 
+     * @param {String} image 
+     */ 
+    constructor(id = undefined,image = undefined){
+        this.id = id
+        this.image = image
+    }
+       
+    /**
+     * 
+     * @type {String}
+     */
+    id=undefined   
+    /**
+     * 
+     * @type {String}
+     */
+    image=undefined
+    
+}
 export class ClientTeam {
   
     /**

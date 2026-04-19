@@ -10,7 +10,7 @@ import "@creatorsn/vfluent3/style.css";
 import PowerEditor from "@creatorsn/powereditor3";
 import "@creatorsn/powereditor3/powereditor3.css";
 
-import customAxios from "@/api/config";
+import customAxios, { serverURL } from "@/api/config";
 import { useApp } from "@/stores/useApp";
 
 import apiPlugin from '@/api'
@@ -25,6 +25,7 @@ app.use(pinia);
 app.use(router);
 
 app.config.globalProperties.$axios = customAxios;
+app.config.globalProperties.$server = serverURL;
 app.config.globalProperties.$Go = (str) => {
     router.push(str);
 };
@@ -41,4 +42,3 @@ app.config.globalProperties.local = (text) => {
 
 app.use(apiPlugin);
 app.mount("#app");
-

@@ -1,14 +1,15 @@
 import axios from "axios";
 
-const isdev = import.meta.env.DEV;
-
 const ax = axios.create();
 
-if (isdev) {
-    ax.defaults.baseURL = "http://100.64.0.18:8000/";
-} else {
-    ax.defaults.baseURL = "/api";
+function trimTrailingSlash(url) {
+    return typeof url === "string" ? url.replace(/\/+$/, "") : url;
 }
+
+export const apiBaseURL = import.meta.env.VITE_BACKEND_URL;
+export const serverURL = trimTrailingSlash(apiBaseURL);
+
+ax.defaults.baseURL = apiBaseURL;
 
 ax.interceptors.request.use((config) => {
     let token = localStorage.getItem("ApiToken");
@@ -25,5 +26,3 @@ ax.interceptors.request.use((config) => {
 });
 
 export default ax;
-
-
