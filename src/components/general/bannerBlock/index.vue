@@ -27,6 +27,7 @@
 					"
 					>{{ local(item.name) }}</a
 				>
+				<language-picker class="language-picker"></language-picker>
 				<fv-button
 					v-if="!islogin && !$route.fullPath.startsWith('/login')"
 					background="#244362"
@@ -153,7 +154,7 @@
 													user-select: none;
 												"
 											>
-											{{ local("User Profile") }}
+												{{ local("User Profile") }}
 											</div>
 										</template>
 									</fv-animated-icon>
@@ -257,10 +258,12 @@ import { useUser } from "@/stores/useUser";
 import defaultAvatar from "@/assets/logo/pku_dair.svg";
 
 import profileBlock from "@/components/general/profile/index.vue";
+import languagePicker from "./languagePicker.vue";
 
 export default {
 	components: {
 		profileBlock,
+		languagePicker,
 	},
 	data() {
 		return {

@@ -104,7 +104,7 @@
 
 <script>
 import gsap from "gsap";
-import bannerBlock from "@/components/general/bannerBlock.vue";
+import bannerBlock from "@/components/general/bannerBlock/index.vue";
 import newsWrap from "@/views/client/news/list.vue";
 import bottomBlock from "./bottomBlock.vue";
 import effectBlock from "@/components/home/effectBlock/effectBlock.vue";

@@ -4,7 +4,7 @@ import { reactive, ref } from "vue";
 export const useApp = defineStore("useApp", () => {
     const screenWidth = ref(999999999);
     const config = reactive({
-        language: "en",
+        language: localStorage.getItem("language") || "en",
     });
     const i18n = ref({});
 
@@ -24,6 +24,12 @@ export const useApp = defineStore("useApp", () => {
         i18n.value = nextI18N;
     };
 
+    const setLanguage = (language) => {
+        if (!["en", "cn"].includes(language)) return;
+        config.language = language;
+        localStorage.setItem("language", language);
+    };
+
     return {
         screenWidth,
         config,
@@ -31,7 +37,7 @@ export const useApp = defineStore("useApp", () => {
         local,
         setScreenWidth,
         reviseI18N,
+        setLanguage,
     };
 });
-
 

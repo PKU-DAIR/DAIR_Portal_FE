@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import bannerBlock from "@/components/general/bannerBlock.vue";
+import bannerBlock from "@/components/general/bannerBlock/index.vue";
 
 export default {
 	components: {
