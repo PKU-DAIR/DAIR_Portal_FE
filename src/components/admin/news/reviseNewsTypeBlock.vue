@@ -2,7 +2,7 @@
 	<div>
 		<fv-panel
 			v-model="show"
-			title="修改或发布文章"
+			:title="local('Edit or Publish Article')"
 			width="600px"
 			height="auto"
 			:title-size="13"
@@ -14,11 +14,11 @@
 			<template v-slot:container>
 				<div class="panel-container">
 					<div class="content">
-						<p ref="name" class="panel-title">标题</p>
+						<p ref="name" class="panel-title">{{ local("Title") }}</p>
 						<fv-text-box
 							v-model="news.title"
 							:theme="theme"
-							placeholder="输入文章标题"
+							:placeholder="local('Input article title')"
 							:border-width="2"
 							:reveal-border="true"
 							style="width: 100%; height: 40px; margin-top: 15px"
@@ -37,7 +37,7 @@
 							v-model="currentOption"
 							:theme="theme"
 							:options="typeList"
-							placeholder="选择类型"
+							:placeholder="local('Select type')"
 						>
 						</fv-combobox>
 					</div>
@@ -52,7 +52,7 @@
 						<fv-text-field
 							v-model="news.description"
 							:theme="theme"
-							placeholder="输入文章描述"
+							:placeholder="local('Input article description')"
 							:border-width="2"
 							:reveal-border="true"
 							style="width: 100%; height: 80px; margin-top: 15px"
@@ -69,7 +69,7 @@
 						</p>
 						<fv-text-box
 							v-model="news.external"
-							:placeholder="'请输入外部URL (指定后将直接跳转至外部链接)'"
+							:placeholder="local('Please input external URL (it will jump directly after specified)')"
 							left-icon="Link"
 							:theme="theme"
 							underline
@@ -87,7 +87,7 @@
 							class="panel-title"
 							style="margin-bottom: 5px"
 						>
-							添加头图
+							{{ local("Add Cover Image") }}
 						</p>
 						<fv-button
 							:theme="thisBanner ? 'dark' : theme"
@@ -98,7 +98,7 @@
 							@click="$refs.uploader.click()"
 						>
 							<p v-show="lock.banner">
-								{{ thisBanner ? "修改头图" : "添加头图" }}
+								{{ thisBanner ? local("Change Cover Image") : local("Add Cover Image") }}
 							</p>
 							<fv-progress-ring
 								v-model="coverUploadProgress"
@@ -130,13 +130,13 @@
 					:disabled="!news.id || !lock.type || !lock.banner"
 					style="width: 120px"
 					@click="reviseType"
-					>确定修改</fv-button
+					>{{ local("Confirm Changes") }}</fv-button
 				>
 				<fv-button
 					:theme="theme"
 					style="width: 120px; margin-left: 5px"
 					@click="show = false"
-					>取消</fv-button
+					>{{ local("Cancel") }}</fv-button
 				>
 			</template>
 		</fv-panel>
@@ -241,12 +241,12 @@ export default {
 		async reviseType() {
 			if (this.news.title == "") {
 				this.$swiftWarning(this.$refs.name, {
-					replaceTitle: "标题不能为空",
+					replaceTitle: this.local("Title cannot be empty"),
 				});
 				return 0;
 			}
 			if (!this.currentOption || !this.currentOption.value) {
-				this.$barWarning("请选择发布类型", {
+				this.$barWarning(this.local("Please select publish type"), {
 					status: "warning",
 				});
 				return 0;
@@ -266,7 +266,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.$emit("finish");

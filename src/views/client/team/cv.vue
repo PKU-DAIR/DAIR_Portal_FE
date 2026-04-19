@@ -53,7 +53,7 @@
 			class="award-info-block"
 		>
 			<div class="award-info-title">
-				<p class="p-content">Awards</p>
+				<p class="p-content">{{ local("Awards") }}</p>
 			</div>
 			<div
 				v-for="(item, index) in member.awards"
@@ -96,7 +96,7 @@
 		<div class="wise-cv-block" style="z-index: 1">
 			<power-editor
 				:model-value="computeContent(member.introduction)"
-				:placeholder="'填写你的简历...'"
+				:placeholder="local('Fill in your CV...')"
 				:editable="false"
 				:theme="theme"
 				contentMaxWidth="1200px"
@@ -151,6 +151,7 @@ export default {
 		},
 	},
 	computed: {
+		...mapState(useApp, ["local"]),
 		...mapState(useTheme, ["color", "gradient", "theme"]),
 		edu() {
 			if (

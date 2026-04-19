@@ -1,14 +1,14 @@
 <template>
 	<div class="about-wrap" :class="[{ dark: theme === 'dark' }]">
 		<div v-if="false" class="about-title-block">
-			<p class="big-title">About us</p>
-			<p class="big-title sec">PKU-DAIR</p>
+			<p class="big-title">{{ local("About us") }}</p>
+			<p class="big-title sec">{{ local("PKU-DAIR") }}</p>
 			<p class="sec-title">
-				ML System ● Data-Centric ● Database ● AutoML
+				{{ local("ML System ● Data-Centric ● Database ● AutoML") }}
 			</p>
 		</div>
 		<div class="title-block">
-			<p class="big-title">Team</p>
+			<p class="big-title">{{ local("Team") }}</p>
 			<p class="title-line"></p>
 		</div>
 		<fv-button
@@ -20,7 +20,7 @@
 			font-weight="600"
 			style="width: 250px; height: 45px; flex-shrink: 0"
 			@click="show.add = true"
-			>{{ !memberInfo.id ? "添加我的简历" : "更新我的简历" }}</fv-button
+			>{{ !memberInfo.id ? local("Add My CV") : local("Update My CV") }}</fv-button
 		>
 		<group-member
 			v-for="(team, index) in clientTeams"
@@ -95,6 +95,7 @@ export default {
 		...mapState(useUser, {
 			info: (state) => state.info,
 		}),
+		...mapState(useApp, ["local"]),
 		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {

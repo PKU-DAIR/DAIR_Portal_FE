@@ -4,7 +4,7 @@
 			<fv-text-box
 				:model-value="thisSearch"
 				:theme="theme"
-				placeholder="搜索"
+				:placeholder="local('Search')"
 				:border-width="2"
 				:background="
 					theme === 'dark'
@@ -102,21 +102,21 @@
 						class="ms-Icon ms-Icon--Add"
 						style="color: rgba(149, 141, 241, 1)"
 					></i>
-					<p>添加文章</p>
+					<p>{{ local("Add Article") }}</p>
 				</span>
 				<span @click="show.reviseNewsType = true">
 					<i
 						class="ms-Icon ms-Icon--Edit"
 						style="color: rgba(149, 141, 241, 1)"
 					></i>
-					<p>修改标题</p>
+					<p>{{ local("Edit Title") }}</p>
 				</span>
 				<span @click="delNews($event, contextMenuItem)">
 					<i
 						class="ms-Icon ms-Icon--Delete"
 						style="color: rgba(173, 38, 45, 1)"
 					></i>
-					<p>删除文章</p>
+					<p>{{ local("Delete Article") }}</p>
 				</span>
 				<hr
 					style="
@@ -130,7 +130,7 @@
 						class="ms-Icon ms-Icon--Upload"
 						style="color: rgba(149, 141, 241, 1)"
 					></i>
-					<p>发布文章</p>
+					<p>{{ local("Publish Article") }}</p>
 				</span>
 			</div>
 		</fv-right-menu>
@@ -238,7 +238,7 @@ export default {
 	methods: {
 		delNews(event, item) {
 			event.stopPropagation();
-			this.$infoBox(`你将移除${item.title}文章`, {
+			this.$infoBox(`${this.local("You will remove")} ${item.title} ${this.local("article")}`, {
 				title: "三思而后行",
 				status: "error",
 				theme: this.theme,
@@ -250,7 +250,7 @@ export default {
 						.then((res) => {
 							res = res.data;
 							if (res.code === 200) {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.$emit("del-finish");

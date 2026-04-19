@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'学历管理'"
+		:title="local('Education Management')"
 		width="450px"
 		height="auto"
 		:theme="theme"
@@ -21,7 +21,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="education-title">学历列表</p>
+					<p class="education-title">{{ local("Education List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -42,20 +42,20 @@
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="removeEducation(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
 					<p class="education-title" style="margin-top: 15px">
-						添加学历
+						{{ local("Add Education") }}
 					</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="educationName"
 							underline
-							:placeholder="'输入学历名称'"
+							:placeholder="local('Input education name')"
 							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
@@ -75,7 +75,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addEducation"
 						>
-							添加学历
+							{{ local("Add Education") }}
 						</fv-button>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>关闭</fv-button
+				>{{ local("Close") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -156,7 +156,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getEducations();
@@ -175,7 +175,7 @@ export default {
 		},
 		removeEducation(item) {
 			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -185,7 +185,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getEducations();

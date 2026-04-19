@@ -1,7 +1,7 @@
 <template>
 	<div class="pub-wrap" :class="[{ dark: theme === 'dark' }]">
 		<div class="title-block">
-			<p class="big-title">Publications</p>
+			<p class="big-title">{{ local("Publications") }}</p>
 			<p class="title-line"></p>
 		</div>
 		<div class="pub-contain-list">
@@ -26,7 +26,7 @@
 							:is-box-shadow="true"
 							:disabled="!pub.bib || pub.bib == ''"
 							style="width: 35px; height: 35px"
-							title="Copy BibTex"
+							:title="local('Copy BibTex')"
 							@click="CopyBibtex(pub.bib)"
 						>
 							<i class="ms-Icon ms-Icon--SemiboldWeight"></i>
@@ -37,7 +37,7 @@
 							:is-box-shadow="true"
 							:disabled="!pub.url || pub.url == ''"
 							style="width: 35px; height: 35px; margin-left: 3px"
-							title="URL"
+							:title="local('URL')"
 							@click="$Jump(pub.url)"
 						>
 							<i class="ms-Icon ms-Icon--Link"></i>
@@ -96,6 +96,7 @@ export default {
 		...mapState(useUser, {
 			info: (state) => state.info,
 		}),
+		...mapState(useApp, ["local"]),
 		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {
@@ -132,7 +133,7 @@ export default {
 			let groups = [];
 			let groupDict = {};
 			this.objs.forEach((item) => {
-				if (!item.year) item.year = "Earlier";
+				if (!item.year) item.year = this.local("Earlier");
 				if (!groupDict[item.year]) groupDict[item.year] = [];
 				groupDict[item.year].push(item);
 			});
@@ -147,7 +148,7 @@ export default {
 		},
 		CopyBibtex(bib) {
 			if (!bib) {
-				this.$barWarning("No BibTex Infomation", {
+				this.$barWarning(this.local("No BibTex Infomation"), {
 					status: "warning",
 				});
 				return;
@@ -156,7 +157,7 @@ export default {
 				navigator.clipboard
 					.writeText(bib)
 					.then(() => {
-						this.$barWarning("Successfully Copied", {
+						this.$barWarning(this.local("Successfully Copied"), {
 							status: "correct",
 						});
 					})
@@ -173,7 +174,7 @@ export default {
 				input.select();
 				document.execCommand("copy");
 				document.body.removeChild(input);
-				this.$barWarning("Successfully Copied", {
+				this.$barWarning(this.local("Successfully Copied"), {
 					status: "correct",
 				});
 			}

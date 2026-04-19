@@ -1,11 +1,11 @@
 <template>
 	<div class="m-laws-block">
 		<div class="row between">
-			<h1 class="main-title">团队介绍管理</h1>
+			<h1 class="main-title">{{ local("Team Introduction Management") }}</h1>
 			<fv-text-box
 				:theme="theme"
 				v-model="currentSearch"
-				:placeholder="'在结果中筛选'"
+				:placeholder="local('Filter in the Result')"
 				icon="Filter"
 				borderWidth="2"
 				:revealBorder="true"
@@ -63,21 +63,21 @@
 								class="ms-Icon ms-Icon--Add"
 								style="color: rgba(0, 90, 158, 1)"
 							></i>
-							<p>添加成员</p>
+							<p>{{ local("Add Member") }}</p>
 						</span>
 						<span @click="ShowRevise(currentItem)"
 							><i
 								class="ms-Icon ms-Icon--Edit"
 								style="color: rgba(0, 90, 158, 1)"
 							></i>
-							<p>修改信息</p>
+							<p>{{ local("Edit Information") }}</p>
 						</span>
 						<span @click="delMember(currentItem)"
 							><i
 								class="ms-Icon ms-Icon--Delete"
 								style="color: rgba(173, 38, 45, 1)"
 							></i>
-							<p>删除成员</p>
+							<p>{{ local("Delete Member") }}</p>
 						</span>
 					</div>
 				</template>
@@ -128,7 +128,7 @@ export default {
 		return {
 			cmd: [
 				{
-					name: "添加成员",
+					name: () => this.local("Add Member"),
 					icon: "Contact",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -137,7 +137,7 @@ export default {
 					},
 				},
 				{
-					name: "专业管理",
+					name: () => this.local("Major Management"),
 					icon: "Package",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -145,7 +145,7 @@ export default {
 					},
 				},
 				{
-					name: "团队管理",
+					name: () => this.local("Team Management"),
 					icon: "People",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -153,7 +153,7 @@ export default {
 					},
 				},
 				{
-					name: "分组管理",
+					name: () => this.local("Group Management"),
 					icon: "Group",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -161,7 +161,7 @@ export default {
 					},
 				},
 				{
-					name: "去向管理",
+					name: () => this.local("Destination Management"),
 					icon: "GuestUser",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -169,7 +169,7 @@ export default {
 					},
 				},
 				{
-					name: "学历管理",
+					name: () => this.local("Education Management"),
 					icon: "Education",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -177,7 +177,7 @@ export default {
 					},
 				},
 				{
-					name: "成果管理",
+					name: () => this.local("Award Management"),
 					icon: "Certificate",
 					iconColor: "rgba(0, 90, 158, 1)",
 					func: () => {
@@ -185,7 +185,7 @@ export default {
 					},
 				},
 				{
-					name: "删除成员",
+					name: () => this.local("Delete Member"),
 					icon: "Delete",
 					iconColor: "rgba(173, 38, 45, 1)",
 					disabled: () => this.currentChoosen.length <= 0,
@@ -195,12 +195,12 @@ export default {
 				},
 			],
 			head: [
-				{ content: "序号", width: 120 },
+				{ content: () => this.local("No."), width: 120 },
 				{ content: "id", sortName: "id", width: 150 },
-				{ content: "姓名", sortName: "name", width: 250 },
-				{ content: "入学年份", sortName: "grade", width: 120 },
-				{ content: "毕业年份", sortName: "session", width: 120 },
-				{ content: "专业", sortName: "major", width: 200 },
+				{ content: () => this.local("Name"), sortName: "name", width: 250 },
+				{ content: () => this.local("Admission Year"), sortName: "grade", width: 120 },
+				{ content: () => this.local("Graduation Year"), sortName: "session", width: 120 },
+				{ content: () => this.local("Major"), sortName: "major", width: 200 },
 			],
 			objs: [],
 			currentSearch: "",
@@ -218,6 +218,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapState(useApp, ["local"]),
 		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {
@@ -237,8 +238,8 @@ export default {
 		},
 		delMember(item) {
 			let el = this;
-			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+			this.$infoBox(`${this.local("You will remove")} ${item.name}`, {
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					this.$axios({
@@ -247,7 +248,7 @@ export default {
 					}).then((data) => {
 						data = data.data;
 						if (data.status == "success") {
-							this.$barWarning("删除成功", {
+							this.$barWarning(this.local("Delete Success"), {
 								status: "correct",
 							});
 							el.getMembers();
@@ -261,11 +262,11 @@ export default {
 		},
 		delMembers() {
 			if (this.currentChoosen.length == 0) {
-				this.$barWarning("当前没有选择任何成员", { status: "warning" });
+				this.$barWarning(this.local("No members selected."), { status: "warning" });
 				return 0;
 			}
-			this.$infoBox(`你将移除所选择的成员，但系统将保留其下的资源`, {
-				title: "确定删除",
+			this.$infoBox(this.local("You will remove the selected members, but the system will keep their resources"), {
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					let promises = [];
@@ -278,7 +279,7 @@ export default {
 						);
 					}
 					Promise.all(promises).then(() => {
-						this.$barWarning("删除成功", {
+						this.$barWarning(this.local("Delete Success"), {
 							status: "correct",
 						});
 						this.getMembers();

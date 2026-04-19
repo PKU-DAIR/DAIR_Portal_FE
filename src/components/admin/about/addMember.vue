@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'成员信息'"
+		:title="local('Member Information')"
 		width="calc(100% - 30px)"
 		height="1200px"
 		:theme="theme"
@@ -17,13 +17,13 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">ID</p>
+					<p class="panel-title">{{ local("ID") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.id"
 						:theme="theme"
-						:placeholder="'暂无简历ID'"
+						:placeholder="local('No CV ID')"
 						underline
 						disabled
 						:border-width="2"
@@ -34,13 +34,13 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 姓名</p>
+					<p class="panel-title">* {{ local("Name") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.name"
 						:theme="theme"
-						:placeholder="'请输入姓名'"
+						:placeholder="local('Please input name')"
 						underline
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
@@ -50,7 +50,7 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 成员头像</p>
+					<p class="panel-title">* {{ local("Member Avatar") }}</p>
 				</div>
 				<div class="panel-row">
 					<div
@@ -97,16 +97,16 @@
 						:is-box-shadow="true"
 						style="width: 120px; margin-left: 5px"
 						@click="show.avatar = false"
-						>折叠</fv-button
+						>{{ local("Collapse") }}</fv-button
 					>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 入学年份</p>
+					<p class="panel-title">* {{ local("Admission Year") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.grade"
-						:placeholder="'请输入入学年份'"
+						:placeholder="local('Please input admission year')"
 						:theme="theme"
 						type="number"
 						underline
@@ -118,7 +118,7 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 邮箱</p>
+					<p class="panel-title">* {{ local("Email") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
@@ -134,12 +134,12 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 电话 (不公开展示)</p>
+					<p class="panel-title">* {{ local("Phone (not publicly displayed)") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.mobile"
-						:placeholder="'请输入电话号码'"
+						:placeholder="local('Please input phone number')"
 						:theme="theme"
 						type="tel"
 						underline
@@ -151,12 +151,12 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 毕业年份</p>
+					<p class="panel-title">* {{ local("Graduation Year") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.session"
-						:placeholder="'请输入毕业年份'"
+						:placeholder="local('Please input graduation year')"
 						type="number"
 						:theme="theme"
 						underline
@@ -168,14 +168,14 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 学历</p>
+					<p class="panel-title">* {{ local("Education") }}</p>
 				</div>
 				<div
 					class="panel-row"
 					:style="{ 'z-index': 12 + member.awards.length * 2 }"
 				>
 					<fv-DropDown
-						placeholder="请选择学历"
+						:placeholder="local('Please select education')"
 						:theme="theme"
 						v-model="member.educations"
 						:options="eduList"
@@ -183,14 +183,14 @@
 					</fv-DropDown>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 专业</p>
+					<p class="panel-title">* {{ local("Major") }}</p>
 				</div>
 				<div
 					class="panel-row"
 					:style="{ 'z-index': 10 + member.awards.length * 2 }"
 				>
 					<fv-Combobox
-						placeholder="请选择专业"
+						:placeholder="local('Please select major')"
 						:theme="theme"
 						v-model="member.major"
 						:options="majorList"
@@ -198,14 +198,14 @@
 					</fv-Combobox>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 团队</p>
+					<p class="panel-title">* {{ local("Team") }}</p>
 				</div>
 				<div
 					class="panel-row"
 					:style="{ 'z-index': 8 + member.awards.length * 2 }"
 				>
 					<fv-DropDown
-						placeholder="请选择团队"
+						:placeholder="local('Please select team')"
 						v-model="member.teams"
 						:theme="theme"
 						:options="teamList"
@@ -214,14 +214,14 @@
 					</fv-DropDown>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 分组</p>
+					<p class="panel-title">* {{ local("Group") }}</p>
 				</div>
 				<div
 					class="panel-row"
 					:style="{ 'z-index': 6 + member.awards.length * 2 }"
 				>
 					<fv-DropDown
-						placeholder="请选择分组"
+						:placeholder="local('Please select group')"
 						v-model="member.groups"
 						:theme="theme"
 						:options="groupList"
@@ -230,14 +230,14 @@
 					</fv-DropDown>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* 去向类型</p>
+					<p class="panel-title">* {{ local("Destination Type") }}</p>
 				</div>
 				<div
 					class="panel-row"
 					:style="{ 'z-index': 4 + member.awards.length * 2 }"
 				>
 					<fv-Combobox
-						placeholder="请选择去向"
+						:placeholder="local('Please select destination')"
 						:theme="theme"
 						v-model="member.toWhere"
 						:options="toWhereList"
@@ -245,7 +245,7 @@
 					</fv-Combobox>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">毕业去向</p>
+					<p class="panel-title">{{ local("Graduation Destination") }}</p>
 				</div>
 				<div
 					class="panel-row"
@@ -253,7 +253,7 @@
 				>
 					<fv-text-box
 						v-model="member.postAddress"
-						:placeholder="'请输入毕业去向'"
+						:placeholder="local('Please input graduation destination')"
 						:theme="theme"
 						underline
 						:border-width="2"
@@ -264,12 +264,12 @@
 					></fv-text-box>
 				</div>
                 <div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">外部跳转</p>
+					<p class="panel-title">{{ local("External Link") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.external"
-						:placeholder="'请输入外部简历URL'"
+						:placeholder="local('Please input external CV URL')"
 						left-icon="Link"
 						:theme="theme"
 						underline
@@ -281,12 +281,12 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">职级/职称</p>
+					<p class="panel-title">{{ local("Position/Title") }}</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
 						v-model="member.title"
-						:placeholder="'请输入职级和职称'"
+						:placeholder="local('Please input position and title')"
 						:theme="theme"
 						underline
 						:border-width="2"
@@ -301,11 +301,11 @@
 					class="panel-row"
 					style="margin-top: 15px"
 				>
-					<p class="panel-title">关联用户 (若用户未注册可忽略)</p>
+					<p class="panel-title">{{ local("Linked User (ignore if the user is not registered)") }}</p>
 				</div>
 				<div v-if="isManager" class="panel-row">
 					<fv-text-box
-						:placeholder="'请输入用户ID'"
+						:placeholder="local('Please input user ID')"
 						underline
 						:theme="theme"
 						:icon="'Search'"
@@ -362,10 +362,10 @@
 					:is-box-shadow="true"
 					style="width: 120px; margin-left: 5px"
 					@click="selectUser"
-					>确认用户ID</fv-button
+					>{{ local("Confirm User ID") }}</fv-button
 				>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">成果登记</p>
+					<p class="panel-title">{{ local("Award Registration") }}</p>
 					<fv-button
 						theme="dark"
 						background="rgba(0, 204, 153, 1)"
@@ -407,11 +407,11 @@
 					</fv-button>
 					<fv-text-box
 						v-model="item.session"
-						:placeholder="'20届'"
+						:placeholder="local('20th')"
 						type="number"
 						underline
 						:theme="theme"
-						:prefix="'届次'"
+						:prefix="local('Session')"
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
@@ -421,7 +421,7 @@
 					></fv-text-box>
 					<fv-search-box
 						v-model="item.competitionName"
-						placeholder="请选择成果"
+						:placeholder="local('Please select award')"
 						:theme="theme"
 						:options="awardList"
 						:is-box-shadow="true"
@@ -430,7 +430,7 @@
 					</fv-search-box>
 					<fv-Combobox
 						v-model="item.level"
-						placeholder="请选择获奖等级"
+						:placeholder="local('Please select award level')"
 						:theme="theme"
 						:options="awardLevelList"
 						:is-box-shadow="true"
@@ -439,10 +439,10 @@
 					</fv-Combobox>
 					<fv-text-box
 						v-model="item.region"
-						:placeholder="'北京大学·北京'"
+						:placeholder="local('Peking University · Beijing')"
 						:theme="theme"
 						underline
-						:prefix="'地点'"
+						:prefix="local('Location')"
 						:border-width="2"
 						:border-color="'rgba(120, 120, 120, 0.1)'"
 						:background="'rgba(60, 60, 60, 1)'"
@@ -486,7 +486,7 @@
 						:font-size="8"
 						:disabled="index === 0"
 						style="width: 20px; height: 20px; margin-left: 1px"
-						title="上移"
+						:title="local('Move Up')"
 						@click="pushTop(index)"
 					>
 						<i class="ms-Icon ms-Icon--ChevronUp"></i>
@@ -498,14 +498,14 @@
 						:font-size="8"
 						:disabled="index === member.awards.length - 1"
 						style="width: 20px; height: 20px; margin-left: 1px"
-						title="下移"
+						:title="local('Move Down')"
 						@click="pushBottom(index)"
 					>
 						<i class="ms-Icon ms-Icon--ChevronDown"></i>
 					</fv-button>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">简历</p>
+					<p class="panel-title">{{ local("CV") }}</p>
 				</div>
 				<fv-button
 					theme="dark"
@@ -514,11 +514,11 @@
 					:is-box-shadow="true"
 					style="width: 120px; margin-left: 5px"
 					@click="markdownTemplate"
-					>快速模板</fv-button
+					>{{ local("Quick Template") }}</fv-button
 				>
 				<div class="panel-row" style="z-index: 1">
 					<power-editor
-						:placeholder="'填写你的简历...'"
+						:placeholder="local('Fill in your CV...')"
 						class="intro-power-editor"
 						ref="editor"
 						:theme="theme"
@@ -543,7 +543,7 @@
 "
 								:class="[x.defaultClass]"
 								:isBoxShadow="true"
-								:title="'导入Markdown'"
+								:title="local('Import Markdown')"
 								@click="$refs.md_input.click()"
 							>
 								<img
@@ -577,7 +577,7 @@
 				:disabled="!lock.add || disabledAdd"
 				style="width: 120px; margin-left: 5px"
 				@click="addMember"
-				>添加信息</fv-button
+				>{{ local("Add Information") }}</fv-button
 			>
 			<fv-button
 				v-else
@@ -586,13 +586,13 @@
 				:disabled="!lock.update || disabledAdd"
 				style="width: 120px; margin-left: 5px"
 				@click="updateMember"
-				>更新信息</fv-button
+				>{{ local("Update Information") }}</fv-button
 			>
 			<fv-button
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>取消</fv-button
+				>{{ local("Cancel") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -1076,7 +1076,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.thisValue = false;
@@ -1139,7 +1139,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("更新成功", {
+						this.$barWarning(this.local("Update Success"), {
 							status: "correct",
 						});
 						this.thisValue = false;

@@ -101,28 +101,28 @@ export default {
 		return {
 			header: [
 				{
-					content: "用户名",
+					content: () => this.local("Username"),
 					width: 180,
 				},
 				{
-					content: "姓名",
+					content: () => this.local("Name"),
 					width: 120,
 				},
 				{
-					content: "角色",
+					content: () => this.local("Role"),
 					width: 120,
 					visible: () => this.showRole,
 				},
 				{
-					content: "性别",
+					content: () => this.local("Gender"),
 					width: 120,
 				},
 				{
-					content: "Phone",
+					content: () => this.local("Phone"),
 					width: 120,
 				},
 				{
-					content: "邮箱",
+					content: () => this.local("Email"),
 					width: 120,
 				},
 			],

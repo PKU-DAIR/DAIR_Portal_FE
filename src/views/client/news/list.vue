@@ -31,7 +31,7 @@
 			:background="viewAllBackground"
 			@click="$emit('show-all-click')"
 			style="width: 120px; height: 40px; margin: 25px"
-			>Show All</fv-button
+			>{{ local("Show All") }}</fv-button
 		>
 	</div>
 </template>
@@ -96,6 +96,7 @@ export default {
 		...mapState(useUser, {
 			info: (state) => state.info,
 		}),
+		...mapState(useApp, ["local"]),
 		...mapState(useTheme, ["color", "gradient", "theme"]),
 	},
 	mounted() {

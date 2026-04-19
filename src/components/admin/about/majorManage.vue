@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'专业管理'"
+		:title="local('Major Management')"
 		width="450px"
 		height="auto"
 		:theme="theme"
@@ -21,7 +21,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="major-title">专业列表</p>
+					<p class="major-title">{{ local("Major List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -42,18 +42,18 @@
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="removeMajor(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
-					<p class="major-title" style="margin-top: 15px">添加专业</p>
+					<p class="major-title" style="margin-top: 15px">{{ local("Add Major") }}</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="majorName"
 							underline
-							:placeholder="'输入专业名称'"
+							:placeholder="local('Input major name')"
 							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
@@ -73,7 +73,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addMajor"
 						>
-							添加专业
+							{{ local("Add Major") }}
 						</fv-button>
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>关闭</fv-button
+				>{{ local("Close") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -157,7 +157,7 @@ export default {
 					data = data.data;
 					console.log(data);
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getMajors();
@@ -176,7 +176,7 @@ export default {
 		},
 		removeMajor(item) {
 			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -186,7 +186,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getMajors();

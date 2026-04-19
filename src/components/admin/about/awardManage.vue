@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'成果管理'"
+		:title="local('Award Management')"
 		width="450px"
 		height="auto"
         :theme="theme"
@@ -21,7 +21,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="award-title">成果列表</p>
+					<p class="award-title">{{ local("Award List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -42,19 +42,19 @@
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="removeAward(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
-					<p class="award-title" style="margin-top: 15px">添加成果</p>
+					<p class="award-title" style="margin-top: 15px">{{ local("Add Award") }}</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="awardName"
 							underline
 							:theme="theme"
-							:placeholder="'输入成果名称'"
+							:placeholder="local('Input award name')"
 							:border-width="2"
 							:border-color="'transparent'"
 							:focus-border-color="'rgba(0, 90, 158, 1)'"
@@ -73,12 +73,12 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addAward"
 						>
-							添加成果
+							{{ local("Add Award") }}
 						</fv-button>
 					</div>
 				</div>
 				<div class="c-row">
-					<p class="award-title">竞赛等级列表</p>
+					<p class="award-title">{{ local("Award Level List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -99,20 +99,20 @@
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="removeLevel(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
 					<p class="award-title" style="margin-top: 15px">
-						添加成果等级
+						{{ local("Add Award Level") }}
 					</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="levelName"
 							underline
-							:placeholder="'输入成果等级'"
+							:placeholder="local('Input award level')"
 							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
@@ -132,7 +132,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addLevel"
 						>
-							添加成果等级
+							{{ local("Add Award Level") }}
 						</fv-button>
 					</div>
 				</div>
@@ -143,7 +143,7 @@
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>关闭</fv-button
+				>{{ local("Close") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -218,7 +218,7 @@ export default {
 					data = data.data;
 					console.log(data);
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getAwards();
@@ -237,7 +237,7 @@ export default {
 		},
 		removeAward(item) {
 			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -247,7 +247,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getAwards();
@@ -295,7 +295,7 @@ export default {
 					data = data.data;
 					console.log(data);
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getLevels();
@@ -314,7 +314,7 @@ export default {
 		},
 		removeLevel(item) {
 			this.$infoBox(`你将移除${item.level}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -324,7 +324,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getLevels();

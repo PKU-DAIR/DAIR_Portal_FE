@@ -5,18 +5,15 @@
 		<div class="d-block-1" style="height: 100vh; padding-top: 0px">
 			<div class="left-block">
 				<div class="intro-title-block">
-					<p class="intro-title">DAIR Lab</p>
+					<p class="intro-title">{{ local("DAIR Lab") }}</p>
 					<p class="intro-sub-title">
-						Data and Intelligence Research in PKU
+						{{ local("Data and Intelligence Research in PKU") }}
 					</p>
 				</div>
 			</div>
 			<div class="right-block">
 				<p class="intro-content">
-					Welcome to the DAIR Lab! We are part of the School of
-					Computer Science at Peking University (PKU). Together we
-					enjoy working on Database, ML Systems, Data-centric ML,
-					AutoML, etc.
+					{{ local("Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.") }}
 				</p>
 			</div>
 		</div>
@@ -34,9 +31,9 @@
 					class="unit-block"
 				>
 					<fv-ScrollStory name="scale-up-to-up">
-						<p class="unit-title">{{ item.title }}</p>
+						<p class="unit-title">{{ local(item.title) }}</p>
 						<p class="unit-content">
-							{{ item.content }}
+							{{ local(item.content) }}
 						</p>
 						<p
 							class="unit-link"
@@ -46,7 +43,7 @@
 								}
 							"
 						>
-							Read More
+							{{ local("Read More") }}
 						</p>
 					</fv-ScrollStory>
 				</div>
@@ -54,7 +51,7 @@
 		</div>
 		<fv-ScrollStory name="scale-up-to-up" style="width: 100%">
 			<news-wrap
-				title="Recent News"
+				:title="local('Recent News')"
 				background="rgba(16, 11, 16, 1)"
 				:showButtomBlock="false"
 				:showViewAll="true"
@@ -66,7 +63,7 @@
 		</fv-ScrollStory>
 		<fv-ScrollStory name="scale-up-to-up" style="width: 100%">
 			<news-wrap
-				title="Current Projects"
+				:title="local('Current Projects')"
 				:showButtomBlock="false"
 				:showViewAll="true"
 				viewAllBackground="rgba(45, 80, 125, 1)"
@@ -91,7 +88,7 @@
 						height: `${screenWidth / 2.58 / 9}px`,
 					}"
 					@click="$Go('/team')"
-					>About us</fv-button
+					>{{ local("About us") }}</fv-button
 				>
 			</div>
 		</div>
@@ -162,6 +159,7 @@ export default {
 		...mapState(useApp, {
 			screenWidth: "screenWidth",
 		}),
+		...mapState(useApp, ["local"]),
 	},
 	methods: {
 		retop() {

@@ -74,7 +74,7 @@
 							:theme="theme"
 							:options="genderList"
 							:disabled="!isedit"
-							placeholder="Select Gender"
+							:placeholder="local('Select Gender')"
 						>
 						</fv-combobox>
 					</div>
@@ -125,21 +125,21 @@
 					<div class="row">
 						<p class="s1">{{ local("Change Password") }}</p>
 						<input
-							placeholder="Input Old Password"
+							:placeholder="local('Input Old Password')"
 							class="info-unit-edit"
 							v-model="oriPwd"
 							type="password"
 							style="margin-top: 3px"
 						/>
 						<input
-							placeholder="Input New Password"
+							:placeholder="local('Input New Password')"
 							class="info-unit-edit"
 							v-model="newPwd"
 							type="password"
 							style="margin-top: 3px"
 						/>
 						<input
-							placeholder="Confirm New Password"
+							:placeholder="local('Confirm New Password')"
 							class="info-unit-edit"
 							v-model="confirmPwd"
 							type="password"

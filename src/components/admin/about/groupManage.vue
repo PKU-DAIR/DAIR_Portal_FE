@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'分组管理'"
+		:title="local('Group Management')"
 		width="450px"
 		height="auto"
 		:theme="theme"
@@ -21,7 +21,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="group-title">分组列表</p>
+					<p class="group-title">{{ local("Group List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -42,18 +42,18 @@
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="removeGroup(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
-					<p class="group-title" style="margin-top: 15px">添加分组</p>
+					<p class="group-title" style="margin-top: 15px">{{ local("Add Group") }}</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="groupName"
 							underline
-							:placeholder="'输入分组名称'"
+							:placeholder="local('Input group name')"
 							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
@@ -73,7 +73,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addGroup"
 						>
-							添加分组
+							{{ local("Add Group") }}
 						</fv-button>
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>关闭</fv-button
+				>{{ local("Close") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -156,7 +156,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getGroups();
@@ -175,7 +175,7 @@ export default {
 		},
 		removeGroup(item) {
 			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -187,7 +187,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getGroups();

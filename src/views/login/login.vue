@@ -10,12 +10,12 @@
 				<p class="main-title">
 					<img src="@/assets/logo/pku_dair.svg" alt />
 				</p>
-				<fv-text-box theme="dark" v-model="user.identity" placeholder="User ID (Letter, Number or Email)"
+				<fv-text-box theme="dark" v-model="user.identity" :placeholder="local('User ID (Letter, Number or Email)')"
 					borderWidth="2" :revealBorder="true" :border-radius="6" border-color="rgba(200, 200, 200, 0.1)"
 					focusBorderColor="rgba(221, 151, 45, 0.1)" :is-box-shadow="true"
 					background="rgba(120, 120, 120, 0.7)" style="width: 90%; height: 50px; margin-top: 35px"
 					@keyup="handleEnter"></fv-text-box>
-				<fv-text-box theme="dark" v-model="user.password" placeholder="密码" type="password" borderWidth="2"
+				<fv-text-box theme="dark" v-model="user.password" :placeholder="local('Password')" type="password" borderWidth="2"
 					:revealBorder="true" :border-radius="6" border-color="rgba(200, 200, 200, 0.1)"
 					focusBorderColor="rgba(221, 151, 45, 0.1)" :is-box-shadow="true"
 					background="rgba(120, 120, 120, 0.7)" style="width: 90%; height: 50px; margin-top: 15px"
@@ -23,18 +23,18 @@
 				<fv-button background="linear-gradient(45deg, #ec008c, #da4453)" theme="dark" borderRadius="6"
 					fontSize="16" fontWeight="600" :is-box-shadow="true"
 					style="width: 90%; height: 40px; margin-top: 20px" :disabled="login.lock"
-					@click="handleLogin">Login</fv-button>
+					@click="handleLogin">{{ local("Login") }}</fv-button>
 				<div class="s2">
-					<p class="to-apply" @click="forgotPassword">Forgot</p>
-					<p class="to-apply" style="margin: 0px 8px">·</p>
+					<p class="to-apply" @click="forgotPassword">{{ local("Forgot") }}</p>
+					<p class="to-apply" style="margin: 0px 8px">{{ local("·") }}</p>
 					<p class="to-apply" @click="$Go('/login/apply')">
-						No Account Yet ?
+						{{ local("No Account Yet ?") }}
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="s3">
-			<p>Terms and Conditions · Privacy Policy</p>
+			<p>{{ local("Terms and Conditions · Privacy Policy") }}</p>
 		</div>
 	</div>
 </template>
@@ -92,7 +92,7 @@ export default {
 							status: true,
 							...data,
 						});
-						this.$barWarning("Login Success", {
+						this.$barWarning(this.local("Login Success"), {
 							status: "correct",
 						});
 						let return_url = this.$route.query.return_url
@@ -113,8 +113,8 @@ export default {
 			this.$infoBox(this.local("Please try to contact the admin to reset your password."), {
 				status: 'error',
 				theme: this.theme,
-				confirmTitle: "Confirm",
-				cancelTitle: "Cancel"
+				confirmTitle: this.local("Confirm"),
+				cancelTitle: this.local("Cancel")
 			})
 		},
 		handleEnter(event) {

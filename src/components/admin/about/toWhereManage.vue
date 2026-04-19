@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'去向管理'"
+		:title="local('Destination Management')"
 		width="450px"
 		height="auto"
 		:theme="theme"
@@ -21,7 +21,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="towhere-title">去向列表</p>
+					<p class="towhere-title">{{ local("Destination List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -42,20 +42,20 @@
 								:disabled="!item.lock"
 								:is-box-shadow="true"
 								@click="removeToWhere(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
 					<p class="towhere-title" style="margin-top: 15px">
-						添加去向
+						{{ local("Add Destination") }}
 					</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="towhereName"
 							underline
-							:placeholder="'输入去向名称'"
+							:placeholder="local('Input destination name')"
 							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
@@ -75,7 +75,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addToWhere"
 						>
-							添加去向
+							{{ local("Add Destination") }}
 						</fv-button>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>关闭</fv-button
+				>{{ local("Close") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -158,7 +158,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getToWheres();
@@ -177,7 +177,7 @@ export default {
 		},
 		removeToWhere(item) {
 			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -187,7 +187,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getToWheres();

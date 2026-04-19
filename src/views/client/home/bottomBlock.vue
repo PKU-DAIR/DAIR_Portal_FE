@@ -2,58 +2,58 @@
 	<div class="bottom-block">
 		<div class="logo">
 			<img draggable="false" src="@/assets/logo/pku_dair.svg" alt="" />
-			<p>PKU-DAIR</p>
+			<p>{{ local("PKU-DAIR") }}</p>
 		</div>
 		<div class="info-container">
 			<div v-show="false" class="info-block" :span="6">
-				<p>Research Group</p>
+				<p>{{ local("Research Group") }}</p>
 				<a
 					href="https://xinyizhang-pku.github.io/"
 					title="zhang_xinyi@pku.edu.cn"
-					>Database: Xinyi Zhang</a
+					>{{ local("Database: Xinyi Zhang") }}</a
 				>
 				<a
 					href="https://scholar.google.com/citations?user=vFYm_QEAAAAJ&hl=zh-CN"
 					title="ccchengfu@pku.edu.cn"
-					>ML Systems: Fangcheng Fu</a
+					>{{ local("ML Systems: Fangcheng Fu") }}</a
 				>
 				<a
 					href="https://zwt233.github.io/"
 					title="wentao.zhang@pku.edu.cn"
-					>Data-centric ML</a
+					>{{ local("Data-centric ML") }}</a
 				>
 				<a
 					href="https://salty-fish-97.github.io/"
 					title="shenyu@pku.edu.cn"
-					>AutoML: Yu Shen</a
+					>{{ local("AutoML: Yu Shen") }}</a
 				>
 			</div>
 			<div class="info-block" :span="6">
-				<p>Quick Links</p>
-				<a href="https://www.pku.edu.cn/">Peking University</a>
+				<p>{{ local("Quick Links") }}</p>
+				<a href="https://www.pku.edu.cn/">{{ local("Peking University") }}</a>
 				<a href="https://cs.pku.edu.cn/"
-					>School of Computer Science, PKU</a
+					>{{ local("School of Computer Science, PKU") }}</a
 				>
-				<a href="https://github.com/PKU-DAIR">Github of PKU-DAIR</a>
+				<a href="https://github.com/PKU-DAIR">{{ local("Github of PKU-DAIR") }}</a>
 			</div>
 			<div v-show="false" class="info-block" :span="6">
-				<p>Contact</p>
-				<a>Phone: +86 10 62765821 (Office)</a>
-				<a>+86 10 62765822 (Fax)</a>
-				<a>Office: 1630, Science BLK 1</a>
-				<a>E-mail: bin.cui@pku.edu.cn</a>
+				<p>{{ local("Contact") }}</p>
+				<a>{{ local("Phone: +86 10 62765821 (Office)") }}</a>
+				<a>{{ local("+86 10 62765822 (Fax)") }}</a>
+				<a>{{ local("Office: 1630, Science BLK 1") }}</a>
+				<a>{{ local("E-mail: bin.cui@pku.edu.cn") }}</a>
 			</div>
 			<div class="info-block" :span="6">
-				<p>Developer</p>
+				<p>{{ local("Developer") }}</p>
 				<a href="https://github.com/aleversn" title="lpc@pku.edu.cn"
-					>Peichao Lai</a
+					>{{ local("Peichao Lai") }}</a
 				>
 			</div>
 		</div>
 		<div class="copyright">
-			<p>© {{ new Date().getFullYear() }} PKU DAIR Lab</p>
+			<p>{{ local("©") }} {{ new Date().getFullYear() }} {{ local("PKU DAIR Lab") }}</p>
 			<p class="oth-item">
-				School of Computer Science, Peking University
+				{{ local("School of Computer Science, Peking University") }}
 			</p>
 		</div>
 	</div>

@@ -9,15 +9,15 @@
 			></fv-progress-bar>
 		</transition>
 		<div class="d-1">
-			<p>Apply Account</p>
-			<p>To achieve more information</p>
+			<p>{{ local("Apply Account") }}</p>
+			<p>{{ local("To achieve more information") }}</p>
 		</div>
 		<div class="main-block">
 			<div class="s1">
 				<fv-text-box
 					v-model="Form.userid"
 					theme="dark"
-					placeholder="User ID"
+					:placeholder="local('User ID')"
 					borderWidth="2"
 					:revealBorder="true"
 					:border-radius="6"
@@ -29,7 +29,7 @@
 					@keyup="handleEnter"
 				></fv-text-box>
 				<fv-text-box
-					placeholder="Password (no less than 6 characters)"
+					:placeholder="local('Password (no less than 6 characters)')"
 					theme="dark"
 					v-model="Form.Password"
 					type="password"
@@ -44,7 +44,7 @@
 					@keyup="handleEnter"
 				></fv-text-box>
 				<fv-text-box
-					placeholder="Confirm Your Password"
+					:placeholder="local('Confirm Your Password')"
 					theme="dark"
 					v-model="Form.confirm"
 					type="password"
@@ -61,7 +61,7 @@
 				<fv-text-box
 					v-model="Form.invite_code"
 					theme="dark"
-					placeholder="Invite Code"
+					:placeholder="local('Invite Code')"
 					borderWidth="2"
 					:revealBorder="true"
 					:border-radius="6"
@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		<div class="s3" @click="$Go('/login')">
-			<p>已有帐号了? 登录</p>
+			<p>{{ local("Already have an account? Login") }}</p>
 		</div>
 	</div>
 </template>
@@ -111,17 +111,17 @@ export default {
 	methods: {
 		verifyInput() {
 			if (this.Form.userid == "") {
-				this.$barWarning("用户名不能为空", {
+				this.$barWarning(this.local("Username cannot be empty"), {
 					status: "warning",
 				});
 				return false;
 			} else if (this.Form.Password == "") {
-				this.$barWarning("密码不能为空", {
+				this.$barWarning(this.local("Password cannot be empty"), {
 					status: "warning",
 				});
 				return false;
 			} else if (this.Form.confirm !== this.Form.Password) {
-				this.$barWarning("两次密码不一致", {
+				this.$barWarning(this.local("The two passwords do not match"), {
 					status: "warning",
 				});
 				return false;
@@ -142,19 +142,19 @@ export default {
 				.then((res) => {
 					res = res.data;
 					if (res.code === 200) {
-						this.$barWarning("注册成功", {
+						this.$barWarning(this.local("Registration Successful"), {
 							status: "correct",
 						});
 						this.$Go("/login");
 					} else {
-						this.$barWarning(`注册失败: 原因: ${res.message}`, {
+						this.$barWarning(`${this.local("Registration failed: reason:")} ${res.message}`, {
 							status: "warning",
 						});
 					}
 					this.Apply.Lock = false;
 				})
 				.catch((result) => {
-					this.$barWarning(`注册失败: 原因: ${result}`, {
+					this.$barWarning(`${this.local("Registration failed: reason:")} ${result}`, {
 						status: "error",
 					});
 					this.Apply.Lock = false;

@@ -6,7 +6,7 @@
 		<div class="wise-cv-block" style="z-index: 1">
 			<power-editor
 				:model-value="computeContent(news.content)"
-				:placeholder="'News Content...'"
+				:placeholder="local('News Content...')"
 				:editable="false"
 				:theme="theme"
 				contentMaxWidth="1200px"

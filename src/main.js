@@ -11,12 +11,15 @@ import PowerEditor from "@creatorsn/powereditor3";
 import "@creatorsn/powereditor3/powereditor3.css";
 
 import customAxios from "@/api/config";
+import { useApp } from "@/stores/useApp";
 
 const app = createApp(App);
 
 app.use(VueFluent);
 app.use(PowerEditor);
-app.use(createPinia());
+const pinia = createPinia();
+
+app.use(pinia);
 app.use(router);
 
 app.config.globalProperties.$axios = customAxios;
@@ -29,7 +32,10 @@ app.config.globalProperties.$Back = () => {
 app.config.globalProperties.$Jump = (str) => {
     window.open(str);
 };
+app.config.globalProperties.local = (text) => {
+    const appStore = useApp();
+    return appStore.local(text);
+};
 
 app.mount("#app");
-
 

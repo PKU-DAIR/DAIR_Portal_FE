@@ -109,20 +109,20 @@ export default {
             if (this.computedDate(target) === this.computedDate(now)) {
                 for (let key in this.timeList['>=0']) {
                     if (d < key) {
-                        return this.timeList[dis >= 0 ? '>=0' : '<0'][
-                            key
-                        ].content.replace(
+                        return this.local(
+                            this.timeList[dis >= 0 ? '>=0' : '<0'][key].content
+                        ).replace(
                             /\?/g,
                             Math.floor(d / this.timeList['>=0'][key].divide)
                         );
                     }
                 }
-                return `Today ${this.$SDate.Format('HH:MM', target)}`;
+                return `${this.local('Today')} ${this.$SDate.Format('HH:MM', target)}`;
             }
             if (d / 3600 < 24) {
                 if (dis >= 0)
-                    return `Yesterday ${this.$SDate.Format('HH:MM', target)}`;
-                return `Tomorrow ${this.$SDate.Format('HH:MM', target)}`;
+                    return `${this.local('Yesterday')} ${this.$SDate.Format('HH:MM', target)}`;
+                return `${this.local('Tomorrow')} ${this.$SDate.Format('HH:MM', target)}`;
             }
             if (target.getFullYear() == now.getFullYear())
                 return this.$SDate.Format('mm-dd HH:MM', target);

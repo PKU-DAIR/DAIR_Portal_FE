@@ -216,7 +216,7 @@ export default {
 		},
 		delPub(item) {
 			let el = this;
-			this.$infoBox(`Delete ${item.title}`, {
+			this.$infoBox(`${this.local("Delete")} ${item.title}`, {
 				title: "Confirm",
 				theme: this.theme,
 				status: "error",
@@ -227,7 +227,7 @@ export default {
 					}).then((data) => {
 						data = data.data;
 						if (data.status == "success") {
-							this.$barWarning("Success", {
+							this.$barWarning(this.local("Success"), {
 								status: "correct",
 							});
 							el.getPubs();
@@ -241,7 +241,7 @@ export default {
 		},
 		delPubs() {
 			if (this.currentChoosen.length == 0) {
-				this.$barWarning("Not selected any publications.", {
+				this.$barWarning(this.local("Not selected any publications."), {
 					status: "warning",
 				});
 				return 0;
@@ -261,7 +261,7 @@ export default {
 						);
 					}
 					Promise.all(promises).then(() => {
-						this.$barWarning("Success", {
+						this.$barWarning(this.local("Success"), {
 							status: "correct",
 						});
 						this.getPubs();

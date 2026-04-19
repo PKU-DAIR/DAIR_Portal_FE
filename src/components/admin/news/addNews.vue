@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="show"
-		title="添加文章"
+		:title="local('Add Article')"
 		width="600px"
 		height="auto"
 		:theme="theme"
@@ -13,11 +13,11 @@
 		<template v-slot:container>
 			<div class="panel-container">
 				<div>
-					<p ref="name" class="panel-title">标题</p>
+					<p ref="name" class="panel-title">{{ local("Title") }}</p>
 					<fv-text-box
 						v-model="name"
 						:theme="theme"
-						placeholder="输入文章标题"
+						:placeholder="local('Input article title')"
 						:border-width="2"
 						:reveal-border="true"
 						style="width: 100%; height: 40px; margin-top: 15px"
@@ -33,13 +33,13 @@
 				:disabled="!name || !lock"
 				style="width: 120px"
 				@click="addNews"
-				>添加</fv-button
+				>{{ local("Add") }}</fv-button
 			>
 			<fv-button
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="show = false"
-				>取消</fv-button
+				>{{ local("Cancel") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -77,7 +77,7 @@ export default {
 		async addNews() {
 			if (this.name == "") {
 				this.$swiftWarning(this.$refs.name, {
-					replaceTitle: "标题不能为空",
+					replaceTitle: this.local("Title cannot be empty"),
 				});
 				return 0;
 			}
@@ -91,7 +91,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.$emit("finish");

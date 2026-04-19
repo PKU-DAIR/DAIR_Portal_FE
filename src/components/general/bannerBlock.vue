@@ -12,7 +12,7 @@
 					ondragstart="return false;"
 					oncontextmenu="return false;"
 				/>
-				<p class="left-info">PKU-DAIR</p>
+				<p class="left-info">{{ local("PKU-DAIR") }}</p>
 			</div>
 			<div v-show="screenWidth > 1024" class="link-block">
 				<a
@@ -25,7 +25,7 @@
 							if (item.href) $Go(item.href);
 						}
 					"
-					>{{ item.name }}</a
+					>{{ local(item.name) }}</a
 				>
 				<fv-button
 					v-if="!islogin && !$route.fullPath.startsWith('/login')"
@@ -37,7 +37,7 @@
 					:is-box-shadow="true"
 					style="width: 80px; height: 30px; margin-right: 15px"
 					@click="$Go('/login')"
-					>Login</fv-button
+					>{{ local("Login") }}</fv-button
 				>
 
 				<fv-callout
@@ -69,7 +69,7 @@
 												user-select: none;
 											"
 										>
-											User Profile
+											{{ local("User Profile") }}
 										</div>
 									</template>
 								</fv-animated-icon>
@@ -92,7 +92,7 @@
 												user-select: none;
 											"
 										>
-											Admin Center
+											{{ local("Admin Center") }}
 										</div>
 									</template>
 								</fv-animated-icon>
@@ -153,7 +153,7 @@
 													user-select: none;
 												"
 											>
-												User Profile
+											{{ local("User Profile") }}
 											</div>
 										</template>
 									</fv-animated-icon>
@@ -176,7 +176,7 @@
 													user-select: none;
 												"
 											>
-												Admin Center
+												{{ local("Admin Center") }}
 											</div>
 										</template>
 									</fv-animated-icon>
@@ -214,7 +214,7 @@
 								if (item.href) $Go(item.href);
 							}
 						"
-						>{{ item.name }}</a
+						>{{ local(item.name) }}</a
 					>
 					<fv-button
 						v-if="!islogin && !$route.fullPath.startsWith('/login')"
@@ -226,7 +226,7 @@
 						:is-box-shadow="true"
 						style="width: 180px; height: 30px; margin-top: 15px"
 						@click="$Go('/login')"
-						>Login</fv-button
+						>{{ local("Login") }}</fv-button
 					>
 					<fv-button
 						theme="dark"
@@ -235,7 +235,7 @@
 						border-color="rgba(242,242,242,0.8)"
 						style="width: 120px; margin-top: 25px"
 						@click="show.mobileNav ^= true"
-						>Close</fv-button
+						>{{ local("Close") }}</fv-button
 					>
 				</div>
 			</transition>

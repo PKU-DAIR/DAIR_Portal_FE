@@ -24,7 +24,7 @@
 			:is-box-shadow="true"
 			@click="$refs.uploader.click()"
 			style="width: 120px; height: 30px"
-			>选择图片</fv-button
+			>{{ local("Select Picture") }}</fv-button
 		>
 	</div>
 </template>

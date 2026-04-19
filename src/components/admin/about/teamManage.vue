@@ -1,7 +1,7 @@
 <template>
 	<fv-panel
 		v-model="thisValue"
-		:title="'团队管理'"
+		:title="local('Team Management')"
 		width="550px"
 		height="auto"
 		:theme="theme"
@@ -21,7 +21,7 @@
 				:class="[{ dark: theme === 'dark' }]"
 			>
 				<div class="c-row">
-					<p class="team-title">团队列表</p>
+					<p class="team-title">{{ local("Team List") }}</p>
 				</div>
 				<div class="c-row main-table">
 					<fv-Collapse
@@ -38,7 +38,7 @@
 							<fv-text-box
 								v-model="groupName"
 								underline
-								:placeholder="'输入分组名称 (尾部+$[数字]可排序)'"
+								:placeholder="local('Input group name (append +$[number] to sort)')"
 								:theme="theme"
 								:border-width="2"
 								:border-color="'transparent'"
@@ -62,7 +62,7 @@
 "
 								@click="updateTeamGroup(item, groupName)"
 							>
-								添加组别
+								{{ local("Add Group") }}
 							</fv-button>
 						</div>
 						<div v-if="item.groups">
@@ -91,7 +91,7 @@
 												true
 											)
 "
-										>删除</fv-button
+										>{{ local("Delete") }}</fv-button
 									>
 								</template>
 							</fv-Collapse>
@@ -114,7 +114,7 @@
 									}
 "
 								>{{
-									item.show ? "取消展示" : "展示"
+									item.show ? local("Cancel Display") : local("Display")
 								}}</fv-button
 							>
 							<fv-button
@@ -125,18 +125,18 @@
 								:is-box-shadow="true"
 								style="margin-left: 5px"
 								@click="removeTeam(item)"
-								>删除</fv-button
+								>{{ local("Delete") }}</fv-button
 							>
 						</template>
 					</fv-Collapse>
 				</div>
 				<div class="c-row">
-					<p class="team-title" style="margin-top: 15px">添加团队</p>
+					<p class="team-title" style="margin-top: 15px">{{ local("Add Team") }}</p>
 					<div class="r-row">
 						<fv-text-box
 							v-model="teamName"
 							underline
-							:placeholder="'输入团队名称'"
+							:placeholder="local('Input team name')"
 							:theme="theme"
 							:border-width="2"
 							:border-color="'transparent'"
@@ -156,7 +156,7 @@
 							style="width: 120px; height: 35px; margin-left: 5px"
 							@click="addTeam"
 						>
-							添加团队
+							{{ local("Add Team") }}
 						</fv-button>
 					</div>
 				</div>
@@ -167,7 +167,7 @@
 				:theme="theme"
 				style="width: 120px; margin-left: 5px"
 				@click="thisValue = false"
-				>关闭</fv-button
+				>{{ local("Close") }}</fv-button
 			>
 		</template>
 	</fv-panel>
@@ -245,7 +245,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("添加成功", {
+						this.$barWarning(this.local("Add Success"), {
 							status: "correct",
 						});
 						this.getTeams();
@@ -267,7 +267,7 @@ export default {
 		},
 		removeTeam(item) {
 			this.$infoBox(`你将移除${item.name}`, {
-				title: "确定删除",
+				title: this.local("Confirm Delete"),
 				status: "error",
 				confirm: () => {
 					if (!item.lock) return;
@@ -277,7 +277,7 @@ export default {
 						.then((data) => {
 							data = data.data;
 							if (data.status === "success") {
-								this.$barWarning("删除成功", {
+								this.$barWarning(this.local("Delete Success"), {
 									status: "correct",
 								});
 								this.getTeams();
@@ -345,7 +345,7 @@ export default {
 					.then((data) => {
 						data = data.data;
 						if (data.status === "success") {
-							this.$barWarning("添加成功", {
+							this.$barWarning(this.local("Add Success"), {
 								status: "correct",
 							});
 							this.getClientTeams();
@@ -372,7 +372,7 @@ export default {
 					.then((data) => {
 						data = data.data;
 						if (data.status === "success") {
-							this.$barWarning("删除成功", {
+							this.$barWarning(this.local("Delete Success"), {
 								status: "correct",
 							});
 							this.getClientTeams();
@@ -412,7 +412,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("更新成功", {
+						this.$barWarning(this.local("Update Success"), {
 							status: "correct",
 						});
 						this.groupName = "";

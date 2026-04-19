@@ -11,7 +11,7 @@
 		<template v-slot:container>
 			<div class="metadata-container">
 				<div class="metadata-item">
-					<p class="title">BibTex</p>
+					<p class="title">{{ local("BibTex") }}</p>
 					<textarea
 						v-model="metadata.bib"
 						class="text-area"
@@ -29,7 +29,7 @@
 					</fv-button>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Title</p>
+					<p class="title">{{ local("Title") }}</p>
 					<div class="row-block">
 						<fv-text-box
 							v-model="metadata.title"
@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Publisher</p>
+					<p class="title">{{ local("Publisher") }}</p>
 					<fv-text-box
 						v-model="metadata.publisher"
 						:theme="theme"
@@ -63,7 +63,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Year</p>
+					<p class="title">{{ local("Year") }}</p>
 					<fv-text-box
 						v-model="metadata.year"
 						:theme="theme"
@@ -71,7 +71,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">DOI</p>
+					<p class="title">{{ local("DOI") }}</p>
 					<fv-text-box
 						v-model="metadata.DOI"
 						:theme="theme"
@@ -79,7 +79,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">CreateDate</p>
+					<p class="title">{{ local("CreateDate") }}</p>
 					<fv-text-box
 						v-model="metadata.createDate"
 						:theme="theme"
@@ -87,7 +87,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Source</p>
+					<p class="title">{{ local("Source") }}</p>
 					<fv-text-box
 						v-model="metadata.source"
 						:theme="theme"
@@ -95,7 +95,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Url</p>
+					<p class="title">{{ local("Url") }}</p>
 					<fv-text-box
 						v-model="metadata.url"
 						:theme="theme"
@@ -103,7 +103,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Booktitle</p>
+					<p class="title">{{ local("Booktitle") }}</p>
 					<fv-text-box
 						v-model="metadata.booktitle"
 						:theme="theme"
@@ -111,7 +111,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Abstract</p>
+					<p class="title">{{ local("Abstract") }}</p>
 					<textarea
 						v-model="metadata.abstract"
 						class="text-area"
@@ -120,7 +120,7 @@
 					></textarea>
 				</div>
 				<div class="metadata-item">
-					<p class="title">ISSN</p>
+					<p class="title">{{ local("ISSN") }}</p>
 					<fv-text-box
 						v-model="metadata.ISSN"
 						:theme="theme"
@@ -128,7 +128,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Language</p>
+					<p class="title">{{ local("Language") }}</p>
 					<fv-text-box
 						v-model="metadata.language"
 						:theme="theme"
@@ -136,7 +136,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Chapter</p>
+					<p class="title">{{ local("Chapter") }}</p>
 					<fv-text-box
 						v-model="metadata.chapter"
 						:theme="theme"
@@ -144,7 +144,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Volume</p>
+					<p class="title">{{ local("Volume") }}</p>
 					<fv-text-box
 						v-model="metadata.volume"
 						:theme="theme"
@@ -152,7 +152,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Number</p>
+					<p class="title">{{ local("Number") }}</p>
 					<fv-text-box
 						v-model="metadata.number"
 						:theme="theme"
@@ -160,7 +160,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Pages</p>
+					<p class="title">{{ local("Pages") }}</p>
 					<fv-text-box
 						v-model="metadata.pages"
 						:theme="theme"
@@ -168,7 +168,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Note</p>
+					<p class="title">{{ local("Note") }}</p>
 					<fv-text-box
 						v-model="metadata.note"
 						:theme="theme"
@@ -176,7 +176,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">School</p>
+					<p class="title">{{ local("School") }}</p>
 					<fv-text-box
 						v-model="metadata.school"
 						:theme="theme"
@@ -184,7 +184,7 @@
 					></fv-text-box>
 				</div>
 				<div class="metadata-item">
-					<p class="title">Author</p>
+					<p class="title">{{ local("Author") }}</p>
 					<fv-text-box
 						v-model="metadata.author"
 						:theme="theme"
@@ -286,7 +286,7 @@ export default {
 	methods: {
 		CopyBibtex() {
 			if (!this.metadata.bib) {
-				this.$barWarning("No BibTex Infomation", {
+				this.$barWarning(this.local("No BibTex Infomation"), {
 					status: "warning",
 				});
 				return;
@@ -295,7 +295,7 @@ export default {
 				navigator.clipboard
 					.writeText(this.metadata.bib)
 					.then(() => {
-						this.$barWarning("Successfully Copied", {
+						this.$barWarning(this.local("Successfully Copied"), {
 							status: "correct",
 						});
 					})
@@ -312,7 +312,7 @@ export default {
 				input.select();
 				document.execCommand("copy");
 				document.body.removeChild(input);
-				this.$barWarning("Successfully Copied", {
+				this.$barWarning(this.local("Successfully Copied"), {
 					status: "correct",
 				});
 			}
@@ -353,7 +353,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("Success", {
+						this.$barWarning(this.local("Success"), {
 							status: "correct",
 						});
 						this.$emit("finish");

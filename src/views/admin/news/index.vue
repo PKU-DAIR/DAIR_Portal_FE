@@ -51,7 +51,7 @@
 				<power-editor
 					v-if="currentNews.id != null"
 					:model-value="currentContent"
-					:placeholder="'写点什么吧...'"
+					:placeholder="local('Write something...')"
 					:editable="currentNews.id != null"
 					:language="'cn'"
 					:theme="theme"
@@ -81,7 +81,7 @@
 							:theme="theme"
 							class="power-editor-cmd-btn"
 							:isBoxShadow="true"
-							title="发布"
+							:title="local('Publish')"
 							:disabled="!lock.save"
 							@click="show.newsType = true"
 						>
@@ -93,7 +93,7 @@
 							class="power-editor-cmd-btn"
 							background="rgba(0, 204, 153, 1)"
 							:isBoxShadow="true"
-							:title="lock.save ? '未保存的编辑' : '保存中'"
+							:title="lock.save ? local('Unsaved edits') : local('Saving')"
 						>
 							<fv-progress-ring
 								v-show="!lock.save"
@@ -120,7 +120,7 @@
 "
 				>
 					<p class="p-icon" style="font-size: 72px">&#xF408;</p>
-					<p>创建文章开始创作</p>
+					<p>{{ local("Create an article to start writing") }}</p>
 				</div>
 			</div>
 		</transition>
@@ -254,7 +254,7 @@ export default {
 			).then((data) => {
 				this.loadingList = false;
 				if (data.length == 0) {
-					this.$barWarning("已无更多数据", { status: "correct" });
+					this.$barWarning(this.local("No more data"), { status: "correct" });
 					return 0;
 				}
 				this.objs = this.objs.concat(data);
@@ -313,7 +313,7 @@ export default {
 			else content = json;
 			// content = await this.updateImgPerformance(content);
 			if (this.currentNews.id == null) {
-				this.$barWarning("当前没有绑定任何文章", { status: "warning" });
+				this.$barWarning(this.local("No article is currently bound"), { status: "warning" });
 				return 0;
 			}
 			await this.$axios
@@ -326,7 +326,7 @@ export default {
 				.then((data) => {
 					data = data.data;
 					if (data.status === "success") {
-						this.$barWarning("保存成功", {
+						this.$barWarning(this.local("Save Success"), {
 							status: "correct",
 						});
 						this.unsave = false;
@@ -400,11 +400,11 @@ export default {
 		switchNews($event) {
 			this.mobileNewsEdit = true;
 			if (this.unsave) {
-				this.$infoBox("确定放弃已编辑的内容吗?", {
+				this.$infoBox(this.local("Are you sure to discard the edited content?"), {
 					status: "warning",
 					title: "即将离开",
 					confirmTitle: "确定",
-					cancelTitle: "取消",
+					cancelTitle: this.local("Cancel"),
 					confirm: () => {
 						this.getCurrent($event.id);
 					},

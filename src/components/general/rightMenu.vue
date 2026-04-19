@@ -9,7 +9,7 @@
             <slot>
                 <div>
                     <span>
-                        <p>Selected</p>
+                        <p>{{ local("Selected") }}</p>
                     </span>
                 </div>
             </slot>
