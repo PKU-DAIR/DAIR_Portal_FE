@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 import Login from "./Login";
 import Admin from "./Admin";
@@ -7,13 +7,17 @@ import Pub from "./Pub";
 import News from "./News";
 import Projs from "./Projs";
 
-import home from "@/views/client/home/index.vue";
+import tool from "@/router/tools.js";
+
+const AsyncLoad = tool.AsyncLoad;
+
+
 
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: home,
+        component: AsyncLoad(() => import("@/views/client/home/index.vue")),
         meta: {
             title: "PKU-DAIR",
         },
@@ -27,7 +31,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     routes,
 });
 
