@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/gzip-dist.mjs",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.cjs,.mjs --fix --ignore-path .gitignore",
     "api": "api-cli get http://100.64.0.18:8000/openapi.json -d ./src/api"
