@@ -1,209 +1,401 @@
-# **PKU-DAIR Frontend**
+# PKU-DAIR Frontend
 
-<p align="center">
-    <img src="./docs/assets/logo.png" alt="Logo" />
-    <p align="center">
-        <a href="https://github.com/PKU-DAIR">
-            <img alt="Static Badge" src="https://img.shields.io/badge/%C2%A9-PKU--DAIR-%230e529d?labelColor=%23003985">
-        </a>
-        <a href="https://github.com/PKU-DAIR/DAIR_Portal_FE">
-            <img alt="Static Badge" src="https://img.shields.io/badge/DAIR_Portal_FE-black?logo=github">
-        </a>
-        <a href="https://github.com/PKU-DAIR/DAIR_Portal_FE">
-            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/PKU-DAIR/DAIR_Portal_FE?logo=github&style=flat">
-        </a>
-    </p>
-</p>
+<div align="center">
+    <img src="./docs/assets/logo.png" alt="PKU-DAIR Logo" />
+    <br />
+    <a href="https://github.com/PKU-DAIR">
+        <img alt="Static Badge" src="https://img.shields.io/badge/%C2%A9-PKU--DAIR-%230e529d?labelColor=%23003985">
+    </a>
+    <a href="https://github.com/PKU-DAIR/DAIR_Portal_FE">
+        <img alt="Static Badge" src="https://img.shields.io/badge/DAIR_Portal_FE-black?logo=github">
+    </a>
+    <a href="https://github.com/PKU-DAIR/DAIR_Portal_FE">
+        <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/PKU-DAIR/DAIR_Portal_FE?logo=github&style=flat">
+    </a>
+</div>
 
-## 🌐 Project Overview
+## Project Overview
 
-This project is the **frontend of the PKU-DAIR Team Portal Website** (accessible at [pkudair.site](https://pkudair.site)).
+PKU-DAIR Frontend is the frontend project for the PKU-DAIR Team Portal Website, built with **Vue 3** and **Vite**.
 
-The website serves as an integrated portal platform for academic teams, designed to support **presentation, communication, and management**. Its main purposes include:
+The portal provides presentation, communication, and management tools for academic teams. It supports team profile display, research project and publication management, news publishing, member profile maintenance, and visual content editing.
 
-* Displaying the team’s research directions, scientific achievements, and latest updates;
-* Managing and showcasing team members’ profiles and academic resumes;
-* Maintaining and updating research projects, publications, and news;
-* Providing visualized editing and management tools to enhance usability and scalability.
+## Tech Stack
 
-The project is developed using the **Vue** framework and follows the **Microsoft Fluent Design System**, offering a modern interface and high usability.
+| Category | Technology |
+| --- | --- |
+| Frontend Framework | Vue 3 |
+| Build Tool | Vite 5 |
+| Router | Vue Router 4 |
+| State Management | Pinia |
+| UI Components | [@creatorsn/vfluent3](https://www.npmjs.com/package/@creatorsn/vfluent3) |
+| Visual Editor | [@creatorsn/powereditor3](https://www.npmjs.com/package/@creatorsn/powereditor3) |
+| HTTP Client | Axios |
+| API Generator | axios-swagger-helper |
+| Styles | Sass / SCSS |
+| Package Manager | Yarn |
+| Deployment | Docker + Nginx |
 
----
+## Recommended IDE Setup
 
-## 🧱 Tech Stack
+[VSCode](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
 
-| Category        | Technology / Framework                                                   |
-| --------------- | ------------------------------------------------------------------------ |
-| Frontend        | Vue 2 + Vue Router + Vuex                                                |
-| UI Design       | Microsoft Fluent Design + [VFluent](https://github.com/aleversn/VFluent) |
-| Language        | TypeScript + JavaScript                                                  |
-| Build Tool      | Webpack + Babel                                                          |
-| Package Manager | Yarn                                                                     |
-| Deployment      | Docker + Nginx                                                           |
-| Visualization   | WYSIWYG Editor + Custom Component System                                 |
+If Vetur is installed, disable it for this Vue 3 project.
 
----
+## Project Setup
 
-## 📁 Project Structure
+### 1. Install NVM
 
-```
-PKU-DAIR-Frontend/
-├── docs/                  # Project documentation and resources
-│   └── assets/            # Images and static resources
-│
-├── nginx/                 # Nginx configuration for Docker deployment
-│   └── nginx.conf         # Server routing and static resource setup
-│
-├── public/                # Static entry files for the Vue app
-│
-├── src/                   # Source code directory
-│   ├── components/        # Common components
-│   ├── views/             # Page components
-│   ├── router/            # Routing configuration
-│   ├── store/             # State management
-│   └── assets/            # Local static assets (icons, styles, etc.)
-│
-├── babel.config.js        # Babel configuration
-├── docker-compose.yml     # Docker Compose configuration (port mapping, etc.)
-├── Dockerfile             # Docker build file
-├── global.d.ts            # Global TypeScript type definitions
-├── vue.config.js          # Vue CLI configuration
-└── package.json           # Project dependencies and package settings
+```shell
+# GitHub
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# Gitee mirror, usually faster in China
+curl -so- https://gitee.com/mirrors/nvm/raw/v0.39.7/install.sh | bash
 ```
 
----
+### 2. Activate NVM
 
-## ✨ Key Features
+```shell
+# bash
+source ~/.bashrc
 
-##### 📝 WYSIWYG Visual Editor
+# zsh
+source ~/.zshrc
+```
 
-<p align="left" width="50">
-    <img src="./docs/assets/power_editor.png" alt="Logo" width="75%" />
-</p>
+### 3. Install Node.js 20
 
-##### 👥 Team Member & Organization Management
+```shell
+nvm install 20
+nvm use 20
+nvm alias default 20
+```
 
-<p align="left" width="50">
-    <img src="./docs/assets/team.png" alt="Logo" width="300" />
-</p>
+Check the installed versions:
 
-##### 🧑‍💼 Personal CV Management and Updates
+```shell
+node -v
+npm -v
+```
 
-<p align="left" width="50">
-    <img src="./docs/assets/cv.png" alt="Logo" width="300" />
-</p>
+`node -v` should return `v20.x.x`.
 
-##### 📰 News & Project Management
+### 4. Install Yarn
 
-<p align="left" width="50">
-    <img src="./docs/assets/news.png" alt="Logo" width="75%" />
-</p>
+```shell
+corepack enable
+corepack prepare yarn@stable --activate
+yarn -v
+```
 
-<p align="left" width="50">
-    <img src="./docs/assets/news_manage.png" alt="Logo" width="75%" />
-</p>
+### 5. Install Dependencies
 
-##### 📚 Publication Management with BibTeX Import Support
-
-<p align="left" width="50">
-    <img src="./docs/assets/bib.png" alt="Logo" width="300" />
-</p>
-
----
-
-## ⚙️ Development Setup
-
-### Install Dependencies
-
-```bash
+```shell
 yarn
 ```
 
-### Start Development Server (with hot reload)
+### 6. Configure Backend URL
 
-```bash
-yarn serve
+The frontend reads the backend base URL from `VITE_BACKEND_URL`.
+
+Development environment:
+
+```shell
+# .env.development
+VITE_BACKEND_URL=http://100.64.0.18:8000/
 ```
 
-### Build for Production
+Production environment:
 
-```bash
+```shell
+# .env.production
+VITE_BACKEND_URL=/api
+```
+
+The Axios instance is configured in `src/api/config.js`, and generated backend API methods are placed under `src/api`.
+
+### 7. Start Development Server
+
+```shell
+yarn dev
+```
+
+Vite will start a local development server with hot module replacement.
+
+## Available Scripts
+
+```shell
+# Start local development server
+yarn dev
+
+# Build production assets and generate gzip files
+yarn build
+
+# Preview production build locally
+yarn preview
+
+# Lint and auto-fix source files
+yarn lint
+
+# Regenerate API client from backend OpenAPI schema
+yarn api
+```
+
+## Build for Production
+
+```shell
 yarn build
 ```
 
-### Lint and Auto-fix Code
+The build output is generated in `dist/`. The current build script runs Vite first and then executes `scripts/gzip-dist.mjs` to generate compressed static assets.
 
-```bash
-yarn lint
+## API Workflow
+
+### Regenerate API Client
+
+The `api` script in `package.json` fetches the backend OpenAPI schema and generates API files into `src/api`:
+
+```json
+{
+  "scripts": {
+    "api": "api-cli get http://100.64.0.18:8000/openapi.json -d ./src/api"
+  }
+}
 ```
 
----
+Run:
 
-## 🚀 Deployment Guide
+```shell
+yarn api
+```
 
-### ✅ Recommended: Docker Deployment
+### Configure Axios
 
-1. **Build the project**
+`src/api/config.js` creates the shared Axios instance:
 
-   ```bash
-   yarn build
-   ```
+```javascript
+import axios from "axios";
 
-2. **Modify deployment port (edit `docker-compose.yml`)**
+const ax = axios.create();
 
-   ```yaml
-   version: '3'
-   services:
-     web:
-       build: .
-       ports:
-         - "60081:80"
-       restart: always
-   ```
+export const apiBaseURL = import.meta.env.VITE_BACKEND_URL;
+ax.defaults.baseURL = apiBaseURL;
 
-3. **Start the container**
+export default ax;
+```
 
-   ```bash
-   docker compose up -d --build
-   ```
+The request interceptor also reads `ApiToken` and `ApiTokenExpiredAt` from `localStorage`, then sends the token through the `Api-key` header when it is valid.
 
----
+### Use API in Components
 
-### 💡 Alternative: Manual Deployment
+Options API:
 
-1. **Build the project**
+```javascript
+export default {
+    mounted() {
+        this.$api.some_module.some_method().then((res) => {
+            console.log(res);
+        });
+    },
+};
+```
 
-   ```bash
-   yarn build
-   ```
+Composition API:
 
-2. **Copy the `dist/` directory to your server’s deployment path**
+```javascript
+import { getCurrentInstance } from "vue";
 
-3. **Configure Nginx based on `nginx/nginx.conf` and start the service**
+const { proxy } = getCurrentInstance();
 
----
+proxy.$api.some_module.some_method().then((res) => {
+    console.log(res);
+});
+```
 
-## 🗺️ Development Roadmap
+You can also import the generated API object directly:
 
-| Status             | Planned Feature                         | Description                                                       |
-| ------------------ | --------------------------------------- | ----------------------------------------------------------------- |
-| 🟢 **In Progress** | Upgrade frontend framework to **Vue 3** | Improve performance, maintainability, and ecosystem compatibility |
-| 🟢 **In Progress** | UI/UX Design Optimization               | Enhance visual consistency and responsive layout                  |
-| 🟡 **Planned**     | Multi-language (i18n) Support           | Enable automatic Chinese-English switching and localization       |
-| ⚪ **Future**       | Automated Paper Retrieval               | Integrate backend auto-fetching for dynamic content               |
+```javascript
+import { api } from "@/api";
 
----
+api.some_module.some_method().then((res) => {
+    console.log(res);
+});
+```
 
-## 🧩 Dependencies
+## Global Methods
 
-This project is built upon [**VFluent**](https://github.com/aleversn/VFluent).
+Global properties are registered in `src/main.js`:
 
-<p align="left" width="50">
-    <img src="https://raw.githubusercontent.com/aleversn/VFluent/refs/heads/master/examples/assert/logo/VFluent.svg" alt="Logo" width="55" />
+| Method | Description |
+| --- | --- |
+| `$api` | Generated backend API methods |
+| `$axios` | Shared Axios instance |
+| `$server` | Backend server URL without trailing slash |
+| `$Go(path)` | Navigate with Vue Router |
+| `$Back()` | Navigate back |
+| `$Jump(url)` | Open a URL in a new browser window |
+| `local(text)` | Localized text helper from the app store |
+
+## Project Structure
+
+```text
+DAIR_Portal_FE/
++-- docs/                    # Documentation assets
++-- nginx/                   # Nginx configuration for deployment
++-- public/                  # Static public assets
++-- scripts/                 # Build helper scripts
++-- src/
+|   +-- api/                 # Axios config and generated backend API client
+|   |   +-- api.js
+|   |   +-- config.js
+|   |   +-- index.js
+|   |   +-- model.js
+|   +-- assets/              # Local static assets
+|   +-- components/          # Reusable Vue components
+|   +-- fonts/               # Font assets
+|   +-- js/                  # Shared JavaScript utilities
+|   +-- router/              # Vue Router configuration and route modules
+|   +-- stores/              # Pinia stores
+|   +-- style/               # Global styles and SCSS variables
+|   +-- views/               # Page-level Vue components
+|   +-- App.vue              # Root Vue component
+|   +-- main.js              # Vue application entry
++-- .env.development         # Development environment variables
++-- .env.production          # Production environment variables
++-- Dockerfile               # Nginx deployment image
++-- docker-compose.yml       # Docker Compose deployment config
++-- index.html               # Vite HTML entry
++-- package.json             # Scripts and dependencies
++-- vite.config.js           # Vite configuration
++-- yarn.lock                # Dependency lock file
+```
+
+## Vite Configuration
+
+`vite.config.js` configures Vue, path aliases, relative production assets, and global SCSS injection:
+
+```javascript
+import { fileURLToPath, URL } from "node:url";
+
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+export default defineConfig({
+    base: "./",
+    plugins: [vue()],
+    resolve: {
+        alias: {
+            "@": fileURLToPath(new URL("./src", import.meta.url)),
+        },
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@use "@/style/global.scss" as *;`,
+            },
+        },
+    },
+});
+```
+
+If the development environment needs a Vite reverse proxy instead of directly using `VITE_BACKEND_URL`, add a `server.proxy` section:
+
+```javascript
+export default defineConfig({
+    server: {
+        host: "0.0.0.0",
+        proxy: {
+            "/api": {
+                target: "http://100.64.0.18:8000/",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ""),
+            },
+        },
+    },
+});
+```
+
+## Deployment
+
+### Docker Deployment
+
+Build the frontend first:
+
+```shell
+yarn build
+```
+
+Then start the Nginx container:
+
+```shell
+docker compose up -d --build
+```
+
+The default `docker-compose.yml` maps container port `80` to host port `60081`:
+
+```yaml
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "60081:80"
+    restart: always
+```
+
+### Manual Deployment
+
+```shell
+yarn build
+```
+
+Deploy the generated `dist/` directory to an Nginx static site. The repository provides a reference Nginx config at `nginx/nginx.conf`.
+
+## Key Features
+
+### WYSIWYG Visual Editor
+
+<p align="left">
+    <img src="./docs/assets/power_editor.png" alt="Power Editor" width="75%" />
 </p>
 
----
+### Team Member and Organization Management
 
-## 📄 LICENSE
+<p align="left">
+    <img src="./docs/assets/team.png" alt="Team Management" width="300" />
+</p>
 
-This project is licensed under the [**Apache License 2.0**](./LICENSE).
+### Personal CV Management
+
+<p align="left">
+    <img src="./docs/assets/cv.png" alt="CV Management" width="300" />
+</p>
+
+### News and Project Management
+
+<p align="left">
+    <img src="./docs/assets/news.png" alt="News" width="75%" />
+</p>
+
+<p align="left">
+    <img src="./docs/assets/news_manage.png" alt="News Management" width="75%" />
+</p>
+
+### Publication Management with BibTeX Import
+
+<p align="left">
+    <img src="./docs/assets/bib.png" alt="BibTeX Import" width="300" />
+</p>
+
+## Dependencies
+
+This project uses [@creatorsn/vfluent3](https://www.npmjs.com/package/@creatorsn/vfluent3) and [@creatorsn/powereditor3](https://www.npmjs.com/package/@creatorsn/powereditor3).
+
+<p align="left">
+    <img src="https://raw.githubusercontent.com/aleversn/VFluent/refs/heads/master/examples/assert/logo/VFluent.svg" alt="VFluent Logo" width="55" />
+</p>
+
+## License
+
+This project is licensed under the [Apache License 2.0](./LICENSE).
