@@ -1,8 +1,12 @@
 <template>
 	<div class="home-container">
 		<banner-block></banner-block>
-		<fv-img class="main-bg" :src="img.mainBG" alt="" :style="{ height: `${screenWidth / 1.98}px` }"></fv-img>
-		<div class="d-block-1" style="margin-bottom: 150px;" :style="{ height: `${screenWidth / 2.18}px` }">
+		<effect-block class="effect-block"></effect-block>
+		<div
+			class="d-block-1"
+            style="flex: 1; flex-shrink: 0;"
+			:style="{ height: `100vh` }"
+		>
 			<div class="left-block">
 				<div class="intro-title-block">
 					<p class="intro-title">DAIR Lab</p>
@@ -20,6 +24,36 @@
 				</p>
 			</div>
 		</div>
+		<div class="research-intro-block">
+			<fv-img
+				class="main-bg"
+				:src="img.mainBG"
+				alt=""
+				:style="{ height: `${screenWidth / 1.98}px` }"
+			></fv-img>
+			<div class="d-block-1">
+				<div
+					v-for="(item, index) in unitBlockList"
+					:key="index"
+					class="unit-block"
+				>
+					<p class="unit-title">{{ item.title }}</p>
+					<p class="unit-content">
+						{{ item.content }}
+					</p>
+					<p
+						class="unit-link"
+						@click="
+							() => {
+								item.url ? $Jump(item.url) : '';
+							}
+						"
+					>
+						Read More
+					</p>
+				</div>
+			</div>
+		</div>
 		<news-wrap
 			title="Recent News"
 			background="rgba(16, 11, 16, 1)"
@@ -30,9 +64,6 @@
 			:hideWhenEmpty="false"
 			@show-all-click="$Go('/news')"
 		></news-wrap>
-        <arrow-block
-			style="width: 90%; max-width: 1368px; margin: 175px 0px;"
-		></arrow-block>
 		<news-wrap
 			title="Current Projects"
 			:showButtomBlock="false"
@@ -42,28 +73,6 @@
 			@show-all-click="$Go('/projs')"
 			:hideWhenEmpty="false"
 		></news-wrap>
-		<div class="d-block-1">
-			<div
-				v-for="(item, index) in unitBlockList"
-				:key="index"
-				class="unit-block"
-			>
-				<p class="unit-title">{{ item.title }}</p>
-				<p class="unit-content">
-					{{ item.content }}
-				</p>
-				<p
-					class="unit-link"
-					@click="
-						() => {
-							item.url ? $Jump(item.url) : '';
-						}
-"
-				>
-					Read More
-				</p>
-			</div>
-		</div>
 		<div class="d-block-2" :style="{ height: `${screenWidth / 2.58}px` }">
 			<img class="team-banner" :src="img.banner" alt="" />
 			<div class="mask-container">
@@ -99,6 +108,7 @@ import gsap from "gsap";
 import bannerBlock from "@/components/general/bannerBlock.vue";
 import newsWrap from "@/views/client/news/list.vue";
 import bottomBlock from "./bottomBlock.vue";
+import effectBlock from "@/components/home/effectBlock/effectBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState, mapActions } from "pinia";
 import { useApp } from "@/stores/useApp";
@@ -112,6 +122,7 @@ export default {
 	components: {
 		bannerBlock,
 		newsWrap,
+		effectBlock,
 		bottomBlock,
 		arrowBlock,
 	},
@@ -176,14 +187,28 @@ export default {
 	overflow: auto;
 	overflow-x: hidden;
 
-	.main-bg {
+	.effect-block {
 		position: absolute;
 		width: 100%;
-		min-height: 600px;
-		object-fit: cover;
-		object-position: 50% 50%;
-        opacity: 0.2;
-        filter: saturate(0.6);
+	}
+
+	.research-intro-block {
+		@include HcenterVcenter;
+
+		position: relative;
+		width: 100%;
+		height: max(600px, 70vh);
+		flex-shrink: 0;
+
+		.main-bg {
+			position: absolute;
+			width: 100%;
+			min-height: 600px;
+			object-fit: cover;
+			object-position: 50% 50%;
+			opacity: 0.2;
+			filter: saturate(0.6);
+		}
 	}
 
 	.d-block-1 {
@@ -206,7 +231,7 @@ export default {
 			width: 40%;
 			max-width: 400px;
 			height: 100%;
-            line-height: 2;
+			line-height: 2;
 
 			.intro-title-block {
 				@include HcenterVcenterC;
@@ -221,7 +246,7 @@ export default {
 
 				.intro-sub-title {
 					font-size: 18px;
-                    font-weight: 600;
+					font-weight: 600;
 				}
 			}
 		}
@@ -269,9 +294,9 @@ export default {
 
 			.unit-link {
 				font-size: 13px;
-				font-family: "Lucida Sans", "Lucida Sans Regular",
-					"Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
-					sans-serif;
+				font-family:
+					"Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+					"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 				color: rgba(200, 194, 201, 1);
 				border-bottom: rgba(200, 194, 201, 1) solid 2px;
 				text-align: left;
@@ -388,8 +413,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
-

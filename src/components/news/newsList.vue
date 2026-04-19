@@ -38,7 +38,7 @@
 								padding: 0px 5px;
 								display: flex;
 								align-items: center;
-"
+							"
 						>
 							<i class="ms-Icon ms-Icon--Contact"></i>
 							<p style="margin-left: 5px">
@@ -49,43 +49,47 @@
 				</div>
 			</div>
 		</div>
-		<div
-			v-show="objs.length == 0"
-			v-for="i in 6"
-			:key="`shimmer: ${i}`"
-			class="dair-news-item"
-			style="overflow: hidden"
-		>
-			<fv-Shimmer :theme="theme" style="width: 100%; height: 100%">
-				<div class="sample" style="width: 100%; height: 200px"></div>
-				<div
-					class="sample"
-					style="width: 100%; height: 30px; margin-top: 5px"
-				></div>
-				<div style="width: 100%; margin-top: 5px; display: flex">
+		<template v-if="objs.length == 0">
+			<div
+				v-for="i in 6"
+				:key="`shimmer: ${i}`"
+				class="dair-news-item"
+				style="overflow: hidden"
+			>
+				<fv-Shimmer :theme="theme" style="width: 100%; height: 100%">
 					<div
 						class="sample"
-						style="width: 50px; height: 25px; margin-left: 5px"
+						style="width: 100%; height: 200px"
 					></div>
 					<div
 						class="sample"
-						style="width: 50px; height: 25px; margin-left: 5px"
+						style="width: 100%; height: 30px; margin-top: 5px"
 					></div>
-					<div
-						class="sample"
-						style="width: 50px; height: 25px; margin-left: 5px"
-					></div>
-					<div
-						class="sample"
-						style="width: 50px; height: 25px; margin-left: 5px"
-					></div>
-					<div
-						class="sample"
-						style="width: 50px; height: 25px; margin-left: 5px"
-					></div>
-				</div>
-			</fv-Shimmer>
-		</div>
+					<div style="width: 100%; margin-top: 5px; display: flex">
+						<div
+							class="sample"
+							style="width: 50px; height: 25px; margin-left: 5px"
+						></div>
+						<div
+							class="sample"
+							style="width: 50px; height: 25px; margin-left: 5px"
+						></div>
+						<div
+							class="sample"
+							style="width: 50px; height: 25px; margin-left: 5px"
+						></div>
+						<div
+							class="sample"
+							style="width: 50px; height: 25px; margin-left: 5px"
+						></div>
+						<div
+							class="sample"
+							style="width: 50px; height: 25px; margin-left: 5px"
+						></div>
+					</div>
+				</fv-Shimmer>
+			</div>
+		</template>
 	</div>
 </template>
 
@@ -289,7 +293,3 @@ export default {
 	}
 }
 </style>
-
-
-
-

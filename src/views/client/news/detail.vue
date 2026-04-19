@@ -1,7 +1,7 @@
 <template>
 	<div class="dair-cv-container" :class="[{ dark: theme === 'dark' }]">
 		<div class="dair-banner">
-			<news-banner :id="news.id"></news-banner>
+			<news-banner :id="news.id" style="width: 100%;"></news-banner>
 		</div>
 		<div class="wise-cv-block" style="z-index: 1">
 			<power-editor

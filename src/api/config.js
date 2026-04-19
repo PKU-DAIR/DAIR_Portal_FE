@@ -5,7 +5,7 @@ const isdev = import.meta.env.DEV;
 const ax = axios.create();
 
 if (isdev) {
-    ax.defaults.baseURL = "http://100.64.0.18:8000";
+    ax.defaults.baseURL = "http://pkudair.site/api";
 } else {
     ax.defaults.baseURL = "/api";
 }
