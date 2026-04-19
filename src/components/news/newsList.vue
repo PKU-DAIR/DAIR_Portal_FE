@@ -109,9 +109,6 @@ export default {
 				return [];
 			},
 		},
-		showFavorCancel: {
-			default: false,
-		},
 		theme: {
 			default: "light",
 		},

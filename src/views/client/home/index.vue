@@ -2,11 +2,7 @@
 	<div class="home-container">
 		<banner-block></banner-block>
 		<effect-block class="effect-block"></effect-block>
-		<div
-			class="d-block-1"
-            style="flex: 1; flex-shrink: 0;"
-			:style="{ height: `100vh` }"
-		>
+		<div class="d-block-1" style="height: 100vh; padding-top: 0px">
 			<div class="left-block">
 				<div class="intro-title-block">
 					<p class="intro-title">DAIR Lab</p>
@@ -37,42 +33,48 @@
 					:key="index"
 					class="unit-block"
 				>
-					<p class="unit-title">{{ item.title }}</p>
-					<p class="unit-content">
-						{{ item.content }}
-					</p>
-					<p
-						class="unit-link"
-						@click="
-							() => {
-								item.url ? $Jump(item.url) : '';
-							}
-						"
-					>
-						Read More
-					</p>
+					<fv-ScrollStory name="scale-up-to-up">
+						<p class="unit-title">{{ item.title }}</p>
+						<p class="unit-content">
+							{{ item.content }}
+						</p>
+						<p
+							class="unit-link"
+							@click="
+								() => {
+									item.url ? $Jump(item.url) : '';
+								}
+							"
+						>
+							Read More
+						</p>
+					</fv-ScrollStory>
 				</div>
 			</div>
 		</div>
-		<news-wrap
-			title="Recent News"
-			background="rgba(16, 11, 16, 1)"
-			:showButtomBlock="false"
-			:showViewAll="true"
-			viewAllBackground="rgba(149, 141, 241, 1)"
-			url="/news/client/top_news"
-			:hideWhenEmpty="false"
-			@show-all-click="$Go('/news')"
-		></news-wrap>
-		<news-wrap
-			title="Current Projects"
-			:showButtomBlock="false"
-			:showViewAll="true"
-			viewAllBackground="rgba(45, 80, 125, 1)"
-			url="/news/client/top_projs"
-			@show-all-click="$Go('/projs')"
-			:hideWhenEmpty="false"
-		></news-wrap>
+		<fv-ScrollStory name="scale-up-to-up" style="width: 100%">
+			<news-wrap
+				title="Recent News"
+				background="rgba(16, 11, 16, 1)"
+				:showButtomBlock="false"
+				:showViewAll="true"
+				viewAllBackground="rgba(149, 141, 241, 1)"
+				url="/news/client/top_news"
+				:hideWhenEmpty="false"
+				@show-all-click="$Go('/news')"
+			></news-wrap>
+		</fv-ScrollStory>
+		<fv-ScrollStory name="scale-up-to-up" style="width: 100%">
+			<news-wrap
+				title="Current Projects"
+				:showButtomBlock="false"
+				:showViewAll="true"
+				viewAllBackground="rgba(45, 80, 125, 1)"
+				url="/news/client/top_projs"
+				@show-all-click="$Go('/projs')"
+				:hideWhenEmpty="false"
+			></news-wrap>
+		</fv-ScrollStory>
 		<div class="d-block-2" :style="{ height: `${screenWidth / 2.58}px` }">
 			<img class="team-banner" :src="img.banner" alt="" />
 			<div class="mask-container">
@@ -112,8 +114,6 @@ import effectBlock from "@/components/home/effectBlock/effectBlock.vue";
 import arrowBlock from "@/components/home/arrowBlock.vue";
 import { mapState, mapActions } from "pinia";
 import { useApp } from "@/stores/useApp";
-import { useTheme } from "@/stores/useTheme";
-import { useUser } from "@/stores/useUser";
 
 import mainBG from "@/assets/pku/pku.jpg";
 import banner from "@/assets/team/banner/team.jpg";
@@ -199,11 +199,12 @@ export default {
 		width: 100%;
 		height: max(600px, 70vh);
 		flex-shrink: 0;
+		overflow: hidden;
 
 		.main-bg {
 			position: absolute;
 			width: 100%;
-			min-height: 600px;
+			height: 100%;
 			object-fit: cover;
 			object-position: 50% 50%;
 			opacity: 0.2;
@@ -232,6 +233,8 @@ export default {
 			max-width: 400px;
 			height: 100%;
 			line-height: 2;
+			cursor: default;
+			user-select: none;
 
 			.intro-title-block {
 				@include HcenterVcenterC;
@@ -261,11 +264,23 @@ export default {
 
 			.intro-content {
 				max-width: 500px;
+				font-family:
+					Inter,
+					ui-sans-serif,
+					system-ui,
+					-apple-system,
+					BlinkMacSystemFont,
+					"Segoe UI",
+					"Helvetica Neue",
+					Arial,
+					sans-serif;
 				font-weight: 400;
 				font-size: 24px;
 				line-height: 2;
 				color: rgba(200, 194, 201, 1);
 				text-align: left;
+				cursor: default;
+				user-select: none;
 			}
 		}
 
@@ -293,6 +308,7 @@ export default {
 			}
 
 			.unit-link {
+				width: 70px;
 				font-size: 13px;
 				font-family:
 					"Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
