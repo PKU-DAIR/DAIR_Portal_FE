@@ -5,8 +5,29 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import renderImg from "@/assets/logo/pku_dair.svg";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
+const THREE_CDN_URL =
+	"https://esm.sh/three@0.160.0";
+const GLTF_LOADER_CDN_URL =
+	"https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js";
+
+let THREE = null;
+let GLTFLoader = null;
+let threeLoadPromise = null;
+
+function loadThree() {
+	if (!threeLoadPromise) {
+		threeLoadPromise = Promise.all([
+			import(/* @vite-ignore */ THREE_CDN_URL),
+			import(/* @vite-ignore */ GLTF_LOADER_CDN_URL),
+		]).then(([threeModule, gltfLoaderModule]) => {
+			THREE = threeModule;
+			GLTFLoader = gltfLoaderModule.GLTFLoader;
+		});
+	}
+
+	return threeLoadPromise;
+}
 
 const props = defineProps({
 	effect: {
@@ -199,8 +220,9 @@ function processImage(imageUrl) {
 	};
 }
 
-function processModel(modelUrl) {
+async function processModel(modelUrl) {
 	if (!modelUrl || !sceneData) return;
+	await loadThree();
 
 	const loader = new GLTFLoader();
 	loader.load(modelUrl, (gltf) => {
@@ -508,9 +530,11 @@ function animate() {
 	renderer.render(scene, camera);
 }
 
-function initParticleCanvas() {
+async function initParticleCanvas() {
 	const container = containerRef.value;
 	if (!container) return;
+	await loadThree();
+	if (!containerRef.value) return;
 
 	const { width, height } = getViewportSize();
 	const scene = new THREE.Scene();
