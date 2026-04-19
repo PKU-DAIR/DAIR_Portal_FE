@@ -26,7 +26,7 @@
 					:avatarDict="avatarDict"
 					:groupFilter="groupFilter"
 					:size="size"
-					:delayLoadAvatar="1500"
+					:delayLoadAvatar="300"
 					:theme="theme"
 					class="group-detail-every"
 					v-for="(item, index) in thisMembers(group)"
@@ -192,8 +192,8 @@ export default {
 
 		.group-name {
 			position: relative;
-			min-width: 130px;
-			width: 200px;
+			min-width: 200px;
+			width: auto;
 			height: 40px;
 			margin: 35px 0px 50px 0px;
 			flex-shrink: 0;
@@ -228,6 +228,11 @@ export default {
 				font-size: 36px;
 			}
 		}
+	}
+
+	.group-detail {
+		padding: 0px 15px;
+		gap: 25px;
 	}
 
 	.group-detail-every {

@@ -226,7 +226,7 @@ export default {
 			height: 3px;
 			margin-top: 15px;
 			border-radius: 3px;
-			background: rgba(0, 90, 158, 1);
+			background: rgba(247, 191, 20, 1);
 		}
 	}
 
@@ -339,6 +339,14 @@ export default {
 
 @media screen and (max-width: 985px) {
 	.pub-wrap {
+		.title-block {
+            padding-top: 85px;
+            
+			.big-title {
+				font-size: 28px;
+			}
+		}
+
 		.pub-contain-list {
 			.year-title {
 				text-align: center;
@@ -361,7 +369,3 @@ export default {
 	}
 }
 </style>
-
-
-
-

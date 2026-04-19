@@ -2,7 +2,7 @@
 	<div class="home-container">
 		<banner-block></banner-block>
 		<effect-block class="effect-block"></effect-block>
-		<div class="d-block-1" style="height: 100vh; padding-top: 0px">
+		<div class="d-block-1" style="height: 100vh;">
 			<div class="left-block">
 				<div class="intro-title-block">
 					<p class="intro-title">{{ local("DAIR Lab") }}</p>
@@ -22,13 +22,8 @@
 			</div>
 		</div>
 		<div class="research-intro-block">
-			<fv-img
-				class="main-bg"
-				:src="img.mainBG"
-				alt=""
-				:style="{ height: `${screenWidth / 1.98}px` }"
-			></fv-img>
-			<div class="d-block-1">
+			<fv-img class="main-bg" :src="img.mainBG" alt=""></fv-img>
+			<div class="d-block-1" style="display: flex; align-items: center;">
 				<div
 					v-for="(item, index) in unitBlockList"
 					:key="index"
@@ -83,13 +78,12 @@
 					theme="dark"
 					background="linear-gradient(90deg, rgba(105, 113, 213, 1) 0%, rgba(99, 110, 224, 1) 100%)"
 					:border-radius="20"
-					:font-size="screenWidth / 80"
+					:font-size="screenWidth / 30 > 20 ? 20 : screenWidth / 30"
 					:font-weight="'bold'"
 					:is-box-shadow="true"
-					style="min-width: 200px; height: 85px"
+					style="min-width: 200px; height: min(30%, 65px)"
 					:style="{
 						width: `${screenWidth / 10}px`,
-						height: `${screenWidth / 2.58 / 10}px`,
 					}"
 					@click="$Go('/team')"
 					>{{ local("About us") }}</fv-button
@@ -201,7 +195,8 @@ export default {
 
 		position: relative;
 		width: 100%;
-		height: max(600px, 70vh);
+		min-height: min(900px, 100vh);
+		height: auto;
 		flex-shrink: 0;
 		overflow: hidden;
 
@@ -223,7 +218,6 @@ export default {
 		min-height: 600px;
 		height: auto;
 		flex-shrink: 0;
-		padding-top: 200px;
 		color: rgba(234, 233, 238, 1);
 		display: flex;
 		justify-content: space-between;

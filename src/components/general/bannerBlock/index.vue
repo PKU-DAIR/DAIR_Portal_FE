@@ -205,6 +205,7 @@
 							</main>
 						</template>
 					</fv-callout>
+					<language-picker class="language-picker"></language-picker>
 					<a
 						v-for="(item, index) in navOptions"
 						:key="`b: ${index}`"

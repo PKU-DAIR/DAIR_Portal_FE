@@ -13,14 +13,16 @@
 		</div>
 		<fv-button
 			v-show="info.userid"
-			background="#3271ba"
+			background="#7474bf"
 			border-radius="10"
 			theme="dark"
 			font-size="18"
 			font-weight="600"
 			style="width: 250px; height: 45px; flex-shrink: 0"
 			@click="show.add = true"
-			>{{ !memberInfo.id ? local("Add My CV") : local("Update My CV") }}</fv-button
+			>{{
+				!memberInfo.id ? local("Add My CV") : local("Update My CV")
+			}}</fv-button
 		>
 		<group-member
 			v-for="(team, index) in clientTeams"
@@ -201,7 +203,7 @@ export default {
 				height: 3px;
 				margin-top: 15px;
 				border-radius: 3px;
-				background: rgba(0, 90, 158, 1);
+				background: #7474bf;
 			}
 		}
 	}
@@ -291,13 +293,19 @@ export default {
 }
 
 @media screen and (max-width: 985px) {
+	.about-wrap {
+		.title-block {
+            padding-top: 85px;
+            
+			.big-title {
+				font-size: 28px;
+			}
+		}
+	}
+    
 	.logoBg1,
 	.logoBg2 {
 		display: none;
 	}
 }
 </style>
-
-
-
-

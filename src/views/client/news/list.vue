@@ -32,7 +32,7 @@
 			v-show="showViewAll"
 			theme="dark"
 			:background="viewAllBackground"
-            :borderRadius="20"
+			:borderRadius="20"
 			@click="$emit('show-all-click')"
 			style="width: 120px; height: 40px; margin: 25px"
 			>{{ local("Show All") }}</fv-button
@@ -293,6 +293,16 @@ export default {
 }
 
 @media screen and (max-width: 985px) {
+	.pub-wrap {
+		.title-block {
+            padding-top: 85px;
+            
+			.big-title {
+				font-size: 28px;
+			}
+		}
+	}
+
 	.logoBg1,
 	.logoBg2 {
 		display: none;

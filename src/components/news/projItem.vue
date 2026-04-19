@@ -41,7 +41,7 @@ export default {
 <style lang="scss">
 .dair-proj-item {
 	position: relative;
-    min-width: 300px;
+	min-width: 300px;
 	width: 100%;
 	height: 120px;
 	margin: 0px;
@@ -90,6 +90,8 @@ export default {
 		overflow: hidden;
 
 		.title {
+            @include nowrap;
+            
 			width: 100%;
 			flex: 1;
 			font-size: 28px;
@@ -135,7 +137,8 @@ export default {
 		.news-pic {
 			position: relative;
 			width: auto;
-			height: 90%;
+			height: 100%;
+			border-radius: 3px;
 			transition: all 0.3s;
 		}
 	}
@@ -144,11 +147,20 @@ export default {
 @media screen and (max-width: 750px) {
 	.dair-proj-item {
 		width: calc(100% - 2px);
-	}
+		height: 80px;
+		gap: 10px;
 
-	.news-pic {
-		width: 100%;
-		transition: all 0.3s;
+		.news-pic-container {
+			width: auto;
+			max-width: 50%;
+			height: auto;
+		}
+
+		.dair-news-info {
+			.title {
+				font-size: 20px;
+			}
+		}
 	}
 }
 </style>
