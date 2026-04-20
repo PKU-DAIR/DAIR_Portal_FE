@@ -123,17 +123,22 @@ export default {
 	height: 100%;
 	padding: 15px;
 	color: rgba(28, 30, 41, 1);
-	font-family: Akkurat Std, -apple-system, BlinkMacSystemFont, Segoe UI,
-		Roboto, Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family:
+		Akkurat Std,
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		Helvetica Neue,
+		sans-serif;
 	font-weight: 400;
 
 	.panel-title {
 		font-size: 12px;
+		color: rgba(223, 222, 243, 1);
 	}
 }
 </style>
-
-
-
-
-
