@@ -200,10 +200,10 @@
     swiper "8.3.2"
     vue "^3.4.20"
 
-"@creatorsn/vfluent3@^0.3.46":
-  version "0.3.46"
-  resolved "https://registry.yarnpkg.com/@creatorsn/vfluent3/-/vfluent3-0.3.46.tgz#385a7ea9ebf9af0a51d957abdeb500681c824ec1"
-  integrity sha512-fc/p1ss37dq3BSdNkDL1RKFCj15MKIKtXlSkotFB6tMYS/alV/50OvLz4xzu2JFk+rBfjsCv02nbGuZX9Uydkw==
+"@creatorsn/vfluent3@^0.3.49":
+  version "0.3.49"
+  resolved "https://registry.yarnpkg.com/@creatorsn/vfluent3/-/vfluent3-0.3.49.tgz#5b6fec10ff18627f4b45cdacc9961926fb3ac3a0"
+  integrity sha512-EI6piS3QsYEoh2Bt7GBTubl0TJ/QOkY2ela7hjFqkV1/1wb5s9qXiwHEnDIICxeQ0eF469EqlRo/e848qytlkA==
   dependencies:
     "@vue/shared" "^3.4.20"
     gsap "3.1.1"

@@ -3,9 +3,11 @@
 		<fv-details-list
 			class="sosd-admin__user-table-list"
 			v-model="tableData"
-            :theme="theme"
+			:theme="theme"
 			:head="header"
+			:foreground="foreground"
 			:multi-selection="isMultiple"
+			ref="table"
 			@choose-items="$emit('choose-items', $event)"
 		>
 			<template v-slot:head="x">
@@ -20,9 +22,6 @@
 						x.item.nickname != null ? `(${x.item.nickname})` : ""
 					}}
 				</p>
-			</template>
-			<template v-slot:column_2="x">
-				<user-role v-if="showRole" :user="x.item"></user-role>
 			</template>
 			<template v-slot:column_1="x">
 				<div style="display: flex; align-items: center">
@@ -39,6 +38,9 @@
 					</p>
 				</div>
 			</template>
+			<template v-slot:column_2="x">
+				<user-role :user="x.item"></user-role>
+			</template>
 			<template v-slot:column_3="x">
 				<p class="sec">{{ x.item.gender == 0 ? "男" : "女" }}</p>
 			</template>
@@ -53,7 +55,7 @@
 			<fv-Pagination
 				:total="config.pages"
 				:model-value="config.currentPage"
-                :theme="theme"
+				:theme="theme"
 				@page-click="handleClickPage"
 				@next-click="handleClickPage"
 				@prev-click="handleClickPage"
@@ -68,6 +70,16 @@
 		</div>
 	</div>
 </template>
+
+<script setup>
+import { getCurrentInstance } from "vue";
+
+const proxy = getCurrentInstance().proxy;
+
+defineExpose({
+	headInit: (...args) => proxy.headInit(...args),
+});
+</script>
 
 <script>
 import avatar from "@/components/general/avatar.vue";
@@ -93,6 +105,9 @@ export default {
 		showRole: {
 			default: true,
 		},
+		foreground: {
+			default: "",
+		},
 		theme: {
 			default: "light",
 		},
@@ -101,28 +116,28 @@ export default {
 		return {
 			header: [
 				{
-					content: () => this.local("Username"),
+					content: this.local("Username"),
 					width: 180,
 				},
 				{
-					content: () => this.local("Name"),
+					content: this.local("Name"),
 					width: 120,
 				},
 				{
-					content: () => this.local("Role"),
+					content: this.local("Role"),
 					width: 120,
 					visible: () => this.showRole,
 				},
 				{
-					content: () => this.local("Gender"),
+					content: this.local("Gender"),
 					width: 120,
 				},
 				{
-					content: () => this.local("Phone"),
+					content: this.local("Phone"),
 					width: 120,
 				},
 				{
-					content: () => this.local("Email"),
+					content: this.local("Email"),
 					width: 120,
 				},
 			],
@@ -154,6 +169,9 @@ export default {
 			await this.updatePages();
 			await this.getData();
 		},
+		headInit() {
+			this.$refs.table.headInit();
+		},
 		async getData() {
 			if (this.config.loading) return;
 			this.config.loading = true;
@@ -181,7 +199,7 @@ export default {
 				this.config.currentPage = 1;
 				this.config.total = res.data;
 				this.config.pages = Math.ceil(
-					this.config.total / this.config.pageSize
+					this.config.total / this.config.pageSize,
 				);
 				this.config.loading = false;
 			});
@@ -234,9 +252,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
-
-

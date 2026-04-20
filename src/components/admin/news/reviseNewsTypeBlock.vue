@@ -31,7 +31,7 @@
 							class="panel-title"
 							style="margin-bottom: 5px"
 						>
-							选择类型
+							{{ local("Select Type") }}
 						</p>
 						<fv-combobox
 							v-model="currentOption"
@@ -47,7 +47,7 @@
 							class="panel-title"
 							style="margin-bottom: 5px"
 						>
-							选择类型
+							{{ local("Select Type") }}
 						</p>
 						<fv-text-field
 							v-model="news.description"
@@ -65,7 +65,7 @@
 							class="panel-title"
 							style="margin-bottom: 5px"
 						>
-							外部跳转
+							{{ local("External Jump") }}
 						</p>
 						<fv-text-box
 							v-model="news.external"
@@ -94,7 +94,7 @@
 							:background="thisBanner ? color : ''"
 							:is-box-shadow="true"
 							:disabled="!lock.banner"
-							style="width: 120px; height: 35px"
+							style="width: 150px; height: 35px"
 							@click="$refs.uploader.click()"
 						>
 							<p v-show="lock.banner">

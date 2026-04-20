@@ -18,6 +18,7 @@
 			theme="dark"
 			font-size="18"
 			font-weight="600"
+			:disabled="!lock.loadingCV"
 			style="width: 250px; height: 45px; flex-shrink: 0"
 			@click="show.add = true"
 			>{{
@@ -86,6 +87,9 @@ export default {
 			timer: {
 				sizeTimer: null,
 			},
+			lock: {
+				loadingCV: true,
+			},
 		};
 	},
 	watch: {
@@ -143,6 +147,7 @@ export default {
 		},
 		getMyMemberInfo() {
 			if (!this.info || !this.info.userid) return;
+			this.lock.loadingCV = false;
 			this.$axios({
 				method: "get",
 				url: `/get_my_cv`,
@@ -151,9 +156,11 @@ export default {
 					res = res.data;
 					if (res.code === 200) this.memberInfo = res.data;
 					this.memberInfo.userid = this.info.userid;
+					this.lock.loadingCV = true;
 				})
 				.catch(() => {
 					this.memberInfo.userid = null;
+					this.lock.loadingCV = true;
 				});
 		},
 		retop() {
@@ -295,14 +302,14 @@ export default {
 @media screen and (max-width: 985px) {
 	.about-wrap {
 		.title-block {
-            padding-top: 85px;
-            
+			padding-top: 85px;
+
 			.big-title {
 				font-size: 28px;
 			}
 		}
 	}
-    
+
 	.logoBg1,
 	.logoBg2 {
 		display: none;

@@ -58,7 +58,7 @@
 							width: 100%;
 							display: flex;
 							flex-direction: column;
-"
+						"
 					>
 						<fv-persona
 							:src="avatar"
@@ -74,12 +74,16 @@
 						show.avatar
 							? 'rotate-fold-top-to-bottom'
 							: 'rotate-fold-bottom-to-top'
-"
+					"
 				>
-					<div v-show="show.avatar" class="panel-row" style="width: 350px;">
+					<div
+						v-show="show.avatar"
+						class="panel-row"
+						style="width: 350px"
+					>
 						<choose-avatar
 							ref="avatar"
-                            :theme="theme"
+							:theme="theme"
 							@update-base64="avatar = $event"
 							@update-img="avatarBlob = $event"
 						>
@@ -93,7 +97,7 @@
 				>
 					<fv-button
 						:theme="theme"
-                        icon="ChevronUp"
+						icon="ChevronUp"
 						:is-box-shadow="true"
 						style="width: 120px; margin-left: 5px"
 						@click="show.avatar = false"
@@ -134,7 +138,9 @@
 					></fv-text-box>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">* {{ local("Phone (not publicly displayed)") }}</p>
+					<p class="panel-title">
+						* {{ local("Phone (not publicly displayed)") }}
+					</p>
 				</div>
 				<div class="panel-row">
 					<fv-text-box
@@ -245,7 +251,9 @@
 					</fv-Combobox>
 				</div>
 				<div class="panel-row" style="margin-top: 15px">
-					<p class="panel-title">{{ local("Graduation Destination") }}</p>
+					<p class="panel-title">
+						{{ local("Graduation Destination") }}
+					</p>
 				</div>
 				<div
 					class="panel-row"
@@ -253,7 +261,9 @@
 				>
 					<fv-text-box
 						v-model="member.postAddress"
-						:placeholder="local('Please input graduation destination')"
+						:placeholder="
+							local('Please input graduation destination')
+						"
 						:theme="theme"
 						underline
 						:border-width="2"
@@ -263,7 +273,7 @@
 						:is-box-shadow="true"
 					></fv-text-box>
 				</div>
-                <div class="panel-row" style="margin-top: 15px">
+				<div class="panel-row" style="margin-top: 15px">
 					<p class="panel-title">{{ local("External Link") }}</p>
 				</div>
 				<div class="panel-row">
@@ -301,7 +311,13 @@
 					class="panel-row"
 					style="margin-top: 15px"
 				>
-					<p class="panel-title">{{ local("Linked User (ignore if the user is not registered)") }}</p>
+					<p class="panel-title">
+						{{
+							local(
+								"Linked User (ignore if the user is not registered)",
+							)
+						}}
+					</p>
 				</div>
 				<div v-if="isManager" class="panel-row">
 					<fv-text-box
@@ -321,8 +337,10 @@
 					<p class="sec-title">
 						{{
 							member.userid
-								? "已绑定: " + member.userid
-								: "未绑定用户 (请在下方选择单个用户后点击确认按钮)"
+								? this.local("Linked User: ") + member.userid
+								: this.local(
+										"Unlinked User (Please select a single user below and click confirm button.)",
+									)
 						}}
 					</p>
 					<fv-button
@@ -346,12 +364,13 @@
 					:showRole="false"
 					:isMultiple="true"
 					:search="useridFilter"
+					ref="table"
 					style="
 						position: relative;
 						width: 90%;
 						height: 250px;
 						box-sizing: border-box;
-"
+					"
 					@choose-items="userChoosen = $event"
 				></user-table>
 				<fv-button
@@ -417,7 +436,7 @@
 						:background="'rgba(60, 60, 60, 1)'"
 						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
-						style="width: 120px; height: 35px"
+						style="width: 150px; height: 35px"
 					></fv-text-box>
 					<fv-search-box
 						v-model="item.competitionName"
@@ -452,19 +471,20 @@
 					></fv-text-box>
 					<fv-DatePicker
 						v-model="item.date"
+						class="date-picker"
 						:months="[
-							'一月',
-							'二月',
-							'三月',
-							'四月',
-							'五月',
-							'六月',
-							'七月',
-							'八月',
-							'九月',
-							'十月',
-							'十一月',
-							'十二月',
+							local('January'),
+							local('February'),
+							local('March'),
+							local('April'),
+							local('May'),
+							local('June'),
+							local('July'),
+							local('August'),
+							local('September'),
+							local('October'),
+							local('November'),
+							local('December'),
 						]"
 						:theme="theme"
 						style="width: 150px; height: 35px"
@@ -527,7 +547,7 @@
 							theme === 'dark'
 								? 'rgba(36, 36, 36, 1)'
 								: 'rgba(255, 255, 255, 1)'
-"
+						"
 					>
 						<template v-slot:custom-buttons-front="x">
 							<fv-button
@@ -535,12 +555,12 @@
 									theme === 'dark'
 										? 'rgba(200, 200, 200, 1)'
 										: ''
-"
+								"
 								:background="
 									theme === 'dark'
-										? 'rgba(36, 36, 36, 1)'
+										? 'rgba(48, 52, 55, 1)'
 										: 'rgba(255, 255, 255, 1)'
-"
+								"
 								:class="[x.defaultClass]"
 								:isBoxShadow="true"
 								:title="local('Import Markdown')"
@@ -554,7 +574,8 @@
 										width: 16px;
 										height: 16px;
 										object-fit: contain;
-"
+										filter: invert(1);
+									"
 								/>
 							</fv-button>
 						</template>
@@ -575,7 +596,7 @@
 				theme="dark"
 				:background="'rgba(0, 90, 158, 1)'"
 				:disabled="!lock.add || disabledAdd"
-				style="width: 120px; margin-left: 5px"
+				style="width: 150px; margin-left: 5px"
 				@click="addMember"
 				>{{ local("Add Information") }}</fv-button
 			>
@@ -584,7 +605,7 @@
 				theme="dark"
 				:background="'rgba(0, 90, 158, 1)'"
 				:disabled="!lock.update || disabledAdd"
-				style="width: 120px; margin-left: 5px"
+				style="width: 150px; margin-left: 5px"
 				@click="updateMember"
 				>{{ local("Update Information") }}</fv-button
 			>
@@ -688,6 +709,9 @@ export default {
 				this.getToWhere();
 				this.clearInfo();
 				this.refreshMemberInfo();
+				if (this.$refs.table) {
+					this.$refs.table.headInit();
+				}
 				console.log(this.member);
 			}
 		},
@@ -903,69 +927,78 @@ export default {
 				this.member.userid = this.updateMemberInfo.userid;
 		},
 		async getMemberDetailInfo() {
-			let prefix = "/get_member";
-			if (!this.isManager) prefix = "/get_member_client";
-			await this.$axios({
-				method: "get",
-				url: `${prefix}?id=${this.updateMemberInfo.id}`,
-			})
-				.then((res) => {
-					res = res.data;
-					if (res.status === "success") {
-						let data = res.data;
-						let majorObj = this.majorList.find(
-							(it) => it.text === data.major
-						);
-						if (majorObj) data.major = majorObj;
-						let toWhereObj = this.toWhereList.find(
-							(it) => it.text === data.toWhere
-						);
-						if (toWhereObj) data.toWhere = toWhereObj;
-						data.grade = data.grade ? data.grade.toString() : "";
-						data.session = data.session
-							? data.session.toString()
-							: "";
-						for (let key in data) {
-							if (data[key]) {
-								if (
-									["educations", "teams", "groups"].includes(
-										key
-									) &&
-									Array.isArray(data[key])
-								) {
-									data[key].forEach((it) => {
-										it.key = it.id;
-										it.text = it.name
-											? it.name
-											: it.competitionName;
-									});
-								}
-								this.member[key] = data[key];
-							}
-							if (key === "awards") {
-								data[key].forEach((el) => {
-									let levelObj = this.awardLevelList.find(
-										(it) => it.text === el.level
-									);
-									if (levelObj) el.level = levelObj;
-									el.date = new Date(el.date);
+			const updateInfo = (res) => {
+				if (res.status === "success") {
+					let data = res.data;
+					let majorObj = this.majorList.find(
+						(it) => it.text === data.major,
+					);
+					if (majorObj) data.major = majorObj;
+					let toWhereObj = this.toWhereList.find(
+						(it) => it.text === data.toWhere,
+					);
+					if (toWhereObj) data.toWhere = toWhereObj;
+					data.grade = data.grade ? data.grade.toString() : "";
+					data.session = data.session ? data.session.toString() : "";
+					for (let key in data) {
+						if (data[key]) {
+							if (
+								["educations", "teams", "groups"].includes(
+									key,
+								) &&
+								Array.isArray(data[key])
+							) {
+								data[key].forEach((it) => {
+									it.key = it.id;
+									it.text = it.name
+										? it.name
+										: it.competitionName;
 								});
 							}
+							this.member[key] = data[key];
 						}
-						this.$refs.editor.editor().commands.setContent(
-							this.computeContent(this.member.introduction)
-						);
-					} else {
-						this.$barWarning(res.status, {
-							status: "warning",
-						});
+						if (key === "awards") {
+							data[key].forEach((el) => {
+								let levelObj = this.awardLevelList.find(
+									(it) => it.text === el.level,
+								);
+								if (levelObj) el.level = levelObj;
+								el.date = new Date(el.date);
+							});
+						}
 					}
-				})
-				.catch((err) => {
-					this.$barWarning(err, {
-						status: "error",
+					this.$refs.editor
+						.editor()
+						.commands.setContent(
+							this.computeContent(this.member.introduction),
+						);
+				} else {
+					this.$barWarning(res.status, {
+						status: "warning",
 					});
-				});
+				}
+			};
+			if (this.isManager) {
+				await this.$api.Member.GetMember(this.updateMemberInfo.id)
+					.then((res) => {
+						updateInfo(res);
+					})
+					.catch((err) => {
+						this.$barWarning(err, {
+							status: "error",
+						});
+					});
+			} else {
+				await this.$api.Member.GetMyCv()
+					.then((res) => {
+						updateInfo(res);
+					})
+					.catch((err) => {
+						this.$barWarning(err, {
+							status: "error",
+						});
+					});
+			}
 		},
 		async getMemberPhoto(id) {
 			let photo = "";
@@ -1052,7 +1085,7 @@ export default {
 					session: this.member.session,
 					major: this.member.major.name,
 					introduction: JSON.stringify(
-						this.$refs.editor.editor().getJSON()
+						this.$refs.editor.editor().getJSON(),
 					),
 					photo: "",
 					title: this.member.title,
@@ -1115,7 +1148,7 @@ export default {
 					session: this.member.session,
 					major: this.member.major.name,
 					introduction: JSON.stringify(
-						this.$refs.editor.editor().getJSON()
+						this.$refs.editor.editor().getJSON(),
 					),
 					photo: this.member.photo,
 					title: this.member.title,
@@ -1236,8 +1269,17 @@ export default {
 	height: 100%;
 	padding: 15px 15px 55px 15px;
 	color: rgba(28, 30, 41, 1);
-	font-family: Akkurat Std, -apple-system, BlinkMacSystemFont, Segoe UI,
-		Roboto, Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family:
+		Akkurat Std,
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		Helvetica Neue,
+		sans-serif;
 	font-weight: 400;
 	line-height: 2;
 	box-sizing: border-box;
@@ -1309,18 +1351,24 @@ export default {
 		}
 	}
 
+	.date-picker {
+		input {
+			color: whitesmoke;
+		}
+
+		.fv-date-picker-options-bar-accept,
+		.fv-date-picker-options-bar-cancel {
+			color: whitesmoke;
+		}
+	}
+
 	.intro-power-editor {
 		width: 100%;
 		height: auto;
+		background: rgba(36, 36, 36, 1);
 		border: rgba(200, 200, 200, 0.1) solid thin;
 		box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
 	}
 }
 </style>
-
-
-
-
-
-

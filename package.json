@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@creatorsn/powereditor3": "^0.1.10",
-    "@creatorsn/vfluent3": "^0.3.46",
+    "@creatorsn/vfluent3": "^0.3.49",
     "axios": "^1.7.9",
     "axios-swagger-helper": "^0.0.58",
     "bibtex-parser": "^0.0.0",

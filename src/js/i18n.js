@@ -312,6 +312,21 @@ const dict = {
     "Undergraduates": ["Undergraduates", "本科生"],
     "Alumni": ["Alumni", "校友"],
     "Open Projects": ["Open Projects", "开源项目"],
+    "Select Type": ["Select Type", "选择类型"],
+    "External Jump": ["External Jump", "外部跳转"],
+    "Linked User: ": ["Linked User: ", "已绑定用户: "],
+    "Unlinked User (Please select a single user below and click confirm button.)": ["Unlinked User (Please select a single user below and click confirm button.)", "未绑定用户 (请在下方选择单个用户后点击确认按钮)"],
+    "January": ["January", "一月"],
+    "February": ["February", "二月"],
+    "March": ["March", "三月"],
+    "April": ["April", "四月"],
+    "May": ["May", "五月"],
+    "June": ["June", "六月"],
+    "July": ["July", "七月"],
+    "August": ["August", "八月"],
+    "September": ["September", "九月"],
+    "October": ["October", "十月"],
+    "December": ["December", "十二月"],
 };
 
 export default Object.fromEntries(
