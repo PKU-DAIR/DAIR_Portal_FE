@@ -214,6 +214,7 @@
 						@click="
 							() => {
 								if (item.href) $Go(item.href);
+                                show.mobileNav = false;
 							}
 						"
 						>{{ local(item.name) }}</a

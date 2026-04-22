@@ -135,13 +135,13 @@ export default {
 					title: "Research Publications",
 					content:
 						"Discover our latest research contributions through our published papers. Our work covers theoretical foundations and practical applications in ML System, Data-Centric and related fields.",
-					url: "/pub",
+					url: "/#/pub",
 				},
 				{
 					title: "Open Source Projects",
 					content:
 						"We actively contribute to the AI community through open-source projects. Explore our tools, libraries, and frameworks designed to advance research and collaboration in AI.",
-					url: "/projs",
+					url: "/#/projs",
 				},
 			],
 			img: {
