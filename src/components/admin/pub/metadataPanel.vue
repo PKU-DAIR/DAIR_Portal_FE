@@ -417,6 +417,7 @@ export default {
 			margin: 5px 0px;
 			font-size: 12px;
 			font-weight: bold;
+            color: whitesmoke;
 		}
 
 		.row-block {
