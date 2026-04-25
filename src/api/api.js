@@ -3144,6 +3144,116 @@ export class News {
   }
  
   /**
+  * @summary Fetch News
+  * @param {undefined} [start_url] 
+  * @param {undefined} [max_pages] 
+  * @param {undefined} [search] 
+  * @param {undefined} [publisher_id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async FetchNews(start_url,max_pages,search,publisher_id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/news/fetch',
+        data:{},
+        params:{start_url,max_pages,search,publisher_id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Fetch News Status
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetFetchNewsStatus(cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/news/fetch/status',
+        data:{},
+        params:{},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
   * @summary List News Size
   * @param {undefined} [search] 
   * @param {Number} [limit] 
@@ -3922,6 +4032,22 @@ News.ListNews.fullPath=`${axios.defaults.baseURL}/news/get_news`
 */
 News.ListNews.path=`/news/get_news`
 /**
+* @description FetchNews url链接，包含baseURL
+*/
+News.FetchNews.fullPath=`${axios.defaults.baseURL}/news/fetch`
+/**
+* @description FetchNews url链接，不包含baseURL
+*/
+News.FetchNews.path=`/news/fetch`
+/**
+* @description GetFetchNewsStatus url链接，包含baseURL
+*/
+News.GetFetchNewsStatus.fullPath=`${axios.defaults.baseURL}/news/fetch/status`
+/**
+* @description GetFetchNewsStatus url链接，不包含baseURL
+*/
+News.GetFetchNewsStatus.path=`/news/fetch/status`
+/**
 * @description ListNewsSize url链接，包含baseURL
 */
 News.ListNewsSize.fullPath=`${axios.defaults.baseURL}/list_news_size`
@@ -4053,6 +4179,114 @@ export class Publication {
         url:'/publications/get_publications',
         data:{},
         params:{search,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Fetch Publications
+  * @param {undefined} [start_url] 
+  * @param {undefined} [max_blocks] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async FetchPublications(start_url,max_blocks,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/publications/fetch',
+        data:{},
+        params:{start_url,max_blocks},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Fetch Publications Status
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetFetchPublicationsStatus(cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/publications/fetch/status',
+        data:{},
+        params:{},
         headers:{
           "Content-Type":""
         },
@@ -4264,6 +4498,22 @@ Publication.ListPublications.fullPath=`${axios.defaults.baseURL}/publications/ge
 * @description ListPublications url链接，不包含baseURL
 */
 Publication.ListPublications.path=`/publications/get_publications`
+/**
+* @description FetchPublications url链接，包含baseURL
+*/
+Publication.FetchPublications.fullPath=`${axios.defaults.baseURL}/publications/fetch`
+/**
+* @description FetchPublications url链接，不包含baseURL
+*/
+Publication.FetchPublications.path=`/publications/fetch`
+/**
+* @description GetFetchPublicationsStatus url链接，包含baseURL
+*/
+Publication.GetFetchPublicationsStatus.fullPath=`${axios.defaults.baseURL}/publications/fetch/status`
+/**
+* @description GetFetchPublicationsStatus url链接，不包含baseURL
+*/
+Publication.GetFetchPublicationsStatus.path=`/publications/fetch/status`
 /**
 * @description GetPublication url链接，包含baseURL
 */

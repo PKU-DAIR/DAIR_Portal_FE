@@ -10,7 +10,7 @@
 					theme === 'dark'
 						? 'rgba(50, 50, 50, 1)'
 						: 'rgba(255, 255, 255, 1)'
-"
+				"
 				border-color="rgba(0, 0, 0, 0.1)"
 				focus-border-color="rgba(149, 141, 241, 1)"
 				icon="Search"
@@ -26,6 +26,16 @@
 				@click="show.addNews = true"
 			>
 				<i class="ms-Icon ms-Icon--ExploreContent"></i>
+			</fv-button>
+			<fv-button
+				:theme="theme"
+				background="linear-gradient(135deg, #0f0f10 0%, #2b2418 50%, #c9a84a 100%)"
+				reveal-border-color="rgba(255, 215, 120, 0.35)"
+				style="width: 40px; height: 35px; margin-left: 3px"
+                :title="local('Sync from Agent')"
+				@click="$emit('sync-from-agent')"
+			>
+				<i class="ms-Icon ms-Icon--GiftboxOpen"></i>
 			</fv-button>
 			<fv-progress-bar
 				v-show="loadingList"
@@ -79,7 +89,7 @@
 								$event.stopPropagation();
 								rightClick($event, item);
 							}
-"
+						"
 					></i>
 				</div>
 			</div>
@@ -123,7 +133,7 @@
 						margin: 8px 15px;
 						border: thin;
 						border-bottom: rgba(0, 0, 0, 0.1) solid thin;
-"
+					"
 				/>
 				<span @click="show.reviseNewsType = true">
 					<i
@@ -140,7 +150,7 @@
 			:total="news_Total"
 			:background="
 				theme === 'dark' ? 'rgba(50, 50, 50, 1)' : 'whitesmoke'
-"
+			"
 			:foreground="color"
 			:disabled="loadingList"
 			:maxVisual="4"
@@ -238,29 +248,35 @@ export default {
 	methods: {
 		delNews(event, item) {
 			event.stopPropagation();
-			this.$infoBox(`${this.local("You will remove")} ${item.title} ${this.local("article")}`, {
-				title: "三思而后行",
-				status: "error",
-				theme: this.theme,
-				confirm: () => {
-					this.$axios({
-						method: "get",
-						url: `/remove_news?id=${item.id}`,
-					})
-						.then((res) => {
-							res = res.data;
-							if (res.code === 200) {
-								this.$barWarning(this.local("Delete Success"), {
-									status: "correct",
-								});
-								this.$emit("del-finish");
-							}
+			this.$infoBox(
+				`${this.local("You will remove")} ${item.title} ${this.local("article")}`,
+				{
+					title: this.local("Think twice before acting"),
+					status: "error",
+					theme: this.theme,
+					confirm: () => {
+						this.$axios({
+							method: "get",
+							url: `/remove_news?id=${item.id}`,
 						})
-						.catch((err) => {
-							console.log(err);
-						});
+							.then((res) => {
+								res = res.data;
+								if (res.code === 200) {
+									this.$barWarning(
+										this.local("Delete Success"),
+										{
+											status: "correct",
+										},
+									);
+									this.$emit("del-finish");
+								}
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					},
 				},
-			});
+			);
 		},
 		rightClick($event, item) {
 			this.contextMenuItem = item;
@@ -282,7 +298,7 @@ export default {
 
 	&.dark {
 		background: rgba(36, 36, 36, 1);
-        color: whitesmoke;
+		color: whitesmoke;
 
 		.draw-list-block {
 			.draw-item {
@@ -435,7 +451,5 @@ export default {
 	transform: translateX(-75px);
 }
 </style>
-
-
 
 

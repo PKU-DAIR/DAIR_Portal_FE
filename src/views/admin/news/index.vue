@@ -27,6 +27,7 @@
 					}
 				"
 				@load-more="getContinue"
+				@sync-from-agent="openFetchNewsPanel"
 			></draw-list>
 		</div>
 		<transition name="news-edit">
@@ -136,11 +137,16 @@
 			v-model:banner="currentBanner"
 			@finish="getNews"
 		></revise-news-type>
+		<fetch-news
+			v-model="show.fetchNews"
+			:theme="theme"
+		></fetch-news>
 	</div>
 </template>
 
 <script>
 import drawList from "@/components/admin/news/drawList.vue";
+import fetchNews from "@/components/admin/news/fetchNews.vue";
 import reviseNewsType from "@/components/admin/news/reviseNewsTypeBlock.vue";
 
 import { mapState, mapActions } from "pinia";
@@ -151,6 +157,7 @@ import { useUser } from "@/stores/useUser";
 export default {
 	components: {
 		drawList,
+		fetchNews,
 		reviseNewsType,
 	},
 	data: function () {
@@ -172,6 +179,7 @@ export default {
 				save: true,
 			},
 			show: {
+				fetchNews: false,
 				newsType: false,
 				resManager: false,
 			},
@@ -490,6 +498,9 @@ export default {
 			} else {
 				this.getCurrent($event.id);
 			}
+		},
+		openFetchNewsPanel() {
+			this.show.fetchNews = true;
 		},
 	},
 	beforeUnmount() {

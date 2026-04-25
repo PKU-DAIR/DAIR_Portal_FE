@@ -321,7 +321,7 @@ export class MemberInfo {
      * @param {String} email 
      * @param {String} mobile 
      */ 
-    constructor(id = undefined,name = undefined,grade = undefined,session = undefined,major = undefined,title = undefined,toWhere = undefined,postAddress = undefined,educations = undefined,teams = undefined,groups = undefined,introduction = undefined,photo = undefined,userid = undefined,awards = undefined,email = undefined,mobile = undefined){
+    constructor(id = undefined,name = undefined,grade = undefined,session = undefined,major = undefined,title = undefined,toWhere = undefined,postAddress = undefined,educations = undefined,teams = undefined,groups = undefined,introduction = undefined,photo = undefined,userid = undefined,awards = undefined,email = undefined,mobile = undefined,external = undefined){
         this.id = id
         this.name = name
         this.grade = grade
@@ -339,6 +339,7 @@ export class MemberInfo {
         this.awards = awards
         this.email = email
         this.mobile = mobile
+        this.external = external
     }
        
     /**
@@ -436,7 +437,7 @@ export class NewsItem {
      * @param {String} create_time 
      * @param {String} update_time 
      */ 
-    constructor(id = undefined,title = undefined,description = undefined,news_type = undefined,publisher_id = undefined,content = undefined,create_time = undefined,update_time = undefined){
+    constructor(id = undefined,title = undefined,description = undefined,news_type = undefined,publisher_id = undefined,content = undefined,create_time = undefined,update_time = undefined,external = undefined){
         this.id = id
         this.title = title
         this.description = description
@@ -445,6 +446,7 @@ export class NewsItem {
         this.content = content
         this.create_time = create_time
         this.update_time = update_time
+        this.external = external
     }
        
     /**
@@ -495,7 +497,7 @@ export class PublicationItem {
      *
 
      */ 
-    constructor(id = undefined,publisher = undefined,DOI = undefined,year = undefined,createDate = undefined,source = undefined,title = undefined,url = undefined,booktitle = undefined,abstract = undefined,ISSN = undefined,language = undefined,chapter = undefined,volume = undefined,number = undefined,pages = undefined,school = undefined,note = undefined,author = undefined,entry_type = undefined,bib = undefined){
+    constructor(id = undefined,publisher = undefined,DOI = undefined,year = undefined,createDate = undefined,source = undefined,title = undefined,url = undefined,booktitle = undefined,abstract = undefined,ISSN = undefined,language = undefined,chapter = undefined,volume = undefined,number = undefined,pages = undefined,school = undefined,note = undefined,author = undefined,authors = undefined,containerTitle = undefined,entry_type = undefined,bib = undefined){
         this.id = id
         this.publisher = publisher
         this.DOI = DOI
@@ -515,6 +517,8 @@ export class PublicationItem {
         this.school = school
         this.note = note
         this.author = author
+        this.authors = authors
+        this.containerTitle = containerTitle
         this.entry_type = entry_type
         this.bib = bib
     }

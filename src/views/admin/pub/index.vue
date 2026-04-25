@@ -57,7 +57,9 @@
 				<template v-slot:column_3="x">
 					<fv-tag
 						:theme="theme"
-						:model-value="x.item.author ? [{ text: x.item.author }] : []"
+						:model-value="
+							x.item.author ? [{ text: x.item.author }] : []
+						"
 						:title="x.item.author"
 					></fv-tag>
 				</template>
@@ -93,7 +95,7 @@
 			:total="total"
 			:background="
 				theme === 'dark' ? 'rgba(50, 50, 50, 1)' : 'whitesmoke'
-"
+			"
 			:foreground="color"
 			:shadow="true"
 			style="margin: 5px 0px"
@@ -102,9 +104,14 @@
 		<metadata-panel
 			v-model="show.pubHub"
 			:item="currentItem"
-            :theme="theme"
+			:theme="theme"
 			@finished="getPubs"
 		></metadata-panel>
+		<fetch-publications
+			v-model="show.fetchPublications"
+			:theme="theme"
+			@finished="getPubs"
+		></fetch-publications>
 	</div>
 </template>
 
@@ -115,10 +122,12 @@ import { useTheme } from "@/stores/useTheme";
 import { useUser } from "@/stores/useUser";
 
 import metadataPanel from "@/components/admin/pub/metadataPanel.vue";
+import fetchPublications from "@/components/admin/pub/fetchPublications.vue";
 
 export default {
 	components: {
 		metadataPanel,
+		fetchPublications,
 	},
 	data() {
 		return {
@@ -139,6 +148,14 @@ export default {
 					disabled: () => this.currentChoosen.length <= 0,
 					func: () => {
 						this.delPubs();
+					},
+				},
+				{
+					name: () => this.local("Sync from Agent"),
+					icon: "GiftboxOpen",
+					iconColor: "#c9a84a",
+					func: () => {
+						this.show.fetchPublications = true;
 					},
 				},
 			],
@@ -170,6 +187,7 @@ export default {
 			currentItem: {},
 			currentChoosen: [],
 			show: {
+				fetchPublications: false,
 				pubHub: false,
 			},
 		};
@@ -257,7 +275,7 @@ export default {
 							this.$axios({
 								method: "delete",
 								url: `/publications/remove?id=${item.id}`,
-							})
+							}),
 						);
 					}
 					Promise.all(promises).then(() => {
@@ -377,7 +395,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
