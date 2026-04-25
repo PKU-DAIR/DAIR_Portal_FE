@@ -1,5 +1,10 @@
 <template>
-	<div class="pub-wrap" :class="[{ dark: theme === 'dark' }]">
+	<div
+		ref="pubWrap"
+		class="pub-wrap"
+		:class="[{ dark: theme === 'dark' }]"
+		@scroll.passive="handleScroll"
+	>
 		<div class="title-block">
 			<p class="big-title">{{ local("Publications") }}</p>
 			<p class="title-line"></p>
@@ -52,6 +57,17 @@
 				style="color: rgba(242, 242, 242, 1)"
 			></span>
 		</div>
+		<transition name="bottom-loading">
+			<div v-show="loading" class="bottom-loading-ring">
+				<fv-progress-ring
+					:loading="true"
+					r="12"
+					border-width="3"
+					color="rgba(247, 191, 20, 1)"
+					background="transparent"
+				></fv-progress-ring>
+			</div>
+		</transition>
 		<bottom-block
 			:background="'rgba(245, 245, 245, 1)'"
 			:isDarkFont="true"
@@ -77,13 +93,19 @@ export default {
 		return {
 			objs: [],
 			groups: [],
-			total: 1,
+			total: 0,
+			limit: 50,
+			offset: 0,
+			loading: false,
+			finished: false,
+			bottomLoadLocked: false,
 			screenWidth: 99999999999,
 			show: {
 				add: false,
 			},
 			timer: {
 				sizeTimer: null,
+				scrollDebounceTimer: null,
 			},
 		};
 	},
@@ -110,24 +132,68 @@ export default {
 				this.screenWidth = window.innerWidth;
 			}, 80);
 		},
-		getClientPubs() {
-			this.$axios({
-				method: "get",
-				url: `/publications/get_publications?offset=0&limit=99999`,
-			})
-				.then((res) => {
-					res = res.data;
-					if (res.code === 200) {
-						this.objs = res.data.list;
-						this.total =
-							res.data.total % this.limit == 0
-								? parseInt(res.data.total / this.limit)
-								: parseInt(res.data.total / this.limit) + 1;
+		async getClientPubs(reset = false) {
+			if (this.loading) return;
+			if (reset) {
+				this.offset = 0;
+				this.objs = [];
+				this.finished = false;
+				this.bottomLoadLocked = false;
+			}
+			if (this.finished) return;
+			this.loading = true;
+			try {
+				const res = await this.$api.Publication.ListPublications(
+					undefined,
+					this.offset,
+					this.limit,
+				);
+				if (res.code === 200) {
+					const list = Array.isArray(res.data?.list)
+						? res.data.list
+						: [];
+					this.total = res.data?.total || 0;
+					this.objs = reset ? list : this.objs.concat(list);
+					this.offset = this.objs.length;
+					if (
+						list.length < this.limit ||
+						this.objs.length >= this.total
+					) {
+						this.finished = true;
 					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+					this.$nextTick(() => {
+						this.tryFillContainer();
+					});
+				}
+			} catch (err) {
+				console.log(err);
+			} finally {
+				this.loading = false;
+			}
+		},
+		handleScroll() {
+			clearTimeout(this.timer.scrollDebounceTimer);
+			this.timer.scrollDebounceTimer = setTimeout(() => {
+				const el = this.$refs.pubWrap;
+				if (!el || this.loading || this.finished) return;
+				const threshold = 180;
+				const reachBottom =
+					el.scrollTop + el.clientHeight >= el.scrollHeight - threshold;
+				if (!reachBottom) {
+					this.bottomLoadLocked = false;
+					return;
+				}
+				if (this.bottomLoadLocked) return;
+				this.bottomLoadLocked = true;
+				this.getClientPubs();
+			}, 120);
+		},
+		tryFillContainer() {
+			const el = this.$refs.pubWrap;
+			if (!el || this.loading || this.finished) return;
+			if (el.scrollHeight <= el.clientHeight + 20) {
+				this.getClientPubs();
+			}
 		},
 		formatGroup() {
 			let groups = [];
@@ -189,6 +255,7 @@ export default {
 	beforeUnmount() {
 		for (let key in this.timer) {
 			clearInterval(this.timer[key]);
+			clearTimeout(this.timer[key]);
 		}
 	},
 };
@@ -335,6 +402,42 @@ export default {
 
 		z-index: 3;
 	}
+
+	.bottom-loading-ring {
+		position: fixed;
+		left: 50%;
+		bottom: 28px;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		background: rgba(18, 18, 18, 0.82);
+		box-shadow:
+			0 10px 24px rgba(0, 0, 0, 0.22),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(10px);
+		transform: translateX(-50%);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 4;
+	}
+}
+
+.bottom-loading-enter-active,
+.bottom-loading-leave-active {
+	transition: all 0.22s ease;
+}
+
+.bottom-loading-enter-from,
+.bottom-loading-leave-to {
+	opacity: 0;
+	transform: translate(-50%, 18px);
+}
+
+.bottom-loading-enter-to,
+.bottom-loading-leave-from {
+	opacity: 1;
+	transform: translate(-50%, 0);
 }
 
 @media screen and (max-width: 985px) {

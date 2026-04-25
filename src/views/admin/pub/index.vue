@@ -170,7 +170,7 @@ export default {
 				{
 					content: () => this.local("Authors"),
 					sortName: "author",
-					width: 120,
+					width: 260,
 				},
 				{
 					content: () => this.local("Year"),
@@ -194,6 +194,13 @@ export default {
 	},
 	watch: {
 		currentSearch() {
+			if (this.page !== 1) {
+				this.page = 1;
+				return;
+			}
+			this.getPubs();
+		},
+		page() {
 			this.getPubs();
 		},
 	},
