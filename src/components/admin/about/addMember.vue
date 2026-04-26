@@ -330,7 +330,7 @@
 						:background="'rgba(60, 60, 60, 1)'"
 						:focus-border-color="'rgba(0, 90, 158, 1)'"
 						:is-box-shadow="true"
-						@debounce-input="userIdFilter = $event"
+						@debounce-input="useridFilter = $event"
 					></fv-text-box>
 				</div>
 				<div class="panel-row">
@@ -589,6 +589,19 @@
 					@change="openMarkdown"
 				/>
 			</div>
+			<div v-show="!lock.loading" class="add-member-global-mask">
+				<transition name="top-loading">
+					<div v-show="!lock.loading" class="top-loading-ring">
+						<fv-progress-ring
+							:loading="true"
+							r="12"
+							border-width="3"
+							color="rgba(247, 191, 20, 1)"
+							background="transparent"
+						></fv-progress-ring>
+					</div>
+				</transition>
+			</div>
 		</template>
 		<template v-slot:footer>
 			<fv-button
@@ -693,6 +706,7 @@ export default {
 			lock: {
 				add: true,
 				update: true,
+				loading: true,
 			},
 		};
 	},
@@ -978,26 +992,31 @@ export default {
 					});
 				}
 			};
-			if (this.isManager) {
-				await this.$api.Member.GetMember(this.updateMemberInfo.id)
-					.then((res) => {
-						updateInfo(res);
-					})
-					.catch((err) => {
-						this.$barWarning(err, {
-							status: "error",
+			this.lock.loading = false;
+			try {
+				if (this.isManager) {
+					await this.$api.Member.GetMember(this.updateMemberInfo.id)
+						.then((res) => {
+							updateInfo(res);
+						})
+						.catch((err) => {
+							this.$barWarning(err, {
+								status: "error",
+							});
 						});
-					});
-			} else {
-				await this.$api.Member.GetMyCv()
-					.then((res) => {
-						updateInfo(res);
-					})
-					.catch((err) => {
-						this.$barWarning(err, {
-							status: "error",
+				} else {
+					await this.$api.Member.GetMyCv()
+						.then((res) => {
+							updateInfo(res);
+						})
+						.catch((err) => {
+							this.$barWarning(err, {
+								status: "error",
+							});
 						});
-					});
+				}
+			} finally {
+				this.lock.loading = true;
 			}
 		},
 		async getMemberPhoto(id) {
@@ -1369,6 +1388,31 @@ export default {
 		border: rgba(200, 200, 200, 0.1) solid thin;
 		box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
+	}
+}
+
+.add-member-global-mask {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+	backdrop-filter: blur(30px);
+
+	.top-loading-ring {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: rgba(20, 20, 20, 0.35);
+		box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.25);
 	}
 }
 </style>

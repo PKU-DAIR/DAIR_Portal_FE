@@ -244,6 +244,8 @@ const dict = {
     "Max Pages must be a positive number": ["Max Pages must be a positive number", "最大页数必须为正数"],
     "Max Blocks must be a positive number": ["Max Blocks must be a positive number", "最大区块数必须为正数"],
     "Think twice before acting": ["Think twice before acting", "三思而后行"],
+    "Female": ["Female", "女"],
+    "Male": ["Male", "男"],
 
 
     "Publications Management": ["Publications Management", "论文管理"],

@@ -42,7 +42,9 @@
 				<user-role :user="x.item"></user-role>
 			</template>
 			<template v-slot:column_3="x">
-				<p class="sec">{{ x.item.gender == 0 ? "男" : "女" }}</p>
+				<p class="sec">
+					{{ x.item.gender == 0 ? local("Female") : local("Male") }}
+				</p>
 			</template>
 			<template v-slot:column_4="x">
 				<p class="sec">{{ x.item.phone }}</p>
@@ -52,7 +54,7 @@
 			</template>
 		</fv-details-list>
 		<div class="page-block">
-			<fv-Pagination
+			<fv-pagination
 				:total="config.pages"
 				:model-value="config.currentPage"
 				:theme="theme"
@@ -60,7 +62,7 @@
 				@next-click="handleClickPage"
 				@prev-click="handleClickPage"
 			>
-			</fv-Pagination>
+			</fv-pagination>
 		</div>
 		<div
 			v-show="config.loading"
@@ -227,7 +229,7 @@ export default {
 		left: 0;
 		height: 100%;
 		width: 100%;
-		background: rgba(255, 255, 255, 0.8);
+		background: rgba(36, 36, 36, 0.8);
 		display: flex;
 		align-items: center;
 		justify-content: center;
