@@ -332,6 +332,7 @@ const dict = {
     "Master Students": ["Master Students", "硕士生"],
     "Research Assistantship": ["Research Assistantship", "研究助理"],
     "Undergraduates": ["Undergraduates", "本科生"],
+    "Undergraduate": ["Undergraduate", "本科生"],
     "Alumni": ["Alumni", "校友"],
     "Open Projects": ["Open Projects", "开源项目"],
     "Select Type": ["Select Type", "选择类型"],
