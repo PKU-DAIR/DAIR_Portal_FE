@@ -283,6 +283,61 @@ export class User {
   }
  
   /**
+  * @summary Reset user password (Admin)
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.UserSecurityInfo} [usersecurityinfo] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ResetUserPassword(valid_info,usersecurityinfo,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/reset_pwd',
+        data:usersecurityinfo,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
   * @summary Get all users (Admin)
   * @param {undefined} [valid_info] 
   * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
@@ -812,6 +867,14 @@ User.UpdateUserPassword.fullPath=`${axios.defaults.baseURL}/update_pwd`
 * @description UpdateUserPassword url链接，不包含baseURL
 */
 User.UpdateUserPassword.path=`/update_pwd`
+/**
+* @description ResetUserPassword url链接，包含baseURL
+*/
+User.ResetUserPassword.fullPath=`${axios.defaults.baseURL}/reset_pwd`
+/**
+* @description ResetUserPassword url链接，不包含baseURL
+*/
+User.ResetUserPassword.path=`/reset_pwd`
 /**
 * @description GetAllUsers url链接，包含baseURL
 */
