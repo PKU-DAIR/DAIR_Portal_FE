@@ -132,7 +132,7 @@ import { mapState } from "pinia";
 import { useApp } from "@/stores/useApp";
 import { useTheme } from "@/stores/useTheme";
 
-import productPanel from "@/components/admin/products/productPanel.vue";
+import productPanel from "@/components/admin/products/productPanel/index.vue";
 
 export default {
 	components: {

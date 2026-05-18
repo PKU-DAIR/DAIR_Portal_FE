@@ -5,7 +5,7 @@
 		width="960px"
 		height="auto"
 		:title="panelTitle"
-        :is-central-side="true"
+		:is-central-side="true"
 		:is-acrylic="true"
 		:is-footer="true"
 	>
@@ -117,142 +117,32 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="form.id" class="panel-section data-section">
-					<div class="section-head">
-						<p class="panel-subtitle">
-							{{ local("User Reviews") }}
-						</p>
-						<fv-button
-							:theme="theme"
-							style="width: 110px; height: 32px"
-							@click="getReviews"
-						>
-							{{ local("Refresh") }}
-						</fv-button>
-					</div>
-					<div class="inner-table">
-						<fv-details-list
-							ref="reviewList"
-							v-model="reviews"
-							:theme="theme"
-							:head="reviewHead"
-							:foreground="color"
-							style="width: 100%; height: 100%"
-						>
-							<template v-slot:column_0="x">
-								<p class="sec">{{ reviewOffset + x.row_index + 1 }}</p>
-							</template>
-							<template v-slot:column_1="x">
-								<fv-tag
-									:theme="theme"
-									:model-value="getSingleTag(x.item.reviewer_id)"
-								></fv-tag>
-							</template>
-							<template v-slot:column_2="x">
-								<p class="sec long-text">{{ x.item.review }}</p>
-							</template>
-							<template v-slot:column_3="x">
-								<p class="sec">{{ getDate(x.item.review_time) }}</p>
-							</template>
-							<template v-slot:column_4="x">
-								<p class="sec">{{ getDate(x.item.update_time) }}</p>
-							</template>
-							<template v-slot:column_5="x">
-								<fv-button
-									theme="dark"
-									background="rgba(173, 38, 45, 1)"
-									style="width: 72px; height: 28px"
-									@click="removeReview(x.item)"
-								>
-									{{ local("Delete") }}
-								</fv-button>
-							</template>
-						</fv-details-list>
-					</div>
-					<fv-Pagination
-						v-model="reviewPage"
-						:theme="theme"
-						:total="reviewTotal"
-						:background="
-							theme === 'dark'
-								? 'rgba(50, 50, 50, 1)'
-								: 'whitesmoke'
-						"
-						:foreground="color"
-						:shadow="true"
-						style="margin-top: 10px"
-					>
-					</fv-Pagination>
-				</div>
-				<div v-if="form.id" class="panel-section data-section">
-					<div class="section-head">
-						<p class="panel-subtitle">
-							{{ local("Attribute Values") }}
-						</p>
-						<fv-button
-							:theme="theme"
-							style="width: 110px; height: 32px"
-							@click="getAttributeValues"
-						>
-							{{ local("Refresh") }}
-						</fv-button>
-					</div>
-					<div class="inner-table">
-						<fv-details-list
-							ref="valueList"
-							v-model="attributeValues"
-							:theme="theme"
-							:head="valueHead"
-							:group="attributeValueGroups"
-                            :show-group="true"
-							:foreground="color"
-							style="width: 100%; height: 100%"
-						>
-							<template v-slot:column_0="x">
-								<p class="sec">{{ valueOffset + x.row_index + 1 }}</p>
-							</template>
-							<template v-slot:column_1="x">
-								<p class="sec">{{ getAttributeName(x.item.attribute_id) }}</p>
-							</template>
-							<template v-slot:column_2="x">
-								<p class="sec">{{ x.item.value }}</p>
-							</template>
-							<template v-slot:column_3="x">
-								<fv-tag
-									:theme="theme"
-									:model-value="getSingleTag(x.item.publisher_id)"
-								></fv-tag>
-							</template>
-							<template v-slot:column_4="x">
-								<p class="sec">{{ getDate(x.item.publish_time) }}</p>
-							</template>
-							<template v-slot:column_5="x">
-								<fv-button
-									theme="dark"
-									background="rgba(173, 38, 45, 1)"
-									style="width: 72px; height: 28px"
-									@click="removeValue(x.item)"
-								>
-									{{ local("Delete") }}
-								</fv-button>
-							</template>
-						</fv-details-list>
-					</div>
-					<fv-Pagination
-						v-model="valuePage"
-						:theme="theme"
-						:total="valueTotal"
-						:background="
-							theme === 'dark'
-								? 'rgba(50, 50, 50, 1)'
-								: 'whitesmoke'
-						"
-						:foreground="color"
-						:shadow="true"
-						style="margin-top: 10px"
-					>
-					</fv-Pagination>
-				</div>
+				<review-section
+					v-if="form.id"
+					ref="reviewSection"
+					:items="reviews"
+					:page="reviewPage"
+					:limit="reviewLimit"
+					:total="reviewTotal"
+					:theme="theme"
+					:color="color"
+					@refresh="getReviews"
+					@remove="removeReview"
+					@update:page="reviewPage = $event"
+				></review-section>
+				<attribute-value-section
+					v-if="form.id"
+					ref="valueSection"
+					:items="attributeValues"
+					:page="valuePage"
+					:limit="valueLimit"
+					:total="valueTotal"
+					:theme="theme"
+					:color="color"
+					@refresh="getAttributeValues"
+					@remove="removeValue"
+					@update:page="valuePage = $event"
+				></attribute-value-section>
 			</div>
 		</template>
 		<template v-slot:footer>
@@ -280,6 +170,8 @@
 import { mapState } from "pinia";
 import { useApp } from "@/stores/useApp";
 import { useTheme } from "@/stores/useTheme";
+import reviewSection from "./reviewSection.vue";
+import attributeValueSection from "./attributeValueSection.vue";
 
 const createForm = () => ({
 	id: "",
@@ -294,6 +186,11 @@ const createForm = () => ({
 });
 
 export default {
+	name: "AdminProductPanel",
+	components: {
+		reviewSection,
+		attributeValueSection,
+	},
 	props: {
 		modelValue: {
 			default: false,
@@ -330,22 +227,6 @@ export default {
 				{ key: "pending", value: "pending", text: "pending" },
 				{ key: "approved", value: "approved", text: "approved" },
 				{ key: "rejected", value: "rejected", text: "rejected" },
-			],
-			reviewHead: [
-				{ content: "#", width: 60 },
-				{ content: "Reviewer", width: 150 },
-				{ content: "Review", width: 250 },
-				{ content: "Review Time", width: 170 },
-				{ content: "Update Time", width: 170 },
-				{ content: "Action", width: 100 },
-			],
-			valueHead: [
-				{ content: "#", width: 60 },
-				{ content: "Attribute", width: 180 },
-				{ content: "Value", width: 180 },
-				{ content: "Publisher", width: 160 },
-				{ content: "Publish Time", width: 170 },
-				{ content: "Action", width: 100 },
 			],
 		};
 	},
@@ -388,21 +269,6 @@ export default {
 		valueOffset() {
 			return (this.valuePage - 1) * this.valueLimit;
 		},
-		attributeValueGroups() {
-			const groups = [];
-			const existed = new Set();
-			for (const item of this.attributeValues) {
-				const value = item.attribute_group_name || this.local("Unknown");
-				if (existed.has(value)) continue;
-				existed.add(value);
-				groups.push({
-					key: "attribute_group_name",
-					value,
-					name: value,
-				});
-			}
-			return groups;
-		},
 	},
 	methods: {
 		syncAuditStatus(value) {
@@ -410,8 +276,7 @@ export default {
 			const matched = this.auditStatusOptions.find(
 				(item) => item.value === status,
 			);
-			this.currentAuditStatus =
-				matched || this.auditStatusOptions[0];
+			this.currentAuditStatus = matched || this.auditStatusOptions[0];
 			this.form.audit_status = this.currentAuditStatus.value;
 		},
 		getDate(item) {
@@ -425,11 +290,8 @@ export default {
 			}
 		},
 		refreshDetailsListHeads() {
-			this.$refs.reviewList?.headInit?.();
-			this.$refs.valueList?.headInit?.();
-		},
-		getSingleTag(text) {
-			return text ? [{ text }] : [];
+			this.$refs.reviewSection?.refreshHead?.();
+			this.$refs.valueSection?.refreshHead?.();
 		},
 		normalizeAttributeValueItem(item) {
 			return {
@@ -699,12 +561,9 @@ export default {
 						}
 					} catch (err) {
 						console.log(err);
-						this.$barWarning(
-							this.local("Delete review failed"),
-							{
-								status: "error",
-							},
-						);
+						this.$barWarning(this.local("Delete review failed"), {
+							status: "error",
+						});
 					}
 				},
 			});
@@ -764,8 +623,7 @@ export default {
 		color: whitesmoke;
 
 		.panel-textarea,
-		.logo-placeholder,
-		.inner-table {
+		.logo-placeholder {
 			background: rgba(36, 36, 36, 1);
 			color: whitesmoke;
 		}
@@ -781,8 +639,7 @@ export default {
 		margin-bottom: 16px;
 	}
 
-	.panel-title,
-	.panel-subtitle {
+	.panel-title {
 		margin-bottom: 6px;
 		font-size: 13px;
 		font-weight: 600;
@@ -834,31 +691,6 @@ export default {
 	.logo-info {
 		font-size: 12px;
 		line-height: 1.9;
-	}
-
-	.data-section {
-		padding-top: 8px;
-		border-top: rgba(120, 120, 120, 0.15) solid 1px;
-	}
-
-	.section-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 10px;
-	}
-
-	.inner-table {
-		height: 260px;
-		background: rgba(0, 0, 0, 0.02);
-		border-radius: 8px;
-		overflow: hidden;
-	}
-
-	.long-text {
-		line-height: 1.6;
-		word-break: break-all;
-		white-space: normal;
 	}
 }
 

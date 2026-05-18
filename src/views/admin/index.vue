@@ -45,7 +45,7 @@ export default {
 				},
 				{
 					key: 2,
-					name: () => this.local("Products"),
+					name: () => this.local("AI Products"),
 					icon: "Package",
 					route: "/a/products",
 				},
@@ -103,7 +103,7 @@ export default {
 			for (let item of this.navList) {
 				if (item.route === "") continue;
 				let targetPath = item.route;
-				if (path.startsWith(targetPath)) {
+				if (path == targetPath) {
 					this.currentNav = item;
 					break;
 				}
@@ -135,7 +135,3 @@ export default {
 	}
 }
 </style>
-
-
-
-
