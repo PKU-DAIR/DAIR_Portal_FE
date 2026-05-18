@@ -135,6 +135,23 @@ export class Body_UploadNewsImage {
     image=undefined
     
 }
+export class Body_UploadProductLogo {
+  
+    /**
+     *
+     * @param {String} logo 
+     */ 
+    constructor(logo = undefined){
+        this.logo = logo
+    }
+       
+    /**
+     * 
+     * @type {String}
+     */
+    logo=undefined
+    
+}
 export class ClientTeam {
   
     /**
@@ -489,6 +506,115 @@ export class NewsItem {
      * @type {String}
      */
     update_time=undefined
+    
+}
+export class ProductAttributeItem {
+  
+    /**
+     *
+     * @param {String} name 
+     * @param {String} attribute_type 
+     */ 
+    constructor(id = undefined,name = undefined,attribute_type = undefined,create_time = undefined,update_time = undefined){
+        this.id = id
+        this.name = name
+        this.attribute_type = attribute_type
+        this.create_time = create_time
+        this.update_time = update_time
+    }
+       
+    /**
+     * 
+     * @type {String}
+     */
+    name=undefined   
+    /**
+     * 
+     * @type {String}
+     */
+    attribute_type=undefined
+    
+}
+export class ProductAttributeValueItem {
+  
+    /**
+     *
+     * @param {String} product_id 
+     * @param {String} attribute_id 
+     */ 
+    constructor(id = undefined,product_id = undefined,attribute_id = undefined,value = undefined,publisher_id = undefined,publish_time = undefined,update_time = undefined){
+        this.id = id
+        this.product_id = product_id
+        this.attribute_id = attribute_id
+        this.value = value
+        this.publisher_id = publisher_id
+        this.publish_time = publish_time
+        this.update_time = update_time
+    }
+       
+    /**
+     * 
+     * @type {String}
+     */
+    product_id=undefined   
+    /**
+     * 
+     * @type {String}
+     */
+    attribute_id=undefined
+    
+}
+export class ProductItem {
+  
+    /**
+     *
+     * @param {String} tool_name 
+     */ 
+    constructor(id = undefined,tool_name = undefined,tool_type = undefined,organization = undefined,introduction = undefined,audit_status = undefined,publish_time = undefined,update_time = undefined,publisher_id = undefined){
+        this.id = id
+        this.tool_name = tool_name
+        this.tool_type = tool_type
+        this.organization = organization
+        this.introduction = introduction
+        this.audit_status = audit_status
+        this.publish_time = publish_time
+        this.update_time = update_time
+        this.publisher_id = publisher_id
+    }
+       
+    /**
+     * 
+     * @type {String}
+     */
+    tool_name=undefined
+    
+}
+export class ProductReviewItem {
+  
+    /**
+     *
+     * @param {String} product_id 
+     * @param {String} review 
+     */ 
+    constructor(id = undefined,product_id = undefined,review = undefined,reviewer_id = undefined,review_time = undefined,update_time = undefined){
+        this.id = id
+        this.product_id = product_id
+        this.review = review
+        this.reviewer_id = reviewer_id
+        this.review_time = review_time
+        this.update_time = update_time
+    }
+       
+    /**
+     * 
+     * @type {String}
+     */
+    product_id=undefined   
+    /**
+     * 
+     * @type {String}
+     */
+    review=undefined
     
 }
 export class PublicationItem {

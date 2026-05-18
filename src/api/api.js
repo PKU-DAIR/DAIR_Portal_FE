@@ -4602,6 +4602,1713 @@ Publication.DeletePublication.fullPath=`${axios.defaults.baseURL}/publications/r
 */
 Publication.DeletePublication.path=`/publications/remove`
 
+export class Product {
+ 
+  /**
+  * @summary List Products
+  * @param {undefined} [search] 
+  * @param {undefined} [tool_type] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListProducts(search,tool_type,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/get_products',
+        data:{},
+        params:{search,tool_type,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Client Products
+  * @param {undefined} [search] 
+  * @param {undefined} [tool_type] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListClientProducts(search,tool_type,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/client/get_products',
+        data:{},
+        params:{search,tool_type,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Product
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetProduct(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/get_product',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Client Product
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetClientProduct(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/client/get_product',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Add Or Update Product
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.ProductItem} [productitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async AddOrUpdateProduct(valid_info,productitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/update',
+        data:productitem,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Submit Product
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.ProductItem} [productitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async SubmitProduct(valid_info,productitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/submit',
+        data:productitem,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Delete Product
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async DeleteProduct(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'delete',
+        url:'/products/remove',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Upload Product Logo
+  * @param {String} [id] 
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.Body_UploadProductLogo} [body_uploadproductlogo] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async UploadProductLogo(id,valid_info,body_uploadproductlogo,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/upload_logo',
+        data:body_uploadproductlogo,
+        params:{id,valid_info},
+        headers:{
+          "Content-Type":"multipart/form-data"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Product Logo
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetProductLogo(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/get_logo',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Admin Product Logo
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetAdminProductLogo(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/admin/get_logo',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Product Reviews
+  * @param {String} [product_id] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListProductReviews(product_id,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/reviews/get_reviews',
+        data:{},
+        params:{product_id,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Client Product Reviews
+  * @param {String} [product_id] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListClientProductReviews(product_id,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/client/reviews/get_reviews',
+        data:{},
+        params:{product_id,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Product Review
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetProductReview(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/reviews/get_review',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Add Or Update Product Review
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.ProductReviewItem} [productreviewitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async AddOrUpdateProductReview(valid_info,productreviewitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/reviews/update',
+        data:productreviewitem,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Submit Product Review
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.ProductReviewItem} [productreviewitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async SubmitProductReview(valid_info,productreviewitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/reviews/submit',
+        data:productreviewitem,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Delete Product Review
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async DeleteProductReview(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'delete',
+        url:'/products/reviews/remove',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Product Attributes
+  * @param {undefined} [search] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListProductAttributes(search,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/attributes/get_attributes',
+        data:{},
+        params:{search,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Client Product Attributes
+  * @param {undefined} [search] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListClientProductAttributes(search,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/client/attributes/get_attributes',
+        data:{},
+        params:{search,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Product Attribute
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetProductAttribute(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/attributes/get_attribute',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Add Or Update Product Attribute
+  * @param {UserModel.ProductAttributeItem} [productattributeitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async AddOrUpdateProductAttribute(productattributeitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/attributes/update',
+        data:productattributeitem,
+        params:{},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Delete Product Attribute
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async DeleteProductAttribute(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'delete',
+        url:'/products/attributes/remove',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Product Attribute Values
+  * @param {undefined} [product_id] 
+  * @param {undefined} [attribute_id] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListProductAttributeValues(product_id,attribute_id,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/attribute_values/get_values',
+        data:{},
+        params:{product_id,attribute_id,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary List Client Product Attribute Values
+  * @param {undefined} [product_id] 
+  * @param {undefined} [attribute_id] 
+  * @param {Number} [offset] 
+  * @param {Number} [limit] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async ListClientProductAttributeValues(product_id,attribute_id,offset,limit,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/client/attribute_values/get_values',
+        data:{},
+        params:{product_id,attribute_id,offset,limit},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Get Product Attribute Value
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetProductAttributeValue(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/attribute_values/get_value',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Add Or Update Product Attribute Value
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.ProductAttributeValueItem} [productattributevalueitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async AddOrUpdateProductAttributeValue(valid_info,productattributevalueitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/attribute_values/update',
+        data:productattributevalueitem,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Submit Product Attribute Value
+  * @param {undefined} [valid_info] 
+  * @param {UserModel.ProductAttributeValueItem} [productattributevalueitem] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async SubmitProductAttributeValue(valid_info,productattributevalueitem,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/products/attribute_values/submit',
+        data:productattributevalueitem,
+        params:{valid_info},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
+  * @summary Delete Product Attribute Value
+  * @param {String} [id] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async DeleteProductAttributeValue(id,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'delete',
+        url:'/products/attribute_values/remove',
+        data:{},
+        params:{id},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+}
+
+// class Product static method properties bind
+/**
+* @description ListProducts url链接，包含baseURL
+*/
+Product.ListProducts.fullPath=`${axios.defaults.baseURL}/products/get_products`
+/**
+* @description ListProducts url链接，不包含baseURL
+*/
+Product.ListProducts.path=`/products/get_products`
+/**
+* @description ListClientProducts url链接，包含baseURL
+*/
+Product.ListClientProducts.fullPath=`${axios.defaults.baseURL}/products/client/get_products`
+/**
+* @description ListClientProducts url链接，不包含baseURL
+*/
+Product.ListClientProducts.path=`/products/client/get_products`
+/**
+* @description GetProduct url链接，包含baseURL
+*/
+Product.GetProduct.fullPath=`${axios.defaults.baseURL}/products/get_product`
+/**
+* @description GetProduct url链接，不包含baseURL
+*/
+Product.GetProduct.path=`/products/get_product`
+/**
+* @description GetClientProduct url链接，包含baseURL
+*/
+Product.GetClientProduct.fullPath=`${axios.defaults.baseURL}/products/client/get_product`
+/**
+* @description GetClientProduct url链接，不包含baseURL
+*/
+Product.GetClientProduct.path=`/products/client/get_product`
+/**
+* @description AddOrUpdateProduct url链接，包含baseURL
+*/
+Product.AddOrUpdateProduct.fullPath=`${axios.defaults.baseURL}/products/update`
+/**
+* @description AddOrUpdateProduct url链接，不包含baseURL
+*/
+Product.AddOrUpdateProduct.path=`/products/update`
+/**
+* @description SubmitProduct url链接，包含baseURL
+*/
+Product.SubmitProduct.fullPath=`${axios.defaults.baseURL}/products/submit`
+/**
+* @description SubmitProduct url链接，不包含baseURL
+*/
+Product.SubmitProduct.path=`/products/submit`
+/**
+* @description DeleteProduct url链接，包含baseURL
+*/
+Product.DeleteProduct.fullPath=`${axios.defaults.baseURL}/products/remove`
+/**
+* @description DeleteProduct url链接，不包含baseURL
+*/
+Product.DeleteProduct.path=`/products/remove`
+/**
+* @description UploadProductLogo url链接，包含baseURL
+*/
+Product.UploadProductLogo.fullPath=`${axios.defaults.baseURL}/products/upload_logo`
+/**
+* @description UploadProductLogo url链接，不包含baseURL
+*/
+Product.UploadProductLogo.path=`/products/upload_logo`
+/**
+* @description GetProductLogo url链接，包含baseURL
+*/
+Product.GetProductLogo.fullPath=`${axios.defaults.baseURL}/products/get_logo`
+/**
+* @description GetProductLogo url链接，不包含baseURL
+*/
+Product.GetProductLogo.path=`/products/get_logo`
+/**
+* @description GetAdminProductLogo url链接，包含baseURL
+*/
+Product.GetAdminProductLogo.fullPath=`${axios.defaults.baseURL}/products/admin/get_logo`
+/**
+* @description GetAdminProductLogo url链接，不包含baseURL
+*/
+Product.GetAdminProductLogo.path=`/products/admin/get_logo`
+/**
+* @description ListProductReviews url链接，包含baseURL
+*/
+Product.ListProductReviews.fullPath=`${axios.defaults.baseURL}/products/reviews/get_reviews`
+/**
+* @description ListProductReviews url链接，不包含baseURL
+*/
+Product.ListProductReviews.path=`/products/reviews/get_reviews`
+/**
+* @description ListClientProductReviews url链接，包含baseURL
+*/
+Product.ListClientProductReviews.fullPath=`${axios.defaults.baseURL}/products/client/reviews/get_reviews`
+/**
+* @description ListClientProductReviews url链接，不包含baseURL
+*/
+Product.ListClientProductReviews.path=`/products/client/reviews/get_reviews`
+/**
+* @description GetProductReview url链接，包含baseURL
+*/
+Product.GetProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/get_review`
+/**
+* @description GetProductReview url链接，不包含baseURL
+*/
+Product.GetProductReview.path=`/products/reviews/get_review`
+/**
+* @description AddOrUpdateProductReview url链接，包含baseURL
+*/
+Product.AddOrUpdateProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/update`
+/**
+* @description AddOrUpdateProductReview url链接，不包含baseURL
+*/
+Product.AddOrUpdateProductReview.path=`/products/reviews/update`
+/**
+* @description SubmitProductReview url链接，包含baseURL
+*/
+Product.SubmitProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/submit`
+/**
+* @description SubmitProductReview url链接，不包含baseURL
+*/
+Product.SubmitProductReview.path=`/products/reviews/submit`
+/**
+* @description DeleteProductReview url链接，包含baseURL
+*/
+Product.DeleteProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/remove`
+/**
+* @description DeleteProductReview url链接，不包含baseURL
+*/
+Product.DeleteProductReview.path=`/products/reviews/remove`
+/**
+* @description ListProductAttributes url链接，包含baseURL
+*/
+Product.ListProductAttributes.fullPath=`${axios.defaults.baseURL}/products/attributes/get_attributes`
+/**
+* @description ListProductAttributes url链接，不包含baseURL
+*/
+Product.ListProductAttributes.path=`/products/attributes/get_attributes`
+/**
+* @description ListClientProductAttributes url链接，包含baseURL
+*/
+Product.ListClientProductAttributes.fullPath=`${axios.defaults.baseURL}/products/client/attributes/get_attributes`
+/**
+* @description ListClientProductAttributes url链接，不包含baseURL
+*/
+Product.ListClientProductAttributes.path=`/products/client/attributes/get_attributes`
+/**
+* @description GetProductAttribute url链接，包含baseURL
+*/
+Product.GetProductAttribute.fullPath=`${axios.defaults.baseURL}/products/attributes/get_attribute`
+/**
+* @description GetProductAttribute url链接，不包含baseURL
+*/
+Product.GetProductAttribute.path=`/products/attributes/get_attribute`
+/**
+* @description AddOrUpdateProductAttribute url链接，包含baseURL
+*/
+Product.AddOrUpdateProductAttribute.fullPath=`${axios.defaults.baseURL}/products/attributes/update`
+/**
+* @description AddOrUpdateProductAttribute url链接，不包含baseURL
+*/
+Product.AddOrUpdateProductAttribute.path=`/products/attributes/update`
+/**
+* @description DeleteProductAttribute url链接，包含baseURL
+*/
+Product.DeleteProductAttribute.fullPath=`${axios.defaults.baseURL}/products/attributes/remove`
+/**
+* @description DeleteProductAttribute url链接，不包含baseURL
+*/
+Product.DeleteProductAttribute.path=`/products/attributes/remove`
+/**
+* @description ListProductAttributeValues url链接，包含baseURL
+*/
+Product.ListProductAttributeValues.fullPath=`${axios.defaults.baseURL}/products/attribute_values/get_values`
+/**
+* @description ListProductAttributeValues url链接，不包含baseURL
+*/
+Product.ListProductAttributeValues.path=`/products/attribute_values/get_values`
+/**
+* @description ListClientProductAttributeValues url链接，包含baseURL
+*/
+Product.ListClientProductAttributeValues.fullPath=`${axios.defaults.baseURL}/products/client/attribute_values/get_values`
+/**
+* @description ListClientProductAttributeValues url链接，不包含baseURL
+*/
+Product.ListClientProductAttributeValues.path=`/products/client/attribute_values/get_values`
+/**
+* @description GetProductAttributeValue url链接，包含baseURL
+*/
+Product.GetProductAttributeValue.fullPath=`${axios.defaults.baseURL}/products/attribute_values/get_value`
+/**
+* @description GetProductAttributeValue url链接，不包含baseURL
+*/
+Product.GetProductAttributeValue.path=`/products/attribute_values/get_value`
+/**
+* @description AddOrUpdateProductAttributeValue url链接，包含baseURL
+*/
+Product.AddOrUpdateProductAttributeValue.fullPath=`${axios.defaults.baseURL}/products/attribute_values/update`
+/**
+* @description AddOrUpdateProductAttributeValue url链接，不包含baseURL
+*/
+Product.AddOrUpdateProductAttributeValue.path=`/products/attribute_values/update`
+/**
+* @description SubmitProductAttributeValue url链接，包含baseURL
+*/
+Product.SubmitProductAttributeValue.fullPath=`${axios.defaults.baseURL}/products/attribute_values/submit`
+/**
+* @description SubmitProductAttributeValue url链接，不包含baseURL
+*/
+Product.SubmitProductAttributeValue.path=`/products/attribute_values/submit`
+/**
+* @description DeleteProductAttributeValue url链接，包含baseURL
+*/
+Product.DeleteProductAttributeValue.fullPath=`${axios.defaults.baseURL}/products/attribute_values/remove`
+/**
+* @description DeleteProductAttributeValue url链接，不包含baseURL
+*/
+Product.DeleteProductAttributeValue.path=`/products/attribute_values/remove`
+
 export class common {
  
   /**

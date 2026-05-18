@@ -44,6 +44,18 @@ export default {
 					route: "/a/",
 				},
 				{
+					key: 2,
+					name: () => this.local("Products"),
+					icon: "Package",
+					route: "/a/products",
+				},
+				{
+					key: 3,
+					name: () => this.local("Product Attributes"),
+					icon: "BulletedList",
+					route: "/a/product-attributes",
+				},
+				{
 					key: 1,
 					name: () => this.local("About"),
 					icon: "People",
@@ -90,7 +102,7 @@ export default {
 			let path = this.$route.path;
 			for (let item of this.navList) {
 				if (item.route === "") continue;
-				let targetPath = `/a/${item.route}`;
+				let targetPath = item.route;
 				if (path.startsWith(targetPath)) {
 					this.currentNav = item;
 					break;

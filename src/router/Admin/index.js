@@ -11,6 +11,14 @@ export default {
             component: AsyncLoad(() => import("@/views/admin/users/index.vue"))
         },
         {
+            path: 'products',
+            component: AsyncLoad(() => import("@/views/admin/products/index.vue"))
+        },
+        {
+            path: 'product-attributes',
+            component: AsyncLoad(() => import("@/views/admin/productAttributes/index.vue"))
+        },
+        {
             path: 'about',
             component: AsyncLoad(() => import("@/views/admin/about/index.vue"))
         },
