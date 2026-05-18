@@ -1,4 +1,4 @@
-const dict = {
+export default {
     "No any Content": {
         "en": "No any Content",
         "cn": "没有任何内容"
@@ -1358,7 +1358,357 @@ const dict = {
     "December": {
         "en": "December",
         "cn": "十二月"
+    },
+    "AI Products": {
+        "en": "AI Products",
+        "cn": "AI产品"
+    },
+    "Action": {
+        "en": "Action",
+        "cn": "操作"
+    },
+    "Add": {
+        "en": "Add",
+        "cn": "添加"
+    },
+    "Add Attribute": {
+        "en": "Add Attribute",
+        "cn": "添加属性"
+    },
+    "Add Product": {
+        "en": "Add Product",
+        "cn": "添加产品"
+    },
+    "Attribute Management": {
+        "en": "Attribute Management",
+        "cn": "属性管理"
+    },
+    "Attribute Name": {
+        "en": "Attribute Name",
+        "cn": "属性名称"
+    },
+    "Attribute Type": {
+        "en": "Attribute Type",
+        "cn": "属性类型"
+    },
+    "Attribute Values": {
+        "en": "Attribute Values",
+        "cn": "属性值"
+    },
+    "Audit Status": {
+        "en": "Audit Status",
+        "cn": "审核状态"
+    },
+    "Average": {
+        "en": "Average",
+        "cn": "平均"
+    },
+    "Back to Products": {
+        "en": "Back to Products",
+        "cn": "返回产品列表"
+    },
+    "Change Logo": {
+        "en": "Change Logo",
+        "cn": "更改Logo"
+    },
+    "Create Time": {
+        "en": "Create Time",
+        "cn": "创建时间"
+    },
+    "Created": {
+        "en": "Created",
+        "cn": "已创建"
+    },
+    "Delete attribute failed": {
+        "en": "Delete attribute failed",
+        "cn": "删除属性失败"
+    },
+    "Delete attribute value failed": {
+        "en": "Delete attribute value failed",
+        "cn": "删除属性值失败"
+    },
+    "Delete attributes failed": {
+        "en": "Delete attributes failed",
+        "cn": "删除属性失败"
+    },
+    "Delete product failed": {
+        "en": "Delete product failed",
+        "cn": "删除产品失败"
+    },
+    "Delete products failed": {
+        "en": "Delete products failed",
+        "cn": "删除产品失败"
+    },
+    "Delete review failed": {
+        "en": "Delete review failed",
+        "cn": "删除评论失败"
+    },
+    "Delete this attribute value?": {
+        "en": "Delete this attribute value?",
+        "cn": "删除此属性值？"
+    },
+    "Delete this review?": {
+        "en": "Delete this review?",
+        "cn": "删除此评论？"
+    },
+    "Edit Attribute": {
+        "en": "Edit Attribute",
+        "cn": "编辑属性"
+    },
+    "Edit Product": {
+        "en": "Edit Product",
+        "cn": "编辑产品"
+    },
+    "Filter tool type": {
+        "en": "Filter tool type",
+        "cn": "筛选工具类型"
+    },
+    "Get attribute values failed": {
+        "en": "Get attribute values failed",
+        "cn": "获取属性值失败"
+    },
+    "Get attributes failed": {
+        "en": "Get attributes failed",
+        "cn": "获取属性失败"
+    },
+    "Get product reviews failed": {
+        "en": "Get product reviews failed",
+        "cn": "获取产品评论失败"
+    },
+    "Get products failed": {
+        "en": "Get products failed",
+        "cn": "获取产品失败"
+    },
+    "Introduction": {
+        "en": "Introduction",
+        "cn": "简介"
+    },
+    "Login Required": {
+        "en": "Login Required",
+        "cn": "需要登录"
+    },
+    "Logo": {
+        "en": "Logo",
+        "cn": "Logo"
+    },
+    "May require payment": {
+        "en": "May require payment",
+        "cn": "可能需要付费"
+    },
+    "My Ratings": {
+        "en": "My Ratings",
+        "cn": "我的评分"
+    },
+    "My Review": {
+        "en": "My Review",
+        "cn": "我的评论"
+    },
+    "No": {
+        "en": "No",
+        "cn": "否"
+    },
+    "No Logo": {
+        "en": "No Logo",
+        "cn": "无Logo"
+    },
+    "No introduction yet.": {
+        "en": "No introduction yet.",
+        "cn": "暂无简介。"
+    },
+    "No products yet.": {
+        "en": "No products yet.",
+        "cn": "暂无产品。"
+    },
+    "November": {
+        "en": "November",
+        "cn": "十一月"
+    },
+    "Organization": {
+        "en": "Organization",
+        "cn": "组织"
+    },
+    "Other": {
+        "en": "Other",
+        "cn": "其他"
+    },
+    "Please input tool name": {
+        "en": "Please input tool name",
+        "cn": "请输入工具名称"
+    },
+    "Please login first to review this product.": {
+        "en": "Please login first to review this product.",
+        "cn": "请先登录再评论此产品。"
+    },
+    "Product": {
+        "en": "Product",
+        "cn": "产品"
+    },
+    "Product Attributes": {
+        "en": "Product Attributes",
+        "cn": "产品属性"
+    },
+    "Product Attributes Management": {
+        "en": "Product Attributes Management",
+        "cn": "产品属性管理"
+    },
+    "Product Detail": {
+        "en": "Product Detail",
+        "cn": "产品详情"
+    },
+    "Product saved, but logo upload needs product id": {
+        "en": "Product saved, but logo upload needs product id",
+        "cn": "产品已保存，但上传Logo需要产品ID"
+    },
+    "Products Management": {
+        "en": "Products Management",
+        "cn": "产品管理"
+    },
+    "Remove Attribute": {
+        "en": "Remove Attribute",
+        "cn": "移除属性"
+    },
+    "Remove Attributes": {
+        "en": "Remove Attributes",
+        "cn": "移除属性"
+    },
+    "Remove Product": {
+        "en": "Remove Product",
+        "cn": "移除产品"
+    },
+    "Remove Products": {
+        "en": "Remove Products",
+        "cn": "移除产品"
+    },
+    "Remove these attributes ?": {
+        "en": "Remove these attributes ?",
+        "cn": "移除这些属性？"
+    },
+    "Remove these products ?": {
+        "en": "Remove these products ?",
+        "cn": "移除这些产品？"
+    },
+    "Research Ladder": {
+        "en": "Research Ladder",
+        "cn": "研梯"
+    },
+    "Review": {
+        "en": "Review",
+        "cn": "评论"
+    },
+    "Save attribute failed": {
+        "en": "Save attribute failed",
+        "cn": "保存属性失败"
+    },
+    "Save product failed": {
+        "en": "Save product failed",
+        "cn": "保存产品失败"
+    },
+    "Select audit status": {
+        "en": "Select audit status",
+        "cn": "选择审核状态"
+    },
+    "Submit Review": {
+        "en": "Submit Review",
+        "cn": "提交评论"
+    },
+    "Submit Success": {
+        "en": "Submit Success",
+        "cn": "提交成功"
+    },
+    "Submit review failed": {
+        "en": "Submit review failed",
+        "cn": "提交评论失败"
+    },
+    "Tool Name": {
+        "en": "Tool Name",
+        "cn": "工具名称"
+    },
+    "Tool Type": {
+        "en": "Tool Type",
+        "cn": "工具类型"
+    },
+    "Unknown": {
+        "en": "Unknown",
+        "cn": "未知"
+    },
+    "Update Time": {
+        "en": "Update Time",
+        "cn": "更新时间"
+    },
+    "Updated": {
+        "en": "Updated",
+        "cn": "已更新"
+    },
+    "Updated At": {
+        "en": "Updated At",
+        "cn": "更新于"
+    },
+    "Upload Image Failed": {
+        "en": "Upload Image Failed",
+        "cn": "上传图片失败"
+    },
+    "Upload Logo": {
+        "en": "Upload Logo",
+        "cn": "上传Logo"
+    },
+    "Upload logo failed": {
+        "en": "Upload logo failed",
+        "cn": "上传Logo失败"
+    },
+    "Upload logo success": {
+        "en": "Upload logo success",
+        "cn": "上传Logo成功"
+    },
+    "Uploading Image...": {
+        "en": "Uploading Image...",
+        "cn": "正在上传图片..."
+    },
+    "User Reviews": {
+        "en": "User Reviews",
+        "cn": "用户评论"
+    },
+    "View Product": {
+        "en": "View Product",
+        "cn": "查看产品"
+    },
+    "Write your review here...": {
+        "en": "Write your review here...",
+        "cn": "在此处撰写您的评论..."
+    },
+    "Yes": {
+        "en": "Yes",
+        "cn": "是"
+    },
+    "idle": {
+        "en": "idle",
+        "cn": "空闲"
+    },
+    "tools": {
+        "en": "tools",
+        "cn": "工具"
+    },
+    "users think it is free": {
+        "en": "users think it is free",
+        "cn": "用户认为它是免费的"
+    },
+    "Explore approved AI and research tools ranked by community feedback.": {
+        "en": "Explore approved AI and research tools ranked by community feedback.",
+        "cn": "探索已审批的AI和研究工具，按社区反馈排名。"
+    },
+    "Value for Money": {
+        "en": "Value for Money",
+        "cn": "性价比"
+    },
+    "Free": {
+        "en": "Free",
+        "cn": "免费"
+    },
+    "Usability": {
+        "en": "Usability",
+        "cn": "可用性"
+    },
+    "Response Time": {
+        "en": "Response Time",
+        "cn": "响应时间"
     }
 }
-
-export default dict;
