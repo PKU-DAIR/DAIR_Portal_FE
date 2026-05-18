@@ -47,7 +47,7 @@
 				</div>
 
 				<div
-					v-for="(item, index) in group.items"
+					v-for="item in group.items"
 					:key="item.id"
 					class="table-row"
 				>
@@ -60,11 +60,7 @@
 								<fv-img
 									v-if="item.has_logo"
 									:src="getLogoUrl(item)"
-									style="
-										width: auto;
-										height: 46px;
-										max-width: 120px;
-									"
+									style="width: auto; height: 46px; max-width: 120px"
 								></fv-img>
 								<div v-else class="logo-placeholder">
 									{{ item.tool_name?.slice(0, 1) || "P" }}
@@ -72,9 +68,7 @@
 							</div>
 							<div class="product-info">
 								<p class="product-name">{{ item.tool_name }}</p>
-								<p class="product-org">
-									{{ item.organization }}
-								</p>
+								<p class="product-org">{{ item.organization }}</p>
 								<p class="product-intro">
 									{{
 										item.introduction ||
@@ -89,73 +83,12 @@
 							<div
 								v-for="attribute in attributes"
 								:key="`${item.id}-${attribute.id}`"
-								class="attr-card"
 							>
-								<p class="attr-card-name">
-									{{ attribute.name }}
-								</p>
-								<div class="attr-card-value">
-									<fv-rating-control
-										v-if="
-											attribute.attribute_type === 'score'
-										"
-										:model-value="
-											getAttributeDisplayValue(
-												item,
-												attribute,
-											)
-										"
-										:theme="theme"
-										:readonly="true"
-										:max-rate="5"
-										:selected-color="'rgba(255, 196, 61, 1)'"
-									></fv-rating-control>
-									<fv-toggle-switch
-										v-else-if="
-											attribute.attribute_type === 'bool' &&
-											isBooleanBinary(item, attribute)
-										"
-										:model-value="
-											Boolean(
-												getAttributeDisplayValue(
-													item,
-													attribute,
-												),
-											)
-										"
-										:theme="theme"
-										:disabled="true"
-										:width="68"
-										:height="28"
-										:on="local('Yes')"
-										:off="local('No')"
-										:inside-content="true"
-										:switch-on-background="'rgba(91, 192, 139, 1)'"
-									></fv-toggle-switch>
-									<div
-										v-else-if="
-											attribute.attribute_type === 'bool'
-										"
-										class="bool-unknown"
-										:title="
-											getBooleanHint(item, attribute)
-										"
-									>
-										<i class="ms-Icon ms-Icon--Unknown"></i>
-									</div>
-									<p v-else class="plain-value">
-										{{
-											getAttributeDisplayValue(
-												item,
-												attribute,
-											) ?? "-"
-										}}
-									</p>
-								</div>
-								<p class="attr-card-meta">
-									{{ local("Average") }}:
-									{{ formatAttributeMeta(item, attribute) }}
-								</p>
+								<component
+									:is="resolveAttributeComponent(attribute)"
+									:item="item"
+									:attribute="attribute"
+								></component>
 							</div>
 						</div>
 					</div>
@@ -163,7 +96,7 @@
 						<fv-button
 							theme="dark"
 							background="linear-gradient(135deg, rgba(76, 110, 245, 1) 0%, rgba(52, 164, 219, 1) 100%)"
-                            :border-radius="8"
+							:border-radius="8"
 							:is-box-shadow="true"
 							style="width: 110px; height: 38px"
 							@click="openReviewPanel(item)"
@@ -208,11 +141,17 @@ import { useUser } from "@/stores/useUser";
 
 import bottomBlock from "@/views/client/home/bottomBlock.vue";
 import reviewPanel from "@/components/client/products/reviewPanel.vue";
+import attributeScoreCard from "@/components/client/products/attributeScoreCard.vue";
+import attributeBoolCard from "@/components/client/products/attributeBoolCard.vue";
+import attributeGenericCard from "@/components/client/products/attributeGenericCard.vue";
 
 export default {
 	components: {
 		bottomBlock,
 		reviewPanel,
+		attributeScoreCard,
+		attributeBoolCard,
+		attributeGenericCard,
 	},
 	data() {
 		return {
@@ -265,44 +204,14 @@ export default {
 		getGlobalIndex(id) {
 			return this.products.findIndex((item) => item.id === id) + 1;
 		},
-		getAttributeRecord(item, attribute) {
-			return item.attribute_value_list?.find(
-				(value) => value.attribute_id === attribute.id,
-			);
-		},
-		getAttributeDisplayValue(item, attribute) {
-			const record = this.getAttributeRecord(item, attribute);
-			if (record && record.avg_value !== undefined) {
-				return record.avg_value;
+		resolveAttributeComponent(attribute) {
+			if (attribute.attribute_type === "score") {
+				return "attributeScoreCard";
 			}
-			return item.attribute_values?.[attribute.id];
-		},
-		formatAttributeMeta(item, attribute) {
-			const value = this.getAttributeDisplayValue(item, attribute);
-			if (value === undefined || value === null || value === "")
-				return "-";
 			if (attribute.attribute_type === "bool") {
-				if (Number(value) > 0 && Number(value) < 1) {
-					return `${Math.round(Number(value) * 100)}% ${this.local("users think it is free")}`;
-				}
-				return Number(value) === 1
-					? this.local("Yes")
-					: this.local("No");
+				return "attributeBoolCard";
 			}
-			return value;
-		},
-		isBooleanBinary(item, attribute) {
-			const value = Number(
-				this.getAttributeDisplayValue(item, attribute),
-			);
-			return value === 0 || value === 1;
-		},
-		getBooleanHint(item, attribute) {
-			const value = Number(
-				this.getAttributeDisplayValue(item, attribute),
-			);
-			if (Number.isNaN(value)) return this.local("Unknown");
-			return `${this.local("May require payment")}; ${Math.round(value * 100)}% ${this.local("users think it is free")}`;
+			return "attributeGenericCard";
 		},
 		async getProducts() {
 			this.loading = true;
@@ -568,71 +477,15 @@ export default {
 		box-sizing: border-box;
 	}
 
-	.attr-head,
-	.attr-card {
+	.attr-head {
 		width: 170px;
 		flex-shrink: 0;
-	}
-
-	.attr-head {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-size: 12px;
 		font-weight: 700;
 		color: rgba(195, 204, 236, 0.78);
-	}
-
-	.attr-card {
-		padding: 14px 14px 12px 14px;
-		border-radius: 18px;
-		background: linear-gradient(
-			180deg,
-			rgba(31, 35, 53, 0.92) 0%,
-			rgba(22, 24, 37, 0.98) 100%
-		);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.04),
-			0 10px 24px rgba(0, 0, 0, 0.18);
-	}
-
-	.attr-card-name {
-		font-size: 12px;
-		font-weight: 700;
-		color: rgba(225, 230, 248, 0.88);
-	}
-
-	.attr-card-value {
-		min-height: 40px;
-		margin-top: 12px;
-		display: flex;
-		align-items: center;
-	}
-
-	.plain-value {
-		font-size: 22px;
-		font-weight: 700;
-		color: rgba(255, 255, 255, 0.96);
-	}
-
-	.attr-card-meta {
-		margin-top: 10px;
-		font-size: 12px;
-		color: rgba(177, 184, 208, 0.68);
-	}
-
-	.bool-unknown {
-		width: 42px;
-		height: 42px;
-		border-radius: 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: rgba(255, 196, 61, 0.14);
-		color: rgba(255, 196, 61, 1);
-		font-size: 18px;
-		box-shadow: inset 0 0 0 1px rgba(255, 196, 61, 0.2);
-		cursor: help;
 	}
 
 	.action-cell {
@@ -661,8 +514,7 @@ export default {
 			grid-template-columns: 68px 280px 1fr 124px;
 		}
 
-		.attr-head,
-		.attr-card {
+		.attr-head {
 			width: 156px;
 		}
 	}
