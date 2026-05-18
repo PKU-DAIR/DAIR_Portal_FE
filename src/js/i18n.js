@@ -1,357 +1,1364 @@
 const dict = {
-    "No any Content": ["No any Content", "没有任何内容"],
-    "Login": ["Login", "登录"],
-    "Forgot": ["Forgot", "忘记密码"],
-    "·": ["·", "·"],
-    "No Account Yet ?": ["No Account Yet ?", "还没有帐号？"],
-    "Terms and Conditions · Privacy Policy": ["Terms and Conditions · Privacy Policy", "条款和条件 · 隐私政策"],
-    "Login Success": ["Login Success", "登录成功"],
-    "Please try to contact the admin to reset your password.": ["Please try to contact the admin to reset your password.", "请联系管理员重置密码。"],
-    "Confirm": ["Confirm", "确认"],
-    "Cancel": ["Cancel", "取消"],
-    "Password": ["Password", "密码"],
-    "User ID": ["User ID", "用户 ID"],
-    "User ID (Letter, Number or Email)": ["User ID (Letter, Number or Email)", "用户 ID（字母、数字或邮箱）"],
-    "Apply Account": ["Apply Account", "申请帐号"],
-    "To achieve more information": ["To achieve more information", "以获取更多信息"],
-    "Password (no less than 6 characters)": ["Password (no less than 6 characters)", "密码（不少于 6 位）"],
-    "Confirm Your Password": ["Confirm Your Password", "确认密码"],
-    "Invite Code": ["Invite Code", "邀请码"],
-    "Already have an account? Login": ["Already have an account? Login", "已有帐号？登录"],
-    "Username cannot be empty": ["Username cannot be empty", "用户名不能为空"],
-    "Password cannot be empty": ["Password cannot be empty", "密码不能为空"],
-    "The two passwords do not match": ["The two passwords do not match", "两次密码不一致"],
-    "Registration Successful": ["Registration Successful", "注册成功"],
-    "Registration failed: reason:": ["Registration failed: reason:", "注册失败，原因："],
+    "No any Content": {
+        "en": "No any Content",
+        "cn": "没有任何内容"
+    },
+    "Login": {
+        "en": "Login",
+        "cn": "登录"
+    },
+    "Forgot": {
+        "en": "Forgot",
+        "cn": "忘记密码"
+    },
+    "·": {
+        "en": "·",
+        "cn": "·"
+    },
+    "No Account Yet ?": {
+        "en": "No Account Yet ?",
+        "cn": "还没有帐号？"
+    },
+    "Terms and Conditions · Privacy Policy": {
+        "en": "Terms and Conditions · Privacy Policy",
+        "cn": "条款和条件 · 隐私政策"
+    },
+    "Login Success": {
+        "en": "Login Success",
+        "cn": "登录成功"
+    },
+    "Please try to contact the admin to reset your password.": {
+        "en": "Please try to contact the admin to reset your password.",
+        "cn": "请联系管理员重置密码。"
+    },
+    "Confirm": {
+        "en": "Confirm",
+        "cn": "确认"
+    },
+    "Cancel": {
+        "en": "Cancel",
+        "cn": "取消"
+    },
+    "Password": {
+        "en": "Password",
+        "cn": "密码"
+    },
+    "User ID": {
+        "en": "User ID",
+        "cn": "用户 ID"
+    },
+    "User ID (Letter, Number or Email)": {
+        "en": "User ID (Letter, Number or Email)",
+        "cn": "用户 ID（字母、数字或邮箱）"
+    },
+    "Apply Account": {
+        "en": "Apply Account",
+        "cn": "申请帐号"
+    },
+    "To achieve more information": {
+        "en": "To achieve more information",
+        "cn": "以获取更多信息"
+    },
+    "Password (no less than 6 characters)": {
+        "en": "Password (no less than 6 characters)",
+        "cn": "密码（不少于 6 位）"
+    },
+    "Confirm Your Password": {
+        "en": "Confirm Your Password",
+        "cn": "确认密码"
+    },
+    "Invite Code": {
+        "en": "Invite Code",
+        "cn": "邀请码"
+    },
+    "Already have an account? Login": {
+        "en": "Already have an account? Login",
+        "cn": "已有帐号？登录"
+    },
+    "Username cannot be empty": {
+        "en": "Username cannot be empty",
+        "cn": "用户名不能为空"
+    },
+    "Password cannot be empty": {
+        "en": "Password cannot be empty",
+        "cn": "密码不能为空"
+    },
+    "The two passwords do not match": {
+        "en": "The two passwords do not match",
+        "cn": "两次密码不一致"
+    },
+    "Registration Successful": {
+        "en": "Registration Successful",
+        "cn": "注册成功"
+    },
+    "Registration failed: reason:": {
+        "en": "Registration failed: reason:",
+        "cn": "注册失败，原因："
+    },
+    "Management": {
+        "en": "Management",
+        "cn": "管理"
+    },
+    "Users": {
+        "en": "Users",
+        "cn": "用户"
+    },
+    "About": {
+        "en": "About",
+        "cn": "关于"
+    },
+    "News": {
+        "en": "News",
+        "cn": "新闻"
+    },
+    "Publications": {
+        "en": "Publications",
+        "cn": "成果发表"
+    },
+    "Home": {
+        "en": "Home",
+        "cn": "首页"
+    },
+    "Projects": {
+        "en": "Projects",
+        "cn": "项目"
+    },
+    "Logout": {
+        "en": "Logout",
+        "cn": "退出登录"
+    },
+    "User Profile": {
+        "en": "User Profile",
+        "cn": "用户资料"
+    },
+    "Admin Center": {
+        "en": "Admin Center",
+        "cn": "管理中心"
+    },
+    "Close": {
+        "en": "Close",
+        "cn": "关闭"
+    },
+    "DAIR Lab": {
+        "en": "DAIR Lab",
+        "cn": "DAIR 实验室"
+    },
+    "Data and Intelligence Research in PKU": {
+        "en": "Data and Intelligence Research in PKU",
+        "cn": "北京大学数据智能研究实验室"
+    },
+    "Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.": {
+        "en": "Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.",
+        "cn": "欢迎来到 DAIR 实验室！我们隶属于北京大学计算机学院，研究方向包括数据库、机器学习系统、数据中心机器学习、自动机器学习等。"
+    },
+    "Research Directions": {
+        "en": "Research Directions",
+        "cn": "研究方向"
+    },
+    "Our lab explores innovative areas such as ML System, Data-Centric, Database and AutoML. We focus on developing algorithms and systems that understand, learn, and interact with the world intelligently.": {
+        "en": "Our lab explores innovative areas such as ML System, Data-Centric, Database and AutoML. We focus on developing algorithms and systems that understand, learn, and interact with the world intelligently.",
+        "cn": "实验室探索机器学习系统、数据中心、数据库和 AutoML 等创新方向，专注于开发能够智能理解、学习并与世界交互的算法和系统。"
+    },
+    "Research Publications": {
+        "en": "Research Publications",
+        "cn": "研究论文"
+    },
+    "Discover our latest research contributions through our published papers. Our work covers theoretical foundations and practical applications in ML System, Data-Centric and related fields.": {
+        "en": "Discover our latest research contributions through our published papers. Our work covers theoretical foundations and practical applications in ML System, Data-Centric and related fields.",
+        "cn": "通过已发表论文了解我们的最新研究成果，内容覆盖机器学习系统、数据中心等相关领域的理论基础和实践应用。"
+    },
+    "Open Source Projects": {
+        "en": "Open Source Projects",
+        "cn": "开源项目"
+    },
+    "We actively contribute to the AI community through open-source projects. Explore our tools, libraries, and frameworks designed to advance research and collaboration in AI.": {
+        "en": "We actively contribute to the AI community through open-source projects. Explore our tools, libraries, and frameworks designed to advance research and collaboration in AI.",
+        "cn": "我们通过开源项目积极贡献 AI 社区，欢迎了解我们用于推动 AI 研究与协作的工具、库和框架。"
+    },
+    "Read More": {
+        "en": "Read More",
+        "cn": "了解更多"
+    },
+    "Recent News": {
+        "en": "Recent News",
+        "cn": "近期新闻"
+    },
+    "Current Projects": {
+        "en": "Current Projects",
+        "cn": "当前项目"
+    },
+    "About us": {
+        "en": "About us",
+        "cn": "关于我们"
+    },
+    "Show All": {
+        "en": "Show All",
+        "cn": "查看全部"
+    },
+    "PKU-DAIR": {
+        "en": "PKU-DAIR",
+        "cn": "PKU-DAIR"
+    },
+    "Research Group": {
+        "en": "Research Group",
+        "cn": "研究组"
+    },
+    "Quick Links": {
+        "en": "Quick Links",
+        "cn": "快速链接"
+    },
+    "Peking University": {
+        "en": "Peking University",
+        "cn": "北京大学"
+    },
+    "School of Computer Science, PKU": {
+        "en": "School of Computer Science, PKU",
+        "cn": "北京大学计算机学院"
+    },
+    "Github of PKU-DAIR": {
+        "en": "Github of PKU-DAIR",
+        "cn": "PKU-DAIR GitHub"
+    },
+    "Contact": {
+        "en": "Contact",
+        "cn": "联系方式"
+    },
+    "Developer": {
+        "en": "Developer",
+        "cn": "开发者"
+    },
+    "School of Computer Science, Peking University": {
+        "en": "School of Computer Science, Peking University",
+        "cn": "北京大学计算机学院"
+    },
+    "PKU DAIR Lab": {
+        "en": "PKU DAIR Lab",
+        "cn": "PKU DAIR 实验室"
+    },
+    "©": {
+        "en": "©",
+        "cn": "©"
+    },
+    "Database: Xinyi Zhang": {
+        "en": "Database: Xinyi Zhang",
+        "cn": "数据库：张心怡"
+    },
+    "ML Systems: Fangcheng Fu": {
+        "en": "ML Systems: Fangcheng Fu",
+        "cn": "机器学习系统：符芳诚"
+    },
+    "Data-centric ML": {
+        "en": "Data-centric ML",
+        "cn": "数据中心机器学习"
+    },
+    "AutoML: Yu Shen": {
+        "en": "AutoML: Yu Shen",
+        "cn": "AutoML：Yu Shen"
+    },
+    "Phone: +86 10 62765821 (Office)": {
+        "en": "Phone: +86 10 62765821 (Office)",
+        "cn": "电话：+86 10 62765821（办公室）"
+    },
+    "+86 10 62765822 (Fax)": {
+        "en": "+86 10 62765822 (Fax)",
+        "cn": "+86 10 62765822（传真）"
+    },
+    "Office: 1630, Science BLK 1": {
+        "en": "Office: 1630, Science BLK 1",
+        "cn": "办公室：理科一号楼 1630"
+    },
+    "E-mail: bin.cui@pku.edu.cn": {
+        "en": "E-mail: bin.cui@pku.edu.cn",
+        "cn": "邮箱：bin.cui@pku.edu.cn"
+    },
+    "Peichao Lai": {
+        "en": "Peichao Lai",
+        "cn": "赖沛超"
+    },
+    "Team": {
+        "en": "Team",
+        "cn": "团队"
+    },
+    "ML System ● Data-Centric ● Database ● AutoML": {
+        "en": "ML System ● Data-Centric ● Database ● AutoML",
+        "cn": "机器学习系统 ● 数据中心 ● 数据库 ● AutoML"
+    },
+    "Add My CV": {
+        "en": "Add My CV",
+        "cn": "添加我的简历"
+    },
+    "Update My CV": {
+        "en": "Update My CV",
+        "cn": "更新我的简历"
+    },
+    "Awards": {
+        "en": "Awards",
+        "cn": "获奖成果"
+    },
+    "Fill in your CV...": {
+        "en": "Fill in your CV...",
+        "cn": "填写你的简历..."
+    },
+    "Earlier": {
+        "en": "Earlier",
+        "cn": "更早"
+    },
+    "Copy BibTex": {
+        "en": "Copy BibTex",
+        "cn": "复制 BibTex"
+    },
+    "No BibTex Infomation": {
+        "en": "No BibTex Infomation",
+        "cn": "没有 BibTex 信息"
+    },
+    "Successfully Copied": {
+        "en": "Successfully Copied",
+        "cn": "复制成功"
+    },
+    "Today": {
+        "en": "Today",
+        "cn": "今天"
+    },
+    "Yesterday": {
+        "en": "Yesterday",
+        "cn": "昨天"
+    },
+    "Tomorrow": {
+        "en": "Tomorrow",
+        "cn": "明天"
+    },
+    "Just Now": {
+        "en": "Just Now",
+        "cn": "刚刚"
+    },
+    "?s ago": {
+        "en": "?s ago",
+        "cn": "? 秒前"
+    },
+    "?m ago": {
+        "en": "?m ago",
+        "cn": "? 分钟前"
+    },
+    "?h ago": {
+        "en": "?h ago",
+        "cn": "? 小时前"
+    },
+    "in ?s": {
+        "en": "in ?s",
+        "cn": "? 秒后"
+    },
+    "in ?m": {
+        "en": "in ?m",
+        "cn": "? 分钟后"
+    },
+    "in ?h": {
+        "en": "in ?h",
+        "cn": "? 小时后"
+    },
+    "Selected": {
+        "en": "Selected",
+        "cn": "已选择"
+    },
+    "Users Management": {
+        "en": "Users Management",
+        "cn": "用户管理"
+    },
+    "Filter in the Result": {
+        "en": "Filter in the Result",
+        "cn": "在结果中筛选"
+    },
+    "User Role": {
+        "en": "User Role",
+        "cn": "用户角色"
+    },
+    "Reset Password": {
+        "en": "Reset Password",
+        "cn": "重置密码"
+    },
+    "User number": {
+        "en": "User number",
+        "cn": "用户数量"
+    },
+    "No.": {
+        "en": "No.",
+        "cn": "序号"
+    },
+    "Name": {
+        "en": "Name",
+        "cn": "姓名"
+    },
+    "Gender": {
+        "en": "Gender",
+        "cn": "性别"
+    },
+    "Email": {
+        "en": "Email",
+        "cn": "邮箱"
+    },
+    "Phone": {
+        "en": "Phone",
+        "cn": "电话"
+    },
+    "Role": {
+        "en": "Role",
+        "cn": "角色"
+    },
+    "Are you sure to reset this user's password to its userid?": {
+        "en": "Are you sure to reset this user's password to its userid?",
+        "cn": "确定将该用户密码重置为用户 ID 吗？"
+    },
+    "Reset Complete.": {
+        "en": "Reset Complete.",
+        "cn": "重置完成。"
+    },
+    "User Roles": {
+        "en": "User Roles",
+        "cn": "用户角色"
+    },
+    "User Roles List Fetch Failed": {
+        "en": "User Roles List Fetch Failed",
+        "cn": "用户角色列表获取失败"
+    },
+    "Username": {
+        "en": "Username",
+        "cn": "用户名"
+    },
+    "Team Introduction Management": {
+        "en": "Team Introduction Management",
+        "cn": "团队介绍管理"
+    },
+    "Add Member": {
+        "en": "Add Member",
+        "cn": "添加成员"
+    },
+    "Edit Information": {
+        "en": "Edit Information",
+        "cn": "修改信息"
+    },
+    "Delete Member": {
+        "en": "Delete Member",
+        "cn": "删除成员"
+    },
+    "Major Management": {
+        "en": "Major Management",
+        "cn": "专业管理"
+    },
+    "Team Management": {
+        "en": "Team Management",
+        "cn": "团队管理"
+    },
+    "Group Management": {
+        "en": "Group Management",
+        "cn": "分组管理"
+    },
+    "Destination Management": {
+        "en": "Destination Management",
+        "cn": "去向管理"
+    },
+    "Education Management": {
+        "en": "Education Management",
+        "cn": "学历管理"
+    },
+    "Award Management": {
+        "en": "Award Management",
+        "cn": "成果管理"
+    },
+    "Admission Year": {
+        "en": "Admission Year",
+        "cn": "入学年份"
+    },
+    "Graduation Year": {
+        "en": "Graduation Year",
+        "cn": "毕业年份"
+    },
+    "Major": {
+        "en": "Major",
+        "cn": "专业"
+    },
+    "You will remove": {
+        "en": "You will remove",
+        "cn": "你将移除"
+    },
+    "Confirm Delete": {
+        "en": "Confirm Delete",
+        "cn": "确定删除"
+    },
+    "Delete Success": {
+        "en": "Delete Success",
+        "cn": "删除成功"
+    },
+    "No members selected.": {
+        "en": "No members selected.",
+        "cn": "当前没有选择任何成员"
+    },
+    "You will remove the selected members, but the system will keep their resources": {
+        "en": "You will remove the selected members, but the system will keep their resources",
+        "cn": "你将移除所选择的成员，但系统将保留其下的资源"
+    },
+    "Member Information": {
+        "en": "Member Information",
+        "cn": "成员信息"
+    },
+    "ID": {
+        "en": "ID",
+        "cn": "ID"
+    },
+    "No CV ID": {
+        "en": "No CV ID",
+        "cn": "暂无简历 ID"
+    },
+    "Please input name": {
+        "en": "Please input name",
+        "cn": "请输入姓名"
+    },
+    "Member Avatar": {
+        "en": "Member Avatar",
+        "cn": "成员头像"
+    },
+    "Collapse": {
+        "en": "Collapse",
+        "cn": "折叠"
+    },
+    "Please input admission year": {
+        "en": "Please input admission year",
+        "cn": "请输入入学年份"
+    },
+    "Phone (not publicly displayed)": {
+        "en": "Phone (not publicly displayed)",
+        "cn": "电话（不公开展示）"
+    },
+    "Please input phone number": {
+        "en": "Please input phone number",
+        "cn": "请输入电话号码"
+    },
+    "Please input graduation year": {
+        "en": "Please input graduation year",
+        "cn": "请输入毕业年份"
+    },
+    "Education": {
+        "en": "Education",
+        "cn": "学历"
+    },
+    "Please select education": {
+        "en": "Please select education",
+        "cn": "请选择学历"
+    },
+    "Please select major": {
+        "en": "Please select major",
+        "cn": "请选择专业"
+    },
+    "Please select team": {
+        "en": "Please select team",
+        "cn": "请选择团队"
+    },
+    "Group": {
+        "en": "Group",
+        "cn": "分组"
+    },
+    "Please select group": {
+        "en": "Please select group",
+        "cn": "请选择分组"
+    },
+    "Destination Type": {
+        "en": "Destination Type",
+        "cn": "去向类型"
+    },
+    "Please select destination": {
+        "en": "Please select destination",
+        "cn": "请选择去向"
+    },
+    "Graduation Destination": {
+        "en": "Graduation Destination",
+        "cn": "毕业去向"
+    },
+    "Please input graduation destination": {
+        "en": "Please input graduation destination",
+        "cn": "请输入毕业去向"
+    },
+    "External Link": {
+        "en": "External Link",
+        "cn": "外部跳转"
+    },
+    "Please input external CV URL": {
+        "en": "Please input external CV URL",
+        "cn": "请输入外部简历 URL"
+    },
+    "Position/Title": {
+        "en": "Position/Title",
+        "cn": "职级/职称"
+    },
+    "Please input position and title": {
+        "en": "Please input position and title",
+        "cn": "请输入职级和职称"
+    },
+    "Linked User (ignore if the user is not registered)": {
+        "en": "Linked User (ignore if the user is not registered)",
+        "cn": "关联用户（若用户未注册可忽略）"
+    },
+    "Please input user ID": {
+        "en": "Please input user ID",
+        "cn": "请输入用户 ID"
+    },
+    "Confirm User ID": {
+        "en": "Confirm User ID",
+        "cn": "确认用户 ID"
+    },
+    "Award Registration": {
+        "en": "Award Registration",
+        "cn": "成果登记"
+    },
+    "20th": {
+        "en": "20th",
+        "cn": "20 届"
+    },
+    "Session": {
+        "en": "Session",
+        "cn": "届次"
+    },
+    "Please select award": {
+        "en": "Please select award",
+        "cn": "请选择成果"
+    },
+    "Please select award level": {
+        "en": "Please select award level",
+        "cn": "请选择获奖等级"
+    },
+    "Peking University · Beijing": {
+        "en": "Peking University · Beijing",
+        "cn": "北京大学 · 北京"
+    },
+    "Location": {
+        "en": "Location",
+        "cn": "地点"
+    },
+    "Move Up": {
+        "en": "Move Up",
+        "cn": "上移"
+    },
+    "Move Down": {
+        "en": "Move Down",
+        "cn": "下移"
+    },
+    "CV": {
+        "en": "CV",
+        "cn": "简历"
+    },
+    "Quick Template": {
+        "en": "Quick Template",
+        "cn": "快速模板"
+    },
+    "Import Markdown": {
+        "en": "Import Markdown",
+        "cn": "导入 Markdown"
+    },
+    "Add Information": {
+        "en": "Add Information",
+        "cn": "添加信息"
+    },
+    "Update Information": {
+        "en": "Update Information",
+        "cn": "更新信息"
+    },
+    "Add Success": {
+        "en": "Add Success",
+        "cn": "添加成功"
+    },
+    "Update Success": {
+        "en": "Update Success",
+        "cn": "更新成功"
+    },
+    "Select Picture": {
+        "en": "Select Picture",
+        "cn": "选择图片"
+    },
+    "Education List": {
+        "en": "Education List",
+        "cn": "学历列表"
+    },
+    "Add Education": {
+        "en": "Add Education",
+        "cn": "添加学历"
+    },
+    "Input education name": {
+        "en": "Input education name",
+        "cn": "输入学历名称"
+    },
+    "Group List": {
+        "en": "Group List",
+        "cn": "分组列表"
+    },
+    "Add Group": {
+        "en": "Add Group",
+        "cn": "添加分组"
+    },
+    "Input group name": {
+        "en": "Input group name",
+        "cn": "输入分组名称"
+    },
+    "Major List": {
+        "en": "Major List",
+        "cn": "专业列表"
+    },
+    "Add Major": {
+        "en": "Add Major",
+        "cn": "添加专业"
+    },
+    "Input major name": {
+        "en": "Input major name",
+        "cn": "输入专业名称"
+    },
+    "Destination List": {
+        "en": "Destination List",
+        "cn": "去向列表"
+    },
+    "Add Destination": {
+        "en": "Add Destination",
+        "cn": "添加去向"
+    },
+    "Input destination name": {
+        "en": "Input destination name",
+        "cn": "输入去向名称"
+    },
+    "Award List": {
+        "en": "Award List",
+        "cn": "成果列表"
+    },
+    "Add Award": {
+        "en": "Add Award",
+        "cn": "添加成果"
+    },
+    "Input award name": {
+        "en": "Input award name",
+        "cn": "输入成果名称"
+    },
+    "Award Level List": {
+        "en": "Award Level List",
+        "cn": "竞赛等级列表"
+    },
+    "Add Award Level": {
+        "en": "Add Award Level",
+        "cn": "添加成果等级"
+    },
+    "Input award level": {
+        "en": "Input award level",
+        "cn": "输入成果等级"
+    },
+    "Team List": {
+        "en": "Team List",
+        "cn": "团队列表"
+    },
+    "Input group name (append +$[number] to sort)": {
+        "en": "Input group name (append +$[number] to sort)",
+        "cn": "输入分组名称（尾部 +$[数字] 可排序）"
+    },
+    "Cancel Display": {
+        "en": "Cancel Display",
+        "cn": "取消展示"
+    },
+    "Display": {
+        "en": "Display",
+        "cn": "展示"
+    },
+    "Add Team": {
+        "en": "Add Team",
+        "cn": "添加团队"
+    },
+    "Input team name": {
+        "en": "Input team name",
+        "cn": "输入团队名称"
+    },
+    "Write something...": {
+        "en": "Write something...",
+        "cn": "写点什么吧..."
+    },
+    "Publish": {
+        "en": "Publish",
+        "cn": "发布"
+    },
+    "Unsaved edits": {
+        "en": "Unsaved edits",
+        "cn": "未保存的编辑"
+    },
+    "Saving": {
+        "en": "Saving",
+        "cn": "保存中"
+    },
+    "Create an article to start writing": {
+        "en": "Create an article to start writing",
+        "cn": "创建文章开始创作"
+    },
+    "No more data": {
+        "en": "No more data",
+        "cn": "已无更多数据"
+    },
+    "No article is currently bound": {
+        "en": "No article is currently bound",
+        "cn": "当前没有绑定任何文章"
+    },
+    "Save Success": {
+        "en": "Save Success",
+        "cn": "保存成功"
+    },
+    "Are you sure to discard the edited content?": {
+        "en": "Are you sure to discard the edited content?",
+        "cn": "确定放弃已编辑的内容吗？"
+    },
+    "Add Article": {
+        "en": "Add Article",
+        "cn": "添加文章"
+    },
+    "Edit Title": {
+        "en": "Edit Title",
+        "cn": "修改标题"
+    },
+    "Delete Article": {
+        "en": "Delete Article",
+        "cn": "删除文章"
+    },
+    "Publish Article": {
+        "en": "Publish Article",
+        "cn": "发布文章"
+    },
+    "article": {
+        "en": "article",
+        "cn": "文章"
+    },
+    "Title": {
+        "en": "Title",
+        "cn": "标题"
+    },
+    "Input article title": {
+        "en": "Input article title",
+        "cn": "输入文章标题"
+    },
+    "Title cannot be empty": {
+        "en": "Title cannot be empty",
+        "cn": "标题不能为空"
+    },
+    "Edit or Publish Article": {
+        "en": "Edit or Publish Article",
+        "cn": "修改或发布文章"
+    },
+    "Select type": {
+        "en": "Select type",
+        "cn": "选择类型"
+    },
+    "Input article description": {
+        "en": "Input article description",
+        "cn": "输入文章描述"
+    },
+    "Please input external URL (it will jump directly after specified)": {
+        "en": "Please input external URL (it will jump directly after specified)",
+        "cn": "请输入外部 URL（指定后将直接跳转至外部链接）"
+    },
+    "Add Cover Image": {
+        "en": "Add Cover Image",
+        "cn": "添加头图"
+    },
+    "Change Cover Image": {
+        "en": "Change Cover Image",
+        "cn": "修改头图"
+    },
+    "Confirm Changes": {
+        "en": "Confirm Changes",
+        "cn": "确定修改"
+    },
+    "Please select publish type": {
+        "en": "Please select publish type",
+        "cn": "请选择发布类型"
+    },
+    "Search": {
+        "en": "Search",
+        "cn": "搜索"
+    },
+    "Sync from Agent": {
+        "en": "Sync from Agent",
+        "cn": "从 Agent 同步"
+    },
+    "Fetch News": {
+        "en": "Fetch News",
+        "cn": "抓取新闻"
+    },
+    "Fetch Publications": {
+        "en": "Fetch Publications",
+        "cn": "抓取论文"
+    },
+    "Start URL": {
+        "en": "Start URL",
+        "cn": "起始 URL"
+    },
+    "Input start url": {
+        "en": "Input start url",
+        "cn": "输入起始 URL"
+    },
+    "Start URL cannot be empty": {
+        "en": "Start URL cannot be empty",
+        "cn": "起始 URL 不能为空"
+    },
+    "Max Pages": {
+        "en": "Max Pages",
+        "cn": "最大页数"
+    },
+    "Max Blocks": {
+        "en": "Max Blocks",
+        "cn": "最大区块数"
+    },
+    "Optional, e.g. 5": {
+        "en": "Optional, e.g. 5",
+        "cn": "可选，例如 5"
+    },
+    "Current Status": {
+        "en": "Current Status",
+        "cn": "当前状态"
+    },
+    "Logs": {
+        "en": "Logs",
+        "cn": "日志"
+    },
+    "No logs yet": {
+        "en": "No logs yet",
+        "cn": "暂无日志"
+    },
+    "Refresh": {
+        "en": "Refresh",
+        "cn": "刷新"
+    },
+    "Fetch task started": {
+        "en": "Fetch task started",
+        "cn": "抓取任务已启动"
+    },
+    "Fetch task failed": {
+        "en": "Fetch task failed",
+        "cn": "抓取任务失败"
+    },
+    "Failed to get fetch status": {
+        "en": "Failed to get fetch status",
+        "cn": "获取抓取状态失败"
+    },
+    "Max Pages must be a positive number": {
+        "en": "Max Pages must be a positive number",
+        "cn": "最大页数必须为正数"
+    },
+    "Max Blocks must be a positive number": {
+        "en": "Max Blocks must be a positive number",
+        "cn": "最大区块数必须为正数"
+    },
+    "Think twice before acting": {
+        "en": "Think twice before acting",
+        "cn": "三思而后行"
+    },
+    "Female": {
+        "en": "Female",
+        "cn": "女"
+    },
+    "Male": {
+        "en": "Male",
+        "cn": "男"
+    },
+    "Publications Management": {
+        "en": "Publications Management",
+        "cn": "论文管理"
+    },
+    "View Pub": {
+        "en": "View Pub",
+        "cn": "查看论文"
+    },
+    "Remove Pub": {
+        "en": "Remove Pub",
+        "cn": "移除论文"
+    },
+    "Remove Pubs": {
+        "en": "Remove Pubs",
+        "cn": "移除论文"
+    },
+    "Authors": {
+        "en": "Authors",
+        "cn": "作者"
+    },
+    "Year": {
+        "en": "Year",
+        "cn": "年份"
+    },
+    "Delete": {
+        "en": "Delete",
+        "cn": "删除"
+    },
+    "Success": {
+        "en": "Success",
+        "cn": "成功"
+    },
+    "Not selected any publications.": {
+        "en": "Not selected any publications.",
+        "cn": "未选择任何论文。"
+    },
+    "Remove these publications ?": {
+        "en": "Remove these publications ?",
+        "cn": "移除这些论文？"
+    },
+    "Metadata": {
+        "en": "Metadata",
+        "cn": "元数据"
+    },
+    "BibTex": {
+        "en": "BibTex",
+        "cn": "BibTex"
+    },
+    "Parse BibTex": {
+        "en": "Parse BibTex",
+        "cn": "解析 BibTex"
+    },
+    "Publisher": {
+        "en": "Publisher",
+        "cn": "出版方"
+    },
+    "DOI": {
+        "en": "DOI",
+        "cn": "DOI"
+    },
+    "CreateDate": {
+        "en": "CreateDate",
+        "cn": "创建日期"
+    },
+    "Source": {
+        "en": "Source",
+        "cn": "来源"
+    },
+    "Url": {
+        "en": "Url",
+        "cn": "链接"
+    },
+    "URL": {
+        "en": "URL",
+        "cn": "URL"
+    },
+    "News Content...": {
+        "en": "News Content...",
+        "cn": "新闻内容..."
+    },
+    "Booktitle": {
+        "en": "Booktitle",
+        "cn": "会议/期刊"
+    },
+    "Abstract": {
+        "en": "Abstract",
+        "cn": "摘要"
+    },
+    "ISSN": {
+        "en": "ISSN",
+        "cn": "ISSN"
+    },
+    "Language": {
+        "en": "Language",
+        "cn": "语言"
+    },
+    "Chapter": {
+        "en": "Chapter",
+        "cn": "章节"
+    },
+    "Volume": {
+        "en": "Volume",
+        "cn": "卷"
+    },
+    "Number": {
+        "en": "Number",
+        "cn": "编号"
+    },
+    "Pages": {
+        "en": "Pages",
+        "cn": "页码"
+    },
+    "Note": {
+        "en": "Note",
+        "cn": "备注"
+    },
+    "School": {
+        "en": "School",
+        "cn": "学校"
+    },
+    "Author": {
+        "en": "Author",
+        "cn": "作者"
+    },
+    "Empty title": {
+        "en": "Empty title",
+        "cn": "标题为空"
+    },
+    "Paste the Bibtex...": {
+        "en": "Paste the Bibtex...",
+        "cn": "粘贴 BibTex..."
+    },
+    "Please Input title...": {
+        "en": "Please Input title...",
+        "cn": "请输入标题..."
+    },
+    "Please Input publisher...": {
+        "en": "Please Input publisher...",
+        "cn": "请输入出版方..."
+    },
+    "Please Input year...": {
+        "en": "Please Input year...",
+        "cn": "请输入年份..."
+    },
+    "Please Input DOI...": {
+        "en": "Please Input DOI...",
+        "cn": "请输入 DOI..."
+    },
+    "Please Input createDate...": {
+        "en": "Please Input createDate...",
+        "cn": "请输入创建日期..."
+    },
+    "Please Input source...": {
+        "en": "Please Input source...",
+        "cn": "请输入来源..."
+    },
+    "Please Input url...": {
+        "en": "Please Input url...",
+        "cn": "请输入链接..."
+    },
+    "Please Input Booktitle...": {
+        "en": "Please Input Booktitle...",
+        "cn": "请输入会议/期刊..."
+    },
+    "Please Input abstract...": {
+        "en": "Please Input abstract...",
+        "cn": "请输入摘要..."
+    },
+    "Please Input ISSN...": {
+        "en": "Please Input ISSN...",
+        "cn": "请输入 ISSN..."
+    },
+    "Please Input language...": {
+        "en": "Please Input language...",
+        "cn": "请输入语言..."
+    },
+    "Please Input chapter...": {
+        "en": "Please Input chapter...",
+        "cn": "请输入章节..."
+    },
+    "Please Input volume...": {
+        "en": "Please Input volume...",
+        "cn": "请输入卷..."
+    },
+    "Please Input number...": {
+        "en": "Please Input number...",
+        "cn": "请输入编号..."
+    },
+    "Please Input pages...": {
+        "en": "Please Input pages...",
+        "cn": "请输入页码..."
+    },
+    "Please Input note...": {
+        "en": "Please Input note...",
+        "cn": "请输入备注..."
+    },
+    "Please Input school...": {
+        "en": "Please Input school...",
+        "cn": "请输入学校..."
+    },
+    "Please Input author...": {
+        "en": "Please Input author...",
+        "cn": "请输入作者..."
+    },
+    "Profile": {
+        "en": "Profile",
+        "cn": "个人资料"
+    },
+    "Log out": {
+        "en": "Log out",
+        "cn": "退出登录"
+    },
+    "Admin": {
+        "en": "Admin",
+        "cn": "管理员"
+    },
+    "Admin Console": {
+        "en": "Admin Console",
+        "cn": "管理控制台"
+    },
+    "Select Gender": {
+        "en": "Select Gender",
+        "cn": "选择性别"
+    },
+    "Theme": {
+        "en": "Theme",
+        "cn": "主题"
+    },
+    "Dark": {
+        "en": "Dark",
+        "cn": "深色"
+    },
+    "Light": {
+        "en": "Light",
+        "cn": "浅色"
+    },
+    "Apply Time": {
+        "en": "Apply Time",
+        "cn": "申请时间"
+    },
+    "Last Login": {
+        "en": "Last Login",
+        "cn": "上次登录"
+    },
+    "Change Password": {
+        "en": "Change Password",
+        "cn": "修改密码"
+    },
+    "Input Old Password": {
+        "en": "Input Old Password",
+        "cn": "输入旧密码"
+    },
+    "Input New Password": {
+        "en": "Input New Password",
+        "cn": "输入新密码"
+    },
+    "Confirm New Password": {
+        "en": "Confirm New Password",
+        "cn": "确认新密码"
+    },
+    "Edit": {
+        "en": "Edit",
+        "cn": "编辑"
+    },
+    "Accept Changes": {
+        "en": "Accept Changes",
+        "cn": "接受更改"
+    },
+    "Revise Avatar": {
+        "en": "Revise Avatar",
+        "cn": "修改头像"
+    },
+    "Please Select Gender": {
+        "en": "Please Select Gender",
+        "cn": "请选择性别"
+    },
+    "Update Failed": {
+        "en": "Update Failed",
+        "cn": "更新失败"
+    },
+    "Uploading": {
+        "en": "Uploading",
+        "cn": "上传中"
+    },
+    "No Picture Selected": {
+        "en": "No Picture Selected",
+        "cn": "未选择图片"
+    },
+    "Successfully Revised Avatar": {
+        "en": "Successfully Revised Avatar",
+        "cn": "头像修改成功"
+    },
+    "Input old password": {
+        "en": "Input old password",
+        "cn": "请输入旧密码"
+    },
+    "Successfully Updated": {
+        "en": "Successfully Updated",
+        "cn": "更新成功"
+    },
+    "Faculty": {
+        "en": "Faculty",
+        "cn": "教师"
+    },
+    "Scientific Staff": {
+        "en": "Scientific Staff",
+        "cn": "科研人员"
+    },
+    "Postdocs": {
+        "en": "Postdocs",
+        "cn": "博士后"
+    },
+    "Administration": {
+        "en": "Administration",
+        "cn": "行政"
+    },
+    "Ph.D. Students": {
+        "en": "Ph.D. Students",
+        "cn": "博士生"
+    },
+    "Master Students": {
+        "en": "Master Students",
+        "cn": "硕士生"
+    },
+    "Research Assistantship": {
+        "en": "Research Assistantship",
+        "cn": "研究助理"
+    },
+    "Undergraduates": {
+        "en": "Undergraduates",
+        "cn": "本科生"
+    },
+    "Undergraduate": {
+        "en": "Undergraduate",
+        "cn": "本科生"
+    },
+    "Alumni": {
+        "en": "Alumni",
+        "cn": "校友"
+    },
+    "Open Projects": {
+        "en": "Open Projects",
+        "cn": "开源项目"
+    },
+    "Select Type": {
+        "en": "Select Type",
+        "cn": "选择类型"
+    },
+    "External Jump": {
+        "en": "External Jump",
+        "cn": "外部跳转"
+    },
+    "Linked User: ": {
+        "en": "Linked User: ",
+        "cn": "已绑定用户: "
+    },
+    "Unlinked User (Please select a single user below and click confirm button.)": {
+        "en": "Unlinked User (Please select a single user below and click confirm button.)",
+        "cn": "未绑定用户 (请在下方选择单个用户后点击确认按钮)"
+    },
+    "January": {
+        "en": "January",
+        "cn": "一月"
+    },
+    "February": {
+        "en": "February",
+        "cn": "二月"
+    },
+    "March": {
+        "en": "March",
+        "cn": "三月"
+    },
+    "April": {
+        "en": "April",
+        "cn": "四月"
+    },
+    "May": {
+        "en": "May",
+        "cn": "五月"
+    },
+    "June": {
+        "en": "June",
+        "cn": "六月"
+    },
+    "July": {
+        "en": "July",
+        "cn": "七月"
+    },
+    "August": {
+        "en": "August",
+        "cn": "八月"
+    },
+    "September": {
+        "en": "September",
+        "cn": "九月"
+    },
+    "October": {
+        "en": "October",
+        "cn": "十月"
+    },
+    "December": {
+        "en": "December",
+        "cn": "十二月"
+    }
+}
 
-    "Management": ["Management", "管理"],
-    "Users": ["Users", "用户"],
-    "About": ["About", "关于"],
-    "News": ["News", "新闻"],
-    "Publications": ["Publications", "成果发表"],
-    "Home": ["Home", "首页"],
-    "Projects": ["Projects", "项目"],
-    "Logout": ["Logout", "退出登录"],
-    "User Profile": ["User Profile", "用户资料"],
-    "Admin Center": ["Admin Center", "管理中心"],
-    "Close": ["Close", "关闭"],
-
-    "DAIR Lab": ["DAIR Lab", "DAIR 实验室"],
-    "Data and Intelligence Research in PKU": ["Data and Intelligence Research in PKU", "北京大学数据智能研究实验室"],
-    "Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.": ["Welcome to the DAIR Lab! We are part of the School of Computer Science at Peking University (PKU). Together we enjoy working on Database, ML Systems, Data-centric ML, AutoML, etc.", "欢迎来到 DAIR 实验室！我们隶属于北京大学计算机学院，研究方向包括数据库、机器学习系统、数据中心机器学习、自动机器学习等。"],
-    "Research Directions": ["Research Directions", "研究方向"],
-    "Our lab explores innovative areas such as ML System, Data-Centric, Database and AutoML. We focus on developing algorithms and systems that understand, learn, and interact with the world intelligently.": ["Our lab explores innovative areas such as ML System, Data-Centric, Database and AutoML. We focus on developing algorithms and systems that understand, learn, and interact with the world intelligently.", "实验室探索机器学习系统、数据中心、数据库和 AutoML 等创新方向，专注于开发能够智能理解、学习并与世界交互的算法和系统。"],
-    "Research Publications": ["Research Publications", "研究论文"],
-    "Discover our latest research contributions through our published papers. Our work covers theoretical foundations and practical applications in ML System, Data-Centric and related fields.": ["Discover our latest research contributions through our published papers. Our work covers theoretical foundations and practical applications in ML System, Data-Centric and related fields.", "通过已发表论文了解我们的最新研究成果，内容覆盖机器学习系统、数据中心等相关领域的理论基础和实践应用。"],
-    "Open Source Projects": ["Open Source Projects", "开源项目"],
-    "We actively contribute to the AI community through open-source projects. Explore our tools, libraries, and frameworks designed to advance research and collaboration in AI.": ["We actively contribute to the AI community through open-source projects. Explore our tools, libraries, and frameworks designed to advance research and collaboration in AI.", "我们通过开源项目积极贡献 AI 社区，欢迎了解我们用于推动 AI 研究与协作的工具、库和框架。"],
-    "Read More": ["Read More", "了解更多"],
-    "Recent News": ["Recent News", "近期新闻"],
-    "Current Projects": ["Current Projects", "当前项目"],
-    "About us": ["About us", "关于我们"],
-    "Show All": ["Show All", "查看全部"],
-    "PKU-DAIR": ["PKU-DAIR", "PKU-DAIR"],
-    "Research Group": ["Research Group", "研究组"],
-    "Quick Links": ["Quick Links", "快速链接"],
-    "Peking University": ["Peking University", "北京大学"],
-    "School of Computer Science, PKU": ["School of Computer Science, PKU", "北京大学计算机学院"],
-    "Github of PKU-DAIR": ["Github of PKU-DAIR", "PKU-DAIR GitHub"],
-    "Contact": ["Contact", "联系方式"],
-    "Developer": ["Developer", "开发者"],
-    "School of Computer Science, Peking University": ["School of Computer Science, Peking University", "北京大学计算机学院"],
-    "PKU DAIR Lab": ["PKU DAIR Lab", "PKU DAIR 实验室"],
-    "©": ["©", "©"],
-    "Database: Xinyi Zhang": ["Database: Xinyi Zhang", "数据库：张心怡"],
-    "ML Systems: Fangcheng Fu": ["ML Systems: Fangcheng Fu", "机器学习系统：符芳诚"],
-    "Data-centric ML": ["Data-centric ML", "数据中心机器学习"],
-    "AutoML: Yu Shen": ["AutoML: Yu Shen", "AutoML：Yu Shen"],
-    "Phone: +86 10 62765821 (Office)": ["Phone: +86 10 62765821 (Office)", "电话：+86 10 62765821（办公室）"],
-    "+86 10 62765822 (Fax)": ["+86 10 62765822 (Fax)", "+86 10 62765822（传真）"],
-    "Office: 1630, Science BLK 1": ["Office: 1630, Science BLK 1", "办公室：理科一号楼 1630"],
-    "E-mail: bin.cui@pku.edu.cn": ["E-mail: bin.cui@pku.edu.cn", "邮箱：bin.cui@pku.edu.cn"],
-    "Peichao Lai": ["Peichao Lai", "赖沛超"],
-
-    "Team": ["Team", "团队"],
-    "ML System ● Data-Centric ● Database ● AutoML": ["ML System ● Data-Centric ● Database ● AutoML", "机器学习系统 ● 数据中心 ● 数据库 ● AutoML"],
-    "Add My CV": ["Add My CV", "添加我的简历"],
-    "Update My CV": ["Update My CV", "更新我的简历"],
-    "Awards": ["Awards", "获奖成果"],
-    "Fill in your CV...": ["Fill in your CV...", "填写你的简历..."],
-    "Earlier": ["Earlier", "更早"],
-    "Copy BibTex": ["Copy BibTex", "复制 BibTex"],
-    "No BibTex Infomation": ["No BibTex Infomation", "没有 BibTex 信息"],
-    "Successfully Copied": ["Successfully Copied", "复制成功"],
-    "Today": ["Today", "今天"],
-    "Yesterday": ["Yesterday", "昨天"],
-    "Tomorrow": ["Tomorrow", "明天"],
-    "Just Now": ["Just Now", "刚刚"],
-    "?s ago": ["?s ago", "? 秒前"],
-    "?m ago": ["?m ago", "? 分钟前"],
-    "?h ago": ["?h ago", "? 小时前"],
-    "in ?s": ["in ?s", "? 秒后"],
-    "in ?m": ["in ?m", "? 分钟后"],
-    "in ?h": ["in ?h", "? 小时后"],
-    "Selected": ["Selected", "已选择"],
-
-    "Users Management": ["Users Management", "用户管理"],
-    "Filter in the Result": ["Filter in the Result", "在结果中筛选"],
-    "User Role": ["User Role", "用户角色"],
-    "Reset Password": ["Reset Password", "重置密码"],
-    "User number": ["User number", "用户数量"],
-    "No.": ["No.", "序号"],
-    "Name": ["Name", "姓名"],
-    "Gender": ["Gender", "性别"],
-    "Email": ["Email", "邮箱"],
-    "Phone": ["Phone", "电话"],
-    "Role": ["Role", "角色"],
-    "Are you sure to reset this user's password to its userid?": ["Are you sure to reset this user's password to its userid?", "确定将该用户密码重置为用户 ID 吗？"],
-    "Reset Complete.": ["Reset Complete.", "重置完成。"],
-    "User Roles": ["User Roles", "用户角色"],
-    "User Roles List Fetch Failed": ["User Roles List Fetch Failed", "用户角色列表获取失败"],
-    "Username": ["Username", "用户名"],
-
-    "Team Introduction Management": ["Team Introduction Management", "团队介绍管理"],
-    "Add Member": ["Add Member", "添加成员"],
-    "Edit Information": ["Edit Information", "修改信息"],
-    "Delete Member": ["Delete Member", "删除成员"],
-    "Major Management": ["Major Management", "专业管理"],
-    "Team Management": ["Team Management", "团队管理"],
-    "Group Management": ["Group Management", "分组管理"],
-    "Destination Management": ["Destination Management", "去向管理"],
-    "Education Management": ["Education Management", "学历管理"],
-    "Award Management": ["Award Management", "成果管理"],
-    "Admission Year": ["Admission Year", "入学年份"],
-    "Graduation Year": ["Graduation Year", "毕业年份"],
-    "Major": ["Major", "专业"],
-    "You will remove": ["You will remove", "你将移除"],
-    "Confirm Delete": ["Confirm Delete", "确定删除"],
-    "Delete Success": ["Delete Success", "删除成功"],
-    "No members selected.": ["No members selected.", "当前没有选择任何成员"],
-    "You will remove the selected members, but the system will keep their resources": ["You will remove the selected members, but the system will keep their resources", "你将移除所选择的成员，但系统将保留其下的资源"],
-
-    "Member Information": ["Member Information", "成员信息"],
-    "ID": ["ID", "ID"],
-    "No CV ID": ["No CV ID", "暂无简历 ID"],
-    "Please input name": ["Please input name", "请输入姓名"],
-    "Member Avatar": ["Member Avatar", "成员头像"],
-    "Collapse": ["Collapse", "折叠"],
-    "Please input admission year": ["Please input admission year", "请输入入学年份"],
-    "Phone (not publicly displayed)": ["Phone (not publicly displayed)", "电话（不公开展示）"],
-    "Please input phone number": ["Please input phone number", "请输入电话号码"],
-    "Please input graduation year": ["Please input graduation year", "请输入毕业年份"],
-    "Education": ["Education", "学历"],
-    "Please select education": ["Please select education", "请选择学历"],
-    "Please select major": ["Please select major", "请选择专业"],
-    "Please select team": ["Please select team", "请选择团队"],
-    "Group": ["Group", "分组"],
-    "Please select group": ["Please select group", "请选择分组"],
-    "Destination Type": ["Destination Type", "去向类型"],
-    "Please select destination": ["Please select destination", "请选择去向"],
-    "Graduation Destination": ["Graduation Destination", "毕业去向"],
-    "Please input graduation destination": ["Please input graduation destination", "请输入毕业去向"],
-    "External Link": ["External Link", "外部跳转"],
-    "Please input external CV URL": ["Please input external CV URL", "请输入外部简历 URL"],
-    "Position/Title": ["Position/Title", "职级/职称"],
-    "Please input position and title": ["Please input position and title", "请输入职级和职称"],
-    "Linked User (ignore if the user is not registered)": ["Linked User (ignore if the user is not registered)", "关联用户（若用户未注册可忽略）"],
-    "Please input user ID": ["Please input user ID", "请输入用户 ID"],
-    "Confirm User ID": ["Confirm User ID", "确认用户 ID"],
-    "Award Registration": ["Award Registration", "成果登记"],
-    "20th": ["20th", "20 届"],
-    "Session": ["Session", "届次"],
-    "Please select award": ["Please select award", "请选择成果"],
-    "Please select award level": ["Please select award level", "请选择获奖等级"],
-    "Peking University · Beijing": ["Peking University · Beijing", "北京大学 · 北京"],
-    "Location": ["Location", "地点"],
-    "Move Up": ["Move Up", "上移"],
-    "Move Down": ["Move Down", "下移"],
-    "CV": ["CV", "简历"],
-    "Quick Template": ["Quick Template", "快速模板"],
-    "Import Markdown": ["Import Markdown", "导入 Markdown"],
-    "Add Information": ["Add Information", "添加信息"],
-    "Update Information": ["Update Information", "更新信息"],
-    "Add Success": ["Add Success", "添加成功"],
-    "Update Success": ["Update Success", "更新成功"],
-    "Select Picture": ["Select Picture", "选择图片"],
-
-    "Education List": ["Education List", "学历列表"],
-    "Add Education": ["Add Education", "添加学历"],
-    "Input education name": ["Input education name", "输入学历名称"],
-    "Group List": ["Group List", "分组列表"],
-    "Add Group": ["Add Group", "添加分组"],
-    "Input group name": ["Input group name", "输入分组名称"],
-    "Major List": ["Major List", "专业列表"],
-    "Add Major": ["Add Major", "添加专业"],
-    "Input major name": ["Input major name", "输入专业名称"],
-    "Destination List": ["Destination List", "去向列表"],
-    "Add Destination": ["Add Destination", "添加去向"],
-    "Input destination name": ["Input destination name", "输入去向名称"],
-    "Award List": ["Award List", "成果列表"],
-    "Add Award": ["Add Award", "添加成果"],
-    "Input award name": ["Input award name", "输入成果名称"],
-    "Award Level List": ["Award Level List", "竞赛等级列表"],
-    "Add Award Level": ["Add Award Level", "添加成果等级"],
-    "Input award level": ["Input award level", "输入成果等级"],
-    "Team List": ["Team List", "团队列表"],
-    "Input group name (append +$[number] to sort)": ["Input group name (append +$[number] to sort)", "输入分组名称（尾部 +$[数字] 可排序）"],
-    "Cancel Display": ["Cancel Display", "取消展示"],
-    "Display": ["Display", "展示"],
-    "Add Team": ["Add Team", "添加团队"],
-    "Input team name": ["Input team name", "输入团队名称"],
-
-    "Write something...": ["Write something...", "写点什么吧..."],
-    "Publish": ["Publish", "发布"],
-    "Unsaved edits": ["Unsaved edits", "未保存的编辑"],
-    "Saving": ["Saving", "保存中"],
-    "Create an article to start writing": ["Create an article to start writing", "创建文章开始创作"],
-    "No more data": ["No more data", "已无更多数据"],
-    "No article is currently bound": ["No article is currently bound", "当前没有绑定任何文章"],
-    "Save Success": ["Save Success", "保存成功"],
-    "Are you sure to discard the edited content?": ["Are you sure to discard the edited content?", "确定放弃已编辑的内容吗？"],
-    "Add Article": ["Add Article", "添加文章"],
-    "Edit Title": ["Edit Title", "修改标题"],
-    "Delete Article": ["Delete Article", "删除文章"],
-    "Publish Article": ["Publish Article", "发布文章"],
-    "article": ["article", "文章"],
-    "Title": ["Title", "标题"],
-    "Input article title": ["Input article title", "输入文章标题"],
-    "Title cannot be empty": ["Title cannot be empty", "标题不能为空"],
-    "Edit or Publish Article": ["Edit or Publish Article", "修改或发布文章"],
-    "Select type": ["Select type", "选择类型"],
-    "Input article description": ["Input article description", "输入文章描述"],
-    "Please input external URL (it will jump directly after specified)": ["Please input external URL (it will jump directly after specified)", "请输入外部 URL（指定后将直接跳转至外部链接）"],
-    "Add Cover Image": ["Add Cover Image", "添加头图"],
-    "Change Cover Image": ["Change Cover Image", "修改头图"],
-    "Confirm Changes": ["Confirm Changes", "确定修改"],
-    "Please select publish type": ["Please select publish type", "请选择发布类型"],
-    "Search": ["Search", "搜索"],
-    "Sync from Agent": ["Sync from Agent", "从 Agent 同步"],
-    "Fetch News": ["Fetch News", "抓取新闻"],
-    "Fetch Publications": ["Fetch Publications", "抓取论文"],
-    "Start URL": ["Start URL", "起始 URL"],
-    "Input start url": ["Input start url", "输入起始 URL"],
-    "Start URL cannot be empty": ["Start URL cannot be empty", "起始 URL 不能为空"],
-    "Max Pages": ["Max Pages", "最大页数"],
-    "Max Blocks": ["Max Blocks", "最大区块数"],
-    "Optional, e.g. 5": ["Optional, e.g. 5", "可选，例如 5"],
-    "Current Status": ["Current Status", "当前状态"],
-    "Logs": ["Logs", "日志"],
-    "No logs yet": ["No logs yet", "暂无日志"],
-    "Refresh": ["Refresh", "刷新"],
-    "Fetch task started": ["Fetch task started", "抓取任务已启动"],
-    "Fetch task failed": ["Fetch task failed", "抓取任务失败"],
-    "Failed to get fetch status": ["Failed to get fetch status", "获取抓取状态失败"],
-    "Max Pages must be a positive number": ["Max Pages must be a positive number", "最大页数必须为正数"],
-    "Max Blocks must be a positive number": ["Max Blocks must be a positive number", "最大区块数必须为正数"],
-    "Think twice before acting": ["Think twice before acting", "三思而后行"],
-    "Female": ["Female", "女"],
-    "Male": ["Male", "男"],
-
-
-    "Publications Management": ["Publications Management", "论文管理"],
-    "View Pub": ["View Pub", "查看论文"],
-    "Remove Pub": ["Remove Pub", "移除论文"],
-    "Remove Pubs": ["Remove Pubs", "移除论文"],
-    "Authors": ["Authors", "作者"],
-    "Year": ["Year", "年份"],
-    "Delete": ["Delete", "删除"],
-    "Success": ["Success", "成功"],
-    "Not selected any publications.": ["Not selected any publications.", "未选择任何论文。"],
-    "Remove these publications ?": ["Remove these publications ?", "移除这些论文？"],
-    "Metadata": ["Metadata", "元数据"],
-    "BibTex": ["BibTex", "BibTex"],
-    "Parse BibTex": ["Parse BibTex", "解析 BibTex"],
-    "Publisher": ["Publisher", "出版方"],
-    "DOI": ["DOI", "DOI"],
-    "CreateDate": ["CreateDate", "创建日期"],
-    "Source": ["Source", "来源"],
-    "Url": ["Url", "链接"],
-    "URL": ["URL", "URL"],
-    "News Content...": ["News Content...", "新闻内容..."],
-    "Booktitle": ["Booktitle", "会议/期刊"],
-    "Abstract": ["Abstract", "摘要"],
-    "ISSN": ["ISSN", "ISSN"],
-    "Language": ["Language", "语言"],
-    "Chapter": ["Chapter", "章节"],
-    "Volume": ["Volume", "卷"],
-    "Number": ["Number", "编号"],
-    "Pages": ["Pages", "页码"],
-    "Note": ["Note", "备注"],
-    "School": ["School", "学校"],
-    "Author": ["Author", "作者"],
-    "Empty title": ["Empty title", "标题为空"],
-    "Paste the Bibtex...": ["Paste the Bibtex...", "粘贴 BibTex..."],
-    "Please Input title...": ["Please Input title...", "请输入标题..."],
-    "Please Input publisher...": ["Please Input publisher...", "请输入出版方..."],
-    "Please Input year...": ["Please Input year...", "请输入年份..."],
-    "Please Input DOI...": ["Please Input DOI...", "请输入 DOI..."],
-    "Please Input createDate...": ["Please Input createDate...", "请输入创建日期..."],
-    "Please Input source...": ["Please Input source...", "请输入来源..."],
-    "Please Input url...": ["Please Input url...", "请输入链接..."],
-    "Please Input Booktitle...": ["Please Input Booktitle...", "请输入会议/期刊..."],
-    "Please Input abstract...": ["Please Input abstract...", "请输入摘要..."],
-    "Please Input ISSN...": ["Please Input ISSN...", "请输入 ISSN..."],
-    "Please Input language...": ["Please Input language...", "请输入语言..."],
-    "Please Input chapter...": ["Please Input chapter...", "请输入章节..."],
-    "Please Input volume...": ["Please Input volume...", "请输入卷..."],
-    "Please Input number...": ["Please Input number...", "请输入编号..."],
-    "Please Input pages...": ["Please Input pages...", "请输入页码..."],
-    "Please Input note...": ["Please Input note...", "请输入备注..."],
-    "Please Input school...": ["Please Input school...", "请输入学校..."],
-    "Please Input author...": ["Please Input author...", "请输入作者..."],
-
-    "Profile": ["Profile", "个人资料"],
-    "Log out": ["Log out", "退出登录"],
-    "Admin": ["Admin", "管理员"],
-    "Admin Console": ["Admin Console", "管理控制台"],
-    "Select Gender": ["Select Gender", "选择性别"],
-    "Theme": ["Theme", "主题"],
-    "Dark": ["Dark", "深色"],
-    "Light": ["Light", "浅色"],
-    "Apply Time": ["Apply Time", "申请时间"],
-    "Last Login": ["Last Login", "上次登录"],
-    "Change Password": ["Change Password", "修改密码"],
-    "Input Old Password": ["Input Old Password", "输入旧密码"],
-    "Input New Password": ["Input New Password", "输入新密码"],
-    "Confirm New Password": ["Confirm New Password", "确认新密码"],
-    "Edit": ["Edit", "编辑"],
-    "Accept Changes": ["Accept Changes", "接受更改"],
-    "Revise Avatar": ["Revise Avatar", "修改头像"],
-    "Please Select Gender": ["Please Select Gender", "请选择性别"],
-    "Update Failed": ["Update Failed", "更新失败"],
-    "Uploading": ["Uploading", "上传中"],
-    "No Picture Selected": ["No Picture Selected", "未选择图片"],
-    "Successfully Revised Avatar": ["Successfully Revised Avatar", "头像修改成功"],
-    "Input old password": ["Input old password", "请输入旧密码"],
-    "Successfully Updated": ["Successfully Updated", "更新成功"],
-    "Faculty": ["Faculty", "教师"],
-    "Scientific Staff": ["Scientific Staff", "科研人员"],
-    "Postdocs": ["Postdocs", "博士后"],
-    "Administration": ["Administration", "行政"],
-    "Ph.D. Students": ["Ph.D. Students", "博士生"],
-    "Master Students": ["Master Students", "硕士生"],
-    "Research Assistantship": ["Research Assistantship", "研究助理"],
-    "Undergraduates": ["Undergraduates", "本科生"],
-    "Undergraduate": ["Undergraduate", "本科生"],
-    "Alumni": ["Alumni", "校友"],
-    "Open Projects": ["Open Projects", "开源项目"],
-    "Select Type": ["Select Type", "选择类型"],
-    "External Jump": ["External Jump", "外部跳转"],
-    "Linked User: ": ["Linked User: ", "已绑定用户: "],
-    "Unlinked User (Please select a single user below and click confirm button.)": ["Unlinked User (Please select a single user below and click confirm button.)", "未绑定用户 (请在下方选择单个用户后点击确认按钮)"],
-    "January": ["January", "一月"],
-    "February": ["February", "二月"],
-    "March": ["March", "三月"],
-    "April": ["April", "四月"],
-    "May": ["May", "五月"],
-    "June": ["June", "六月"],
-    "July": ["July", "七月"],
-    "August": ["August", "八月"],
-    "September": ["September", "九月"],
-    "October": ["October", "十月"],
-    "December": ["December", "十二月"],
-};
-
-export default Object.fromEntries(
-    Object.entries(dict).map(([key, [en, cn]]) => [key, { en, cn }])
-);
+export default dict;
