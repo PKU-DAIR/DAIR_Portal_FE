@@ -37,7 +37,7 @@
 								:key="attribute.id"
 								class="attr-head"
 							>
-								{{ attribute.name }}
+								{{ local(attribute.name) }}
 							</div>
 						</div>
 					</div>

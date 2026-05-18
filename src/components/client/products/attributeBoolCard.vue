@@ -1,6 +1,6 @@
 <template>
 	<div class="product-attr-card">
-		<p class="attr-card-name">{{ attribute.name }}</p>
+		<p class="attr-card-name">{{ local(attribute.name) }}</p>
 		<div class="attr-card-value">
 			<fv-toggle-switch
 				v-if="isBinary"

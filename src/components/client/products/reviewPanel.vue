@@ -42,7 +42,7 @@
 						class="attribute-editor"
 					>
 						<div class="attr-info">
-							<p class="attr-name">{{ attribute.name }}</p>
+							<p class="attr-name">{{ local(attribute.name) }}</p>
 							<p class="attr-type">{{ attribute.attribute_type }}</p>
 						</div>
 						<div
