@@ -132,6 +132,7 @@
 					</div>
 					<div class="inner-table">
 						<fv-details-list
+							ref="reviewList"
 							v-model="reviews"
 							:theme="theme"
 							:head="reviewHead"
@@ -142,7 +143,10 @@
 								<p class="sec">{{ reviewOffset + x.row_index + 1 }}</p>
 							</template>
 							<template v-slot:column_1="x">
-								<p class="sec">{{ x.item.reviewer_id }}</p>
+								<fv-tag
+									:theme="theme"
+									:model-value="getSingleTag(x.item.reviewer_id)"
+								></fv-tag>
 							</template>
 							<template v-slot:column_2="x">
 								<p class="sec long-text">{{ x.item.review }}</p>
@@ -195,9 +199,12 @@
 					</div>
 					<div class="inner-table">
 						<fv-details-list
+							ref="valueList"
 							v-model="attributeValues"
 							:theme="theme"
 							:head="valueHead"
+							:group="attributeValueGroups"
+                            :show-group="true"
 							:foreground="color"
 							style="width: 100%; height: 100%"
 						>
@@ -211,7 +218,10 @@
 								<p class="sec">{{ x.item.value }}</p>
 							</template>
 							<template v-slot:column_3="x">
-								<p class="sec">{{ x.item.publisher_id }}</p>
+								<fv-tag
+									:theme="theme"
+									:model-value="getSingleTag(x.item.publisher_id)"
+								></fv-tag>
 							</template>
 							<template v-slot:column_4="x">
 								<p class="sec">{{ getDate(x.item.publish_time) }}</p>
@@ -324,7 +334,7 @@ export default {
 			reviewHead: [
 				{ content: "#", width: 60 },
 				{ content: "Reviewer", width: 150 },
-				{ content: "Review", width: 360 },
+				{ content: "Review", width: 250 },
 				{ content: "Review Time", width: 170 },
 				{ content: "Update Time", width: 170 },
 				{ content: "Action", width: 100 },
@@ -345,6 +355,11 @@ export default {
 		},
 		thisValue(val) {
 			this.$emit("update:modelValue", val);
+			if (val) {
+				this.$nextTick(() => {
+					this.refreshDetailsListHeads();
+				});
+			}
 		},
 		item: {
 			immediate: true,
@@ -373,6 +388,21 @@ export default {
 		valueOffset() {
 			return (this.valuePage - 1) * this.valueLimit;
 		},
+		attributeValueGroups() {
+			const groups = [];
+			const existed = new Set();
+			for (const item of this.attributeValues) {
+				const value = item.attribute_group_name || this.local("Unknown");
+				if (existed.has(value)) continue;
+				existed.add(value);
+				groups.push({
+					key: "attribute_group_name",
+					value,
+					name: value,
+				});
+			}
+			return groups;
+		},
 	},
 	methods: {
 		syncAuditStatus(value) {
@@ -394,6 +424,20 @@ export default {
 				return item;
 			}
 		},
+		refreshDetailsListHeads() {
+			this.$refs.reviewList?.headInit?.();
+			this.$refs.valueList?.headInit?.();
+		},
+		getSingleTag(text) {
+			return text ? [{ text }] : [];
+		},
+		normalizeAttributeValueItem(item) {
+			return {
+				...item,
+				attribute_group_name:
+					this.getAttributeName(item.attribute_id) || this.local("Unknown"),
+			};
+		},
 		syncItem(item = {}) {
 			this.form = Object.assign(createForm(), item || {});
 			this.clearTempLogoPreview();
@@ -405,6 +449,9 @@ export default {
 			this.attributeValues = [];
 			this.logoVersion = Date.now();
 			this.setLogoPreview();
+			this.$nextTick(() => {
+				this.refreshDetailsListHeads();
+			});
 			if (this.form.id) {
 				this.getProductDetail();
 				this.getReviews();
@@ -486,6 +533,9 @@ export default {
 					);
 					this.reviews = list;
 					this.reviewTotal = total;
+					this.$nextTick(() => {
+						this.refreshDetailsListHeads();
+					});
 				}
 			} catch (err) {
 				console.log(err);
@@ -507,8 +557,13 @@ export default {
 						res,
 						this.valueLimit,
 					);
-					this.attributeValues = list;
+					this.attributeValues = list.map((item) =>
+						this.normalizeAttributeValueItem(item),
+					);
 					this.valueTotal = total;
+					this.$nextTick(() => {
+						this.refreshDetailsListHeads();
+					});
 				}
 			} catch (err) {
 				console.log(err);
