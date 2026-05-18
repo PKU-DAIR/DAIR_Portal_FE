@@ -5321,6 +5321,61 @@ export class Product {
   }
  
   /**
+  * @summary Get My Product Review
+  * @param {String} [product_id] 
+  * @param {undefined} [valid_info] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetMyProductReview(product_id,valid_info,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/reviews/my_review',
+        data:{},
+        params:{product_id,valid_info},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
   * @summary Add Or Update Product Review
   * @param {undefined} [valid_info] 
   * @param {UserModel.ProductReviewItem} [productreviewitem] 
@@ -5927,6 +5982,62 @@ export class Product {
   }
  
   /**
+  * @summary Get My Product Attribute Values
+  * @param {String} [product_id] 
+  * @param {undefined} [attribute_id] 
+  * @param {undefined} [valid_info] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async GetMyProductAttributeValues(product_id,attribute_id,valid_info,cancelSource,uploadProgress,downloadProgress,baseURL){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/products/attribute_values/my_values',
+        data:{},
+        params:{product_id,attribute_id,valid_info},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      if (baseURL!==undefined){
+        options.baseURL = baseURL
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response){
+          if (err.response.data)
+            reject(err.response.data)
+          else
+            reject(err.response);
+        }else{
+          reject(err)
+        }
+      })
+    })
+  }
+ 
+  /**
   * @summary Add Or Update Product Attribute Value
   * @param {undefined} [valid_info] 
   * @param {UserModel.ProductAttributeValueItem} [productattributevalueitem] 
@@ -6197,6 +6308,14 @@ Product.GetProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/ge
 */
 Product.GetProductReview.path=`/products/reviews/get_review`
 /**
+* @description GetMyProductReview url链接，包含baseURL
+*/
+Product.GetMyProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/my_review`
+/**
+* @description GetMyProductReview url链接，不包含baseURL
+*/
+Product.GetMyProductReview.path=`/products/reviews/my_review`
+/**
 * @description AddOrUpdateProductReview url链接，包含baseURL
 */
 Product.AddOrUpdateProductReview.fullPath=`${axios.defaults.baseURL}/products/reviews/update`
@@ -6284,6 +6403,14 @@ Product.GetProductAttributeValue.fullPath=`${axios.defaults.baseURL}/products/at
 * @description GetProductAttributeValue url链接，不包含baseURL
 */
 Product.GetProductAttributeValue.path=`/products/attribute_values/get_value`
+/**
+* @description GetMyProductAttributeValues url链接，包含baseURL
+*/
+Product.GetMyProductAttributeValues.fullPath=`${axios.defaults.baseURL}/products/attribute_values/my_values`
+/**
+* @description GetMyProductAttributeValues url链接，不包含baseURL
+*/
+Product.GetMyProductAttributeValues.path=`/products/attribute_values/my_values`
 /**
 * @description AddOrUpdateProductAttributeValue url链接，包含baseURL
 */

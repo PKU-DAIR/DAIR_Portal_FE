@@ -6,6 +6,7 @@ import Team from "./Team";
 import Pub from "./Pub";
 import News from "./News";
 import Projs from "./Projs";
+import Product from "./Product";
 
 import tool from "@/router/tools.js";
 
@@ -27,6 +28,7 @@ const routes = [
     Pub,
     News,
     Projs,
+    Product,
     Admin
 ];
 

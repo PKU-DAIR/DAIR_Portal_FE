@@ -1,0 +1,699 @@
+<template>
+	<div class="products-wrap" :class="[{ dark: theme === 'dark' }]">
+		<div class="hero-block">
+			<p class="hero-title">{{ local("Research Ladder") }}</p>
+			<p class="hero-subtitle">
+				{{
+					local(
+						"Explore approved AI and research tools ranked by community feedback.",
+					)
+				}}
+			</p>
+			<p v-if="updatedAt" class="hero-update">
+				{{ local("Updated At") }}: {{ getDate(updatedAt) }}
+			</p>
+		</div>
+
+		<div v-for="group in groups" :key="group.type" class="type-section">
+			<div class="section-head">
+				<div>
+					<p class="section-title">{{ group.type }}</p>
+					<p class="section-desc">
+						{{ group.items.length }} {{ local("tools") }}
+					</p>
+				</div>
+			</div>
+
+			<div class="product-table">
+				<div class="table-head">
+					<div class="cell no-cell">#</div>
+					<div class="cell product-cell">
+						{{ local("Product") }}
+					</div>
+					<div class="attr-scroll">
+						<div class="attr-track">
+							<div
+								v-for="attribute in attributes"
+								:key="attribute.id"
+								class="attr-head"
+							>
+								{{ attribute.name }}
+							</div>
+						</div>
+					</div>
+					<div class="cell action-cell">
+						{{ local("Action") }}
+					</div>
+				</div>
+
+				<div
+					v-for="(item, index) in group.items"
+					:key="item.id"
+					class="table-row"
+				>
+					<div class="cell no-cell">
+						{{ getGlobalIndex(item.id) }}
+					</div>
+					<div class="cell product-cell">
+						<div class="product-main">
+							<div class="logo-shell">
+								<fv-img
+									v-if="item.has_logo"
+									:src="getLogoUrl(item)"
+									style="
+										width: auto;
+										height: 46px;
+										max-width: 120px;
+									"
+								></fv-img>
+								<div v-else class="logo-placeholder">
+									{{ item.tool_name?.slice(0, 1) || "P" }}
+								</div>
+							</div>
+							<div class="product-info">
+								<p class="product-name">{{ item.tool_name }}</p>
+								<p class="product-org">
+									{{ item.organization }}
+								</p>
+								<p class="product-intro">
+									{{
+										item.introduction ||
+										local("No introduction yet.")
+									}}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="attr-scroll">
+						<div class="attr-track">
+							<div
+								v-for="attribute in attributes"
+								:key="`${item.id}-${attribute.id}`"
+								class="attr-card"
+							>
+								<p class="attr-card-name">
+									{{ attribute.name }}
+								</p>
+								<div class="attr-card-value">
+									<fv-rating-control
+										v-if="
+											attribute.attribute_type === 'score'
+										"
+										:model-value="
+											getAttributeDisplayValue(
+												item,
+												attribute,
+											)
+										"
+										:theme="theme"
+										:readonly="true"
+										:max-rate="5"
+										:selected-color="'rgba(255, 196, 61, 1)'"
+									></fv-rating-control>
+									<fv-toggle-switch
+										v-else-if="
+											attribute.attribute_type === 'bool' &&
+											isBooleanBinary(item, attribute)
+										"
+										:model-value="
+											Boolean(
+												getAttributeDisplayValue(
+													item,
+													attribute,
+												),
+											)
+										"
+										:theme="theme"
+										:disabled="true"
+										:width="68"
+										:height="28"
+										:on="local('Yes')"
+										:off="local('No')"
+										:inside-content="true"
+										:switch-on-background="'rgba(91, 192, 139, 1)'"
+									></fv-toggle-switch>
+									<div
+										v-else-if="
+											attribute.attribute_type === 'bool'
+										"
+										class="bool-unknown"
+										:title="
+											getBooleanHint(item, attribute)
+										"
+									>
+										<i class="ms-Icon ms-Icon--Unknown"></i>
+									</div>
+									<p v-else class="plain-value">
+										{{
+											getAttributeDisplayValue(
+												item,
+												attribute,
+											) ?? "-"
+										}}
+									</p>
+								</div>
+								<p class="attr-card-meta">
+									{{ local("Average") }}:
+									{{ formatAttributeMeta(item, attribute) }}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cell action-cell">
+						<fv-button
+							theme="dark"
+							background="linear-gradient(135deg, rgba(76, 110, 245, 1) 0%, rgba(52, 164, 219, 1) 100%)"
+                            :border-radius="8"
+							:is-box-shadow="true"
+							style="width: 110px; height: 38px"
+							@click="openReviewPanel(item)"
+						>
+							{{ local("Review") }}
+						</fv-button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div v-if="loading" class="loading-block">
+			<fv-progress-ring
+				:loading="true"
+				r="12"
+				border-width="3"
+				color="rgba(247, 191, 20, 1)"
+				background="transparent"
+			></fv-progress-ring>
+		</div>
+
+		<div v-if="!loading && groups.length === 0" class="empty-block">
+			{{ local("No products yet.") }}
+		</div>
+
+		<review-panel
+			v-model="show.review"
+			:product="currentProduct"
+			:attributes="attributes"
+			@finished="getProducts"
+		></review-panel>
+
+		<bottom-block></bottom-block>
+	</div>
+</template>
+
+<script>
+import { mapState } from "pinia";
+import { useApp } from "@/stores/useApp";
+import { useTheme } from "@/stores/useTheme";
+import { useUser } from "@/stores/useUser";
+
+import bottomBlock from "@/views/client/home/bottomBlock.vue";
+import reviewPanel from "@/components/client/products/reviewPanel.vue";
+
+export default {
+	components: {
+		bottomBlock,
+		reviewPanel,
+	},
+	data() {
+		return {
+			loading: false,
+			attributes: [],
+			products: [],
+			updatedAt: "",
+			currentProduct: {},
+			show: {
+				review: false,
+			},
+		};
+	},
+	computed: {
+		...mapState(useApp, ["local"]),
+		...mapState(useTheme, ["theme"]),
+		...mapState(useUser, {
+			userInfo: "info",
+		}),
+		groups() {
+			const map = {};
+			for (const item of this.products) {
+				const key = item.tool_type || this.local("Other");
+				if (!map[key]) map[key] = [];
+				map[key].push(item);
+			}
+			return Object.keys(map).map((key) => ({
+				type: key,
+				items: map[key],
+			}));
+		},
+	},
+	mounted() {
+		this.getProducts();
+	},
+	methods: {
+		getDate(item) {
+			if (!item) return "-";
+			try {
+				if (typeof item !== "object") item = new Date(item);
+				if (Number.isNaN(item.getTime())) return "-";
+				return this.$SDate.Format("YYYY-mm-dd HH:MM:SS", item);
+			} catch (e) {
+				return item;
+			}
+		},
+		getLogoUrl(item) {
+			return `${this.$server}${this.$api.Product.GetProductLogo.path}?id=${encodeURIComponent(item.id)}&t=${item.update_time || Date.now()}`;
+		},
+		getGlobalIndex(id) {
+			return this.products.findIndex((item) => item.id === id) + 1;
+		},
+		getAttributeRecord(item, attribute) {
+			return item.attribute_value_list?.find(
+				(value) => value.attribute_id === attribute.id,
+			);
+		},
+		getAttributeDisplayValue(item, attribute) {
+			const record = this.getAttributeRecord(item, attribute);
+			if (record && record.avg_value !== undefined) {
+				return record.avg_value;
+			}
+			return item.attribute_values?.[attribute.id];
+		},
+		formatAttributeMeta(item, attribute) {
+			const value = this.getAttributeDisplayValue(item, attribute);
+			if (value === undefined || value === null || value === "")
+				return "-";
+			if (attribute.attribute_type === "bool") {
+				if (Number(value) > 0 && Number(value) < 1) {
+					return `${Math.round(Number(value) * 100)}% ${this.local("users think it is free")}`;
+				}
+				return Number(value) === 1
+					? this.local("Yes")
+					: this.local("No");
+			}
+			return value;
+		},
+		isBooleanBinary(item, attribute) {
+			const value = Number(
+				this.getAttributeDisplayValue(item, attribute),
+			);
+			return value === 0 || value === 1;
+		},
+		getBooleanHint(item, attribute) {
+			const value = Number(
+				this.getAttributeDisplayValue(item, attribute),
+			);
+			if (Number.isNaN(value)) return this.local("Unknown");
+			return `${this.local("May require payment")}; ${Math.round(value * 100)}% ${this.local("users think it is free")}`;
+		},
+		async getProducts() {
+			this.loading = true;
+			try {
+				const res = await this.$api.Product.ListClientProducts(
+					undefined,
+					undefined,
+					0,
+					9999,
+				);
+				if (res.code === 200 || res.status === "success" || !res.code) {
+					const payload = res?.data ?? res ?? {};
+					this.attributes = payload.attributes || [];
+					this.products = payload.list || [];
+					this.updatedAt = payload.updated_at || "";
+				}
+			} catch (err) {
+				console.log(err);
+				this.$barWarning(this.local("Get products failed"), {
+					status: "error",
+				});
+			} finally {
+				this.loading = false;
+			}
+		},
+		openReviewPanel(item) {
+			if (!this.userInfo?.status) {
+				this.$infoBox(
+					this.local("Please login first to review this product."),
+					{
+						title: this.local("Login Required"),
+						theme: this.theme,
+						status: "warning",
+						confirm: () => {
+							this.$Go("/login");
+						},
+					},
+				);
+				return;
+			}
+			this.currentProduct = item;
+			this.show.review = true;
+		},
+	},
+};
+</script>
+
+<style lang="scss">
+.products-wrap {
+	position: relative;
+	width: 100%;
+	min-height: 100%;
+	padding: 120px 0 0 0;
+	box-sizing: border-box;
+	background:
+		radial-gradient(
+			circle at top right,
+			rgba(65, 99, 205, 0.16),
+			transparent 26%
+		),
+		radial-gradient(
+			circle at top left,
+			rgba(64, 185, 210, 0.12),
+			transparent 24%
+		),
+		linear-gradient(
+			180deg,
+			rgba(17, 18, 24, 1) 0%,
+			rgba(23, 17, 24, 1) 100%
+		);
+	color: whitesmoke;
+
+	.hero-block {
+		width: calc(100% - 48px);
+		max-width: 1360px;
+		margin: 0 auto 26px auto;
+		padding: 28px 30px;
+		border-radius: 28px;
+		background: linear-gradient(
+			135deg,
+			rgba(35, 39, 57, 0.92) 0%,
+			rgba(19, 22, 34, 0.96) 100%
+		);
+		box-shadow:
+			0 26px 60px rgba(0, 0, 0, 0.28),
+			inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	}
+
+	.hero-title {
+		font-size: 44px;
+		font-weight: 800;
+		letter-spacing: 0.02em;
+	}
+
+	.hero-subtitle {
+		margin-top: 10px;
+		font-size: 15px;
+		max-width: 760px;
+		line-height: 1.8;
+		color: rgba(220, 225, 242, 0.76);
+	}
+
+	.hero-update {
+		margin-top: 14px;
+		font-size: 12px;
+		color: rgba(187, 194, 220, 0.62);
+	}
+
+	.type-section {
+		width: calc(100% - 48px);
+		max-width: 1360px;
+		margin: 0 auto 28px auto;
+	}
+
+	.section-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		margin-bottom: 12px;
+	}
+
+	.section-title {
+		font-size: 24px;
+		font-weight: 700;
+	}
+
+	.section-desc {
+		margin-top: 4px;
+		font-size: 13px;
+		color: rgba(198, 203, 224, 0.6);
+	}
+
+	.product-table {
+		border-radius: 12px;
+		background: rgba(15, 17, 26, 0.82);
+		border: rgba(255, 255, 255, 0.06) solid 1px;
+		overflow: hidden;
+		backdrop-filter: blur(14px);
+	}
+
+	.table-head,
+	.table-row {
+		display: grid;
+		grid-template-columns: 78px 320px 1fr 144px;
+		align-items: stretch;
+	}
+
+	.table-head {
+		min-height: 62px;
+		background: linear-gradient(
+			180deg,
+			rgba(41, 45, 66, 0.96) 0%,
+			rgba(26, 29, 43, 0.96) 100%
+		);
+		border-bottom: rgba(255, 255, 255, 0.06) solid 1px;
+		font-size: 13px;
+		font-weight: 700;
+		color: rgba(219, 224, 246, 0.82);
+	}
+
+	.table-row {
+		min-height: 142px;
+		border-bottom: rgba(255, 255, 255, 0.05) solid 1px;
+	}
+
+	.table-row:last-child {
+		border-bottom: none;
+	}
+
+	.cell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 16px;
+		box-sizing: border-box;
+	}
+
+	.no-cell {
+		font-size: 18px;
+		font-weight: 700;
+		color: rgba(255, 196, 61, 1);
+	}
+
+	.product-cell {
+		justify-content: flex-start;
+		border-left: rgba(255, 255, 255, 0.05) solid 1px;
+		border-right: rgba(255, 255, 255, 0.05) solid 1px;
+	}
+
+	.product-main {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		width: 100%;
+	}
+
+	.logo-shell {
+		width: 116px;
+		min-width: 116px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.logo-placeholder {
+		width: 58px;
+		height: 58px;
+		border-radius: 18px;
+		background: linear-gradient(
+			135deg,
+			rgba(75, 95, 211, 0.42) 0%,
+			rgba(69, 174, 221, 0.32) 100%
+		);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 26px;
+		font-weight: 800;
+	}
+
+	.product-info {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.product-name {
+		font-size: 20px;
+		font-weight: 700;
+	}
+
+	.product-org {
+		margin-top: 4px;
+		font-size: 13px;
+		color: rgba(176, 184, 210, 0.72);
+	}
+
+	.product-intro {
+		margin-top: 8px;
+		font-size: 13px;
+		line-height: 1.7;
+		color: rgba(219, 224, 246, 0.76);
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.attr-scroll {
+		@include Vcenter;
+
+		min-width: 0;
+		overflow-x: auto;
+		overflow-y: hidden;
+		padding: 12px 0;
+	}
+
+	.attr-track {
+		display: flex;
+		align-items: stretch;
+		gap: 12px;
+		min-width: max-content;
+		padding: 0 14px;
+		box-sizing: border-box;
+	}
+
+	.attr-head,
+	.attr-card {
+		width: 170px;
+		flex-shrink: 0;
+	}
+
+	.attr-head {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		font-weight: 700;
+		color: rgba(195, 204, 236, 0.78);
+	}
+
+	.attr-card {
+		padding: 14px 14px 12px 14px;
+		border-radius: 18px;
+		background: linear-gradient(
+			180deg,
+			rgba(31, 35, 53, 0.92) 0%,
+			rgba(22, 24, 37, 0.98) 100%
+		);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 10px 24px rgba(0, 0, 0, 0.18);
+	}
+
+	.attr-card-name {
+		font-size: 12px;
+		font-weight: 700;
+		color: rgba(225, 230, 248, 0.88);
+	}
+
+	.attr-card-value {
+		min-height: 40px;
+		margin-top: 12px;
+		display: flex;
+		align-items: center;
+	}
+
+	.plain-value {
+		font-size: 22px;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.96);
+	}
+
+	.attr-card-meta {
+		margin-top: 10px;
+		font-size: 12px;
+		color: rgba(177, 184, 208, 0.68);
+	}
+
+	.bool-unknown {
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: rgba(255, 196, 61, 0.14);
+		color: rgba(255, 196, 61, 1);
+		font-size: 18px;
+		box-shadow: inset 0 0 0 1px rgba(255, 196, 61, 0.2);
+		cursor: help;
+	}
+
+	.action-cell {
+		border-left: rgba(255, 255, 255, 0.05) solid 1px;
+	}
+
+	.loading-block,
+	.empty-block {
+		width: 100%;
+		padding: 40px 0 80px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.empty-block {
+		font-size: 15px;
+		color: rgba(210, 214, 232, 0.68);
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.products-wrap {
+		.table-head,
+		.table-row {
+			grid-template-columns: 68px 280px 1fr 124px;
+		}
+
+		.attr-head,
+		.attr-card {
+			width: 156px;
+		}
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.products-wrap {
+		padding-top: 92px;
+
+		.hero-block,
+		.type-section {
+			width: calc(100% - 24px);
+		}
+
+		.hero-block {
+			padding: 22px 20px;
+			border-radius: 22px;
+		}
+
+		.hero-title {
+			font-size: 30px;
+		}
+
+		.product-table {
+			overflow-x: auto;
+		}
+
+		.table-head,
+		.table-row {
+			min-width: 860px;
+		}
+	}
+}
+</style>

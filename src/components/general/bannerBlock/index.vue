@@ -272,6 +272,7 @@ export default {
 			navOptions: [
 				{ name: "News", href: "/news" },
 				{ name: "Projects", href: "/projs" },
+				{ name: "Research Ladder", href: "/products" },
 				{ name: "Team", href: "/team" },
 				{ name: "Publications", href: "/pub" },
 			],
