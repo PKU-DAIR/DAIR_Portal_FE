@@ -14,9 +14,43 @@
 			</p>
 		</div>
 
-		<div v-for="group in groups" :key="group.type" class="type-section">
+		<div class="filter-block">
+			<div class="filter-item tool-type-filter">
+				<fv-drop-down
+					v-model="selectedToolTypes"
+					:theme="theme"
+					:options="toolTypeOptions"
+					:multiple="true"
+					:placeholder="local('Filter tool type')"
+                    :checkBoxBackground="color"
+				>
+				</fv-drop-down>
+			</div>
+			<div class="filter-item keyword-filter">
+				<fv-text-box
+					:model-value="keywordInput"
+					:theme="theme"
+					:placeholder="local('Please input tool name')"
+					icon="Search"
+					background="rgba(20, 31, 35, 1)"
+					@debounce-input="handleKeywordDebounce"
+					:revealBorder="true"
+					border-radius="6"
+					style="height: 35px"
+				></fv-text-box>
+			</div>
+		</div>
+
+		<div
+			v-for="group in filteredGroups"
+			:key="group.type"
+			class="type-section"
+		>
 			<div class="section-head">
-				<div class="section-head-main" @click="goToToolType(group.type)">
+				<div
+					class="section-head-main"
+					@click="goToToolType(group.type)"
+				>
 					<p class="section-title">{{ group.type }}</p>
 					<p class="section-desc">
 						{{ group.count }} {{ local("tools") }}
@@ -74,7 +108,11 @@
 								<fv-img
 									v-if="item.has_logo"
 									:src="getLogoUrl(item)"
-									style="width: auto; height: 46px; max-width: 120px"
+									style="
+										width: auto;
+										height: 46px;
+										max-width: 120px;
+									"
 								></fv-img>
 								<div v-else class="logo-placeholder">
 									{{ item.tool_name?.slice(0, 1) || "P" }}
@@ -82,7 +120,9 @@
 							</div>
 							<div class="product-info">
 								<p class="product-name">{{ item.tool_name }}</p>
-								<p class="product-org">{{ item.organization }}</p>
+								<p class="product-org">
+									{{ item.organization }}
+								</p>
 								<p class="product-intro">
 									{{
 										item.introduction ||
@@ -132,7 +172,7 @@
 			></fv-progress-ring>
 		</div>
 
-		<div v-if="!loading && groups.length === 0" class="empty-block">
+		<div v-if="!loading && filteredGroups.length === 0" class="empty-block">
 			{{ local("No products yet.") }}
 		</div>
 
@@ -158,6 +198,7 @@ import reviewPanel from "@/components/client/products/reviewPanel.vue";
 import attributeScoreCard from "@/components/client/products/attributeScoreCard.vue";
 import attributeBoolCard from "@/components/client/products/attributeBoolCard.vue";
 import attributeGenericCard from "@/components/client/products/attributeGenericCard.vue";
+import color from "onecolor/lib/color";
 
 export default {
 	components: {
@@ -172,6 +213,9 @@ export default {
 			loading: false,
 			attributes: [],
 			groups: [],
+			selectedToolTypes: [],
+			keyword: "",
+			keywordInput: "",
 			updatedAt: "",
 			currentProduct: {},
 			show: {
@@ -181,10 +225,33 @@ export default {
 	},
 	computed: {
 		...mapState(useApp, ["local"]),
-		...mapState(useTheme, ["theme"]),
+		...mapState(useTheme, ["theme", "color"]),
 		...mapState(useUser, {
 			userInfo: "info",
 		}),
+		toolTypeOptions() {
+			return this.groups.map((group) => ({
+				key: group.type,
+				text: group.type,
+			}));
+		},
+		selectedToolTypeNames() {
+			return this.selectedToolTypes.map((item) =>
+				typeof item === "object"
+					? item.key || item.text || item.value
+					: item,
+			);
+		},
+		filteredGroups() {
+			const selectedTypes = new Set(this.selectedToolTypeNames);
+			return this.groups
+				.filter((group) =>
+					selectedTypes.size === 0
+						? true
+						: selectedTypes.has(group.type),
+				)
+				.filter((group) => group.items.length > 0);
+		},
 	},
 	mounted() {
 		this.getProducts();
@@ -232,11 +299,16 @@ export default {
 		goToToolType(toolType) {
 			this.$Go(`/products/type/${encodeURIComponent(toolType)}`);
 		},
+		handleKeywordDebounce(value) {
+			this.keyword = value || "";
+			this.keywordInput = value || "";
+			this.getProducts();
+		},
 		async getProducts() {
 			this.loading = true;
 			try {
 				const res = await this.$api.Product.ListClientProducts(
-					undefined,
+					this.keyword || undefined,
 					undefined,
 					0,
 					9999,
@@ -256,12 +328,13 @@ export default {
 					const types = this.sortToolTypes(Object.keys(counts));
 					const previewResults = await Promise.all(
 						types.map(async (type) => {
-							const previewRes = await this.$api.Product.ListClientProducts(
-								undefined,
-								type,
-								0,
-								5,
-							);
+							const previewRes =
+								await this.$api.Product.ListClientProducts(
+									this.keyword || undefined,
+									type,
+									0,
+									5,
+								);
 							const previewPayload =
 								previewRes?.data ?? previewRes ?? {};
 							return {
@@ -363,6 +436,20 @@ export default {
 		margin-top: 14px;
 		font-size: 12px;
 		color: rgba(187, 194, 220, 0.62);
+	}
+
+	.filter-block {
+		width: calc(100% - 48px);
+		max-width: 1360px;
+		margin: 0 auto 20px auto;
+		display: flex;
+		gap: 10px;
+		align-items: start;
+	}
+
+	.filter-item {
+		position: relative;
+		z-index: 4;
 	}
 
 	.type-section {
@@ -579,6 +666,7 @@ export default {
 		padding-top: 92px;
 
 		.hero-block,
+		.filter-block,
 		.type-section {
 			width: calc(100% - 24px);
 		}
@@ -590,6 +678,10 @@ export default {
 
 		.hero-title {
 			font-size: 30px;
+		}
+
+		.filter-block {
+			flex-direction: column;
 		}
 
 		.section-head {

@@ -17,6 +17,19 @@
 			</p>
 		</div>
 
+		<div class="filter-block">
+			<fv-text-box
+				:model-value="keywordInput"
+				:theme="theme"
+				:placeholder="local('Please input tool name')"
+				icon="Search"
+				borderWidth="2"
+				@debounce-input="handleKeywordDebounce"
+				:revealBorder="true"
+				:is-box-shadow="true"
+			></fv-text-box>
+		</div>
+
 		<div class="type-section">
 			<div class="section-head">
 				<div>
@@ -180,6 +193,8 @@ export default {
 			totalPages: 1,
 			page: 1,
 			limit: 8,
+			keyword: "",
+			keywordInput: "",
 			currentProduct: {},
 			show: {
 				review: false,
@@ -257,18 +272,24 @@ export default {
 			const parsed = Number(count);
 			return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
 		},
+		handleKeywordDebounce(value) {
+			this.keyword = value || "";
+			this.keywordInput = value || "";
+			this.page = 1;
+			this.getProducts();
+		},
 		async getProducts() {
 			this.loading = true;
 			try {
 				const [listRes, countRes] = await Promise.all([
 					this.$api.Product.ListClientProducts(
-						undefined,
+						this.keyword || undefined,
 						this.currentToolType,
 						this.offset,
 						this.limit,
 					),
 					this.$api.Product.CountClientProducts(
-						undefined,
+						this.keyword || undefined,
 						this.currentToolType,
 					),
 				]);
@@ -385,6 +406,12 @@ export default {
 		margin-top: 14px;
 		font-size: 12px;
 		color: rgba(187, 194, 220, 0.62);
+	}
+
+	.filter-block {
+		width: calc(100% - 48px);
+		max-width: 1360px;
+		margin: 0 auto 20px auto;
 	}
 
 	.type-section {
@@ -602,6 +629,7 @@ export default {
 		padding-top: 92px;
 
 		.hero-block,
+		.filter-block,
 		.type-section {
 			width: calc(100% - 24px);
 		}

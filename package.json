@@ -11,8 +11,8 @@
     "api": "api-cli get http://100.64.0.18:8000/openapi.json -d ./src/api"
   },
   "dependencies": {
-    "@creatorsn/powereditor3": "^0.1.10",
-    "@creatorsn/vfluent3": "^0.3.49",
+    "@creatorsn/powereditor3": "^0.2.2",
+    "@creatorsn/vfluent3": "^0.3.72",
     "axios": "^1.7.9",
     "axios-swagger-helper": "^0.0.58",
     "bibtex-parser": "^0.0.0",
