@@ -1643,6 +1643,10 @@ export default {
         "en": "Updated At",
         "cn": "更新于"
     },
+    "View All": {
+        "en": "View All",
+        "cn": "查看全部"
+    },
     "Upload Image Failed": {
         "en": "Upload Image Failed",
         "cn": "上传图片失败"

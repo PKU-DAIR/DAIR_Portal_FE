@@ -15,6 +15,13 @@ export default {
             meta: {
                 title: "Products"
             }
+        },
+        {
+            path: "type/:toolType",
+            component: AsyncLoad(() => import("@/views/client/products/detail.vue")),
+            meta: {
+                title: "Products"
+            }
         }
     ]
 }

@@ -1,7 +1,10 @@
 <template>
 	<div class="products-wrap" :class="[{ dark: theme === 'dark' }]">
 		<div class="hero-block">
-			<p class="hero-title">{{ local("Research Ladder") }}</p>
+			<p class="back-link" @click="$Go('/products')">
+				{{ local("Back to Products") }}
+			</p>
+			<p class="hero-title">{{ currentToolType }}</p>
 			<p class="hero-subtitle">
 				{{
 					local(
@@ -14,24 +17,14 @@
 			</p>
 		</div>
 
-		<div v-for="group in groups" :key="group.type" class="type-section">
+		<div class="type-section">
 			<div class="section-head">
-				<div class="section-head-main" @click="goToToolType(group.type)">
-					<p class="section-title">{{ group.type }}</p>
+				<div>
+					<p class="section-title">{{ currentToolType }}</p>
 					<p class="section-desc">
-						{{ group.count }} {{ local("tools") }}
+						{{ totalCount }} {{ local("tools") }}
 					</p>
 				</div>
-				<fv-button
-					theme="dark"
-					background="rgba(36, 42, 64, 0.95)"
-					:border-radius="999"
-					:is-box-shadow="true"
-					style="height: 38px; min-width: 120px"
-					@click="goToToolType(group.type)"
-				>
-					{{ local("View All") }}
-				</fv-button>
 			</div>
 
 			<div class="product-table">
@@ -56,13 +49,9 @@
 					</div>
 				</div>
 
-				<div
-					v-for="(item, index) in group.items"
-					:key="item.id"
-					class="table-row"
-				>
+				<div v-for="(item, index) in products" :key="item.id" class="table-row">
 					<div class="cell no-cell">
-						{{ index + 1 }}
+						{{ (page - 1) * limit + index + 1 }}
 					</div>
 					<div class="cell product-cell">
 						<div
@@ -120,6 +109,20 @@
 					</div>
 				</div>
 			</div>
+
+			<div v-if="!loading && totalPages > 1" class="pagination-wrap">
+				<fv-pagination
+					v-model="page"
+					:theme="theme"
+					:total="totalPages"
+					:background="
+						theme === 'dark' ? 'rgba(50, 50, 50, 1)' : 'whitesmoke'
+					"
+					:foreground="'rgba(255, 196, 61, 1)'"
+                    border-radius="6"
+				>
+				</fv-pagination>
+			</div>
 		</div>
 
 		<div v-if="loading" class="loading-block">
@@ -132,7 +135,7 @@
 			></fv-progress-ring>
 		</div>
 
-		<div v-if="!loading && groups.length === 0" class="empty-block">
+		<div v-if="!loading && products.length === 0" class="empty-block">
 			{{ local("No products yet.") }}
 		</div>
 
@@ -171,8 +174,12 @@ export default {
 		return {
 			loading: false,
 			attributes: [],
-			groups: [],
+			products: [],
 			updatedAt: "",
+			totalCount: 0,
+			totalPages: 1,
+			page: 1,
+			limit: 8,
 			currentProduct: {},
 			show: {
 				review: false,
@@ -181,10 +188,25 @@ export default {
 	},
 	computed: {
 		...mapState(useApp, ["local"]),
-		...mapState(useTheme, ["theme"]),
+		...mapState(useTheme, ["theme", "color"]),
 		...mapState(useUser, {
 			userInfo: "info",
 		}),
+		currentToolType() {
+			return this.$route.params.toolType || this.local("Other");
+		},
+		offset() {
+			return (this.page - 1) * this.limit;
+		},
+	},
+	watch: {
+		page() {
+			this.getProducts();
+		},
+		"$route.params.toolType"() {
+			this.page = 1;
+			this.getProducts();
+		},
 	},
 	mounted() {
 		this.getProducts();
@@ -224,54 +246,46 @@ export default {
 			}
 			return "attributeGenericCard";
 		},
-		sortToolTypes(toolTypes) {
-			return [...toolTypes].sort((a, b) =>
-				String(a).localeCompare(String(b), "zh-CN"),
-			);
-		},
-		goToToolType(toolType) {
-			this.$Go(`/products/type/${encodeURIComponent(toolType)}`);
+		normalizeCountResponse(res) {
+			const payload = res?.data ?? res ?? {};
+			const count =
+				payload.total ??
+				payload.count ??
+				payload.size ??
+				payload.data ??
+				(Array.isArray(payload.list) ? payload.list.length : payload);
+			const parsed = Number(count);
+			return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
 		},
 		async getProducts() {
 			this.loading = true;
 			try {
-				const res = await this.$api.Product.ListClientProducts(
-					undefined,
-					undefined,
-					0,
-					9999,
-				);
-				if (res.code === 200 || res.status === "success" || !res.code) {
-					const payload = res?.data ?? res ?? {};
-					const list = payload.list || [];
-					this.attributes = payload.attributes || [];
-					this.updatedAt = payload.updated_at || "";
-
-					const counts = {};
-					for (const item of list) {
-						const key = item.tool_type || this.local("Other");
-						counts[key] = (counts[key] || 0) + 1;
-					}
-
-					const types = this.sortToolTypes(Object.keys(counts));
-					const previewResults = await Promise.all(
-						types.map(async (type) => {
-							const previewRes = await this.$api.Product.ListClientProducts(
-								undefined,
-								type,
-								0,
-								5,
-							);
-							const previewPayload =
-								previewRes?.data ?? previewRes ?? {};
-							return {
-								type,
-								count: counts[type] || 0,
-								items: previewPayload.list || [],
-							};
-						}),
-					);
-					this.groups = previewResults;
+				const [listRes, countRes] = await Promise.all([
+					this.$api.Product.ListClientProducts(
+						undefined,
+						this.currentToolType,
+						this.offset,
+						this.limit,
+					),
+					this.$api.Product.CountClientProducts(
+						undefined,
+						this.currentToolType,
+					),
+				]);
+				if (
+					listRes.code === 200 ||
+					listRes.status === "success" ||
+					!listRes.code
+				) {
+					const payload = listRes?.data ?? listRes ?? {};
+					this.attributes = payload.attributes || this.attributes;
+					this.products = payload.list || [];
+					this.updatedAt = payload.updated_at || this.updatedAt;
+				}
+				this.totalCount = this.normalizeCountResponse(countRes);
+				this.totalPages = Math.max(1, Math.ceil(this.totalCount / this.limit));
+				if (this.page > this.totalPages) {
+					this.page = this.totalPages;
 				}
 			} catch (err) {
 				console.log(err);
@@ -345,6 +359,14 @@ export default {
 			inset 0 1px 0 rgba(255, 255, 255, 0.06);
 	}
 
+	.back-link {
+		display: inline-flex;
+		margin-bottom: 16px;
+		font-size: 13px;
+		color: rgba(195, 204, 236, 0.82);
+		cursor: pointer;
+	}
+
 	.hero-title {
 		font-size: 44px;
 		font-weight: 800;
@@ -374,13 +396,8 @@ export default {
 	.section-head {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		gap: 16px;
+		align-items: flex-end;
 		margin-bottom: 12px;
-	}
-
-	.section-head-main {
-		cursor: pointer;
 	}
 
 	.section-title {
@@ -546,6 +563,12 @@ export default {
 		border-left: rgba(255, 255, 255, 0.05) solid 1px;
 	}
 
+	.pagination-wrap {
+		display: flex;
+		justify-content: center;
+		padding: 20px 0 10px 0;
+	}
+
 	.loading-block,
 	.empty-block {
 		width: 100%;
@@ -590,11 +613,6 @@ export default {
 
 		.hero-title {
 			font-size: 30px;
-		}
-
-		.section-head {
-			flex-direction: column;
-			align-items: flex-start;
 		}
 
 		.product-table {
