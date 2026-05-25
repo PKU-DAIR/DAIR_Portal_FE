@@ -570,11 +570,12 @@ export class ProductItem {
      *
      * @param {String} tool_name 
      */ 
-    constructor(id = undefined,tool_name = undefined,tool_type = undefined,organization = undefined,introduction = undefined,audit_status = undefined,publish_time = undefined,update_time = undefined,publisher_id = undefined){
+    constructor(id = undefined,tool_name = undefined,tool_type = undefined,organization = undefined,homepage_url = undefined,introduction = undefined,audit_status = undefined,publish_time = undefined,update_time = undefined,publisher_id = undefined){
         this.id = id
         this.tool_name = tool_name
         this.tool_type = tool_type
         this.organization = organization
+        this.homepage_url = homepage_url
         this.introduction = introduction
         this.audit_status = audit_status
         this.publish_time = publish_time

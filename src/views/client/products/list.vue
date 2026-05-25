@@ -55,7 +55,11 @@
 						{{ getGlobalIndex(item.id) }}
 					</div>
 					<div class="cell product-cell">
-						<div class="product-main">
+						<div
+							class="product-main"
+							:class="{ clickable: !!item.homepage_url }"
+							@click="openProductHomepage(item)"
+						>
 							<div class="logo-shell">
 								<fv-img
 									v-if="item.has_logo"
@@ -200,6 +204,18 @@ export default {
 		},
 		getLogoUrl(item) {
 			return `${this.$server}${this.$api.Product.GetProductLogo.path}?id=${encodeURIComponent(item.id)}&t=${item.update_time || Date.now()}`;
+		},
+		normalizeHomepageUrl(url) {
+			if (!url) return "";
+			const trimmed = String(url).trim();
+			if (!trimmed) return "";
+			if (/^https?:\/\//i.test(trimmed)) return trimmed;
+			return `https://${trimmed}`;
+		},
+		openProductHomepage(item) {
+			const url = this.normalizeHomepageUrl(item?.homepage_url);
+			if (!url) return;
+			window.open(url, "_blank", "noopener,noreferrer");
 		},
 		getGlobalIndex(id) {
 			return this.products.findIndex((item) => item.id === id) + 1;
@@ -406,6 +422,10 @@ export default {
 		align-items: center;
 		gap: 16px;
 		width: 100%;
+
+		&.clickable {
+			cursor: pointer;
+		}
 	}
 
 	.logo-shell {

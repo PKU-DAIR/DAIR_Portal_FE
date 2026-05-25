@@ -49,6 +49,14 @@
 						></fv-text-box>
 					</div>
 					<div class="panel-section">
+						<p class="panel-title">{{ local("Homepage URL") }}</p>
+						<fv-text-box
+							v-model="form.homepage_url"
+							:theme="theme"
+							placeholder="Please input homepage URL"
+						></fv-text-box>
+					</div>
+					<div class="panel-section">
 						<p class="panel-title">{{ local("Audit Status") }}</p>
 						<fv-combobox
 							v-model="currentAuditStatus"
@@ -178,6 +186,7 @@ const createForm = () => ({
 	tool_name: "",
 	tool_type: "",
 	organization: "",
+	homepage_url: "",
 	introduction: "",
 	audit_status: "",
 	publish_time: "",
@@ -454,6 +463,7 @@ export default {
 					tool_name: this.form.tool_name,
 					tool_type: this.form.tool_type,
 					organization: this.form.organization,
+					homepage_url: this.form.homepage_url,
 					introduction: this.form.introduction,
 					audit_status:
 						this.currentAuditStatus?.value || this.form.audit_status,
