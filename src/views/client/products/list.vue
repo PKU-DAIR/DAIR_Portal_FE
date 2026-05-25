@@ -22,7 +22,7 @@
 					:options="toolTypeOptions"
 					:multiple="true"
 					:placeholder="local('Filter tool type')"
-                    :checkBoxBackground="color"
+					:checkBoxBackground="color"
 				>
 				</fv-drop-down>
 			</div>
@@ -47,10 +47,7 @@
 			class="type-section"
 		>
 			<div class="section-head">
-				<div
-					class="section-head-main"
-					@click="goToToolType(group.type)"
-				>
+				<div class="section-head-main" @click="goToToolType(group.type)">
 					<p class="section-title">{{ group.type }}</p>
 					<p class="section-desc">
 						{{ group.count }} {{ local("tools") }}
@@ -108,11 +105,7 @@
 								<fv-img
 									v-if="item.has_logo"
 									:src="getLogoUrl(item)"
-									style="
-										width: auto;
-										height: 46px;
-										max-width: 120px;
-									"
+									style="width: auto; height: 46px; max-width: 120px"
 								></fv-img>
 								<div v-else class="logo-placeholder">
 									{{ item.tool_name?.slice(0, 1) || "P" }}
@@ -198,7 +191,6 @@ import reviewPanel from "@/components/client/products/reviewPanel.vue";
 import attributeScoreCard from "@/components/client/products/attributeScoreCard.vue";
 import attributeBoolCard from "@/components/client/products/attributeBoolCard.vue";
 import attributeGenericCard from "@/components/client/products/attributeGenericCard.vue";
-import color from "onecolor/lib/color";
 
 export default {
 	components: {
@@ -328,13 +320,12 @@ export default {
 					const types = this.sortToolTypes(Object.keys(counts));
 					const previewResults = await Promise.all(
 						types.map(async (type) => {
-							const previewRes =
-								await this.$api.Product.ListClientProducts(
-									this.keyword || undefined,
-									type,
-									0,
-									5,
-								);
+							const previewRes = await this.$api.Product.ListClientProducts(
+								this.keyword || undefined,
+								type,
+								0,
+								5,
+							);
 							const previewPayload =
 								previewRes?.data ?? previewRes ?? {};
 							return {
@@ -402,17 +393,30 @@ export default {
 		);
 	color: whitesmoke;
 
-	.hero-block {
+	.hero-block,
+	.filter-block,
+	.type-section {
 		width: calc(100% - 48px);
 		max-width: 1360px;
-		margin: 0 auto 26px auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.hero-block {
+		margin-bottom: 26px;
 		padding: 28px 30px;
 		border-radius: 28px;
-		background: linear-gradient(
-			135deg,
-			rgba(35, 39, 57, 0.92) 0%,
-			rgba(19, 22, 34, 0.96) 100%
-		);
+		background:
+			radial-gradient(
+				circle at top right,
+				rgba(96, 152, 255, 0.18),
+				transparent 28%
+			),
+			linear-gradient(
+				135deg,
+				rgba(35, 39, 57, 0.92) 0%,
+				rgba(19, 22, 34, 0.96) 100%
+			);
 		box-shadow:
 			0 26px 60px rgba(0, 0, 0, 0.28),
 			inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -422,6 +426,7 @@ export default {
 		font-size: 44px;
 		font-weight: 800;
 		letter-spacing: 0.02em;
+		line-height: 1.08;
 	}
 
 	.hero-subtitle {
@@ -439,23 +444,21 @@ export default {
 	}
 
 	.filter-block {
-		width: calc(100% - 48px);
-		max-width: 1360px;
-		margin: 0 auto 20px auto;
-		display: flex;
-		gap: 10px;
+		margin-bottom: 20px;
+		display: grid;
+		grid-template-columns: minmax(260px, 360px) minmax(280px, 1fr);
+		gap: 12px;
 		align-items: start;
 	}
 
 	.filter-item {
 		position: relative;
+		min-width: 0;
 		z-index: 4;
 	}
 
 	.type-section {
-		width: calc(100% - 48px);
-		max-width: 1360px;
-		margin: 0 auto 28px auto;
+		margin-bottom: 28px;
 	}
 
 	.section-head {
@@ -468,11 +471,13 @@ export default {
 
 	.section-head-main {
 		cursor: pointer;
+		min-width: 0;
 	}
 
 	.section-title {
 		font-size: 24px;
 		font-weight: 700;
+		line-height: 1.2;
 	}
 
 	.section-desc {
@@ -482,7 +487,7 @@ export default {
 	}
 
 	.product-table {
-		border-radius: 12px;
+		border-radius: 16px;
 		background: rgba(15, 17, 26, 0.82);
 		border: rgba(255, 255, 255, 0.06) solid 1px;
 		overflow: hidden;
@@ -581,6 +586,7 @@ export default {
 	.product-name {
 		font-size: 20px;
 		font-weight: 700;
+		line-height: 1.3;
 	}
 
 	.product-org {
@@ -652,11 +658,20 @@ export default {
 	.products-wrap {
 		.table-head,
 		.table-row {
-			grid-template-columns: 68px 280px 1fr 124px;
+			grid-template-columns: 60px 260px 1fr 124px;
 		}
 
 		.attr-head {
 			width: 156px;
+		}
+
+		.product-main {
+			gap: 12px;
+		}
+
+		.logo-shell {
+			width: 92px;
+			min-width: 92px;
 		}
 	}
 }
@@ -672,30 +687,182 @@ export default {
 		}
 
 		.hero-block {
-			padding: 22px 20px;
-			border-radius: 22px;
+			padding: 20px 18px;
+			border-radius: 20px;
 		}
 
 		.hero-title {
 			font-size: 30px;
 		}
 
+		.hero-subtitle {
+			font-size: 14px;
+			line-height: 1.65;
+		}
+
+		.hero-update {
+			margin-top: 10px;
+		}
+
 		.filter-block {
-			flex-direction: column;
+			grid-template-columns: 1fr;
+			gap: 10px;
 		}
 
 		.section-head {
 			flex-direction: column;
-			align-items: flex-start;
+			align-items: stretch;
+			gap: 10px;
 		}
 
 		.product-table {
-			overflow-x: auto;
+			background: transparent;
+			border: none;
+			backdrop-filter: none;
+			overflow: visible;
 		}
 
-		.table-head,
+		.table-head {
+			display: none;
+		}
+
 		.table-row {
-			min-width: 860px;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			min-height: 0;
+			margin-bottom: 14px;
+			border: rgba(255, 255, 255, 0.08) solid 1px;
+			border-radius: 18px;
+			background:
+				linear-gradient(
+					180deg,
+					rgba(28, 31, 46, 0.98) 0%,
+					rgba(16, 18, 29, 0.98) 100%
+				);
+			box-shadow:
+				0 14px 34px rgba(0, 0, 0, 0.22),
+				inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		}
+
+		.table-row:last-child {
+			margin-bottom: 0;
+		}
+
+		.cell {
+			width: 100%;
+			justify-content: flex-start;
+			padding: 14px 16px;
+		}
+
+		.no-cell {
+            @include HcenterVcenter;
+
+            width: 35px;
+            height: 35px;
+            margin: 5px;
+			padding: 0px;
+			border-radius: 999px;
+			background: rgba(255, 196, 61, 0.14);
+			font-size: 13px;
+			line-height: 1;
+			z-index: 1;
+		}
+
+		.product-cell,
+		.action-cell {
+			border: none;
+		}
+
+		.product-cell {
+			padding-top: 20px;
+			padding-right: 54px;
+		}
+
+		.product-main {
+			align-items: flex-start;
+			gap: 14px;
+		}
+
+		.logo-shell {
+			width: 72px;
+			min-width: 72px;
+			justify-content: flex-start;
+		}
+
+		.logo-placeholder {
+			width: 52px;
+			height: 52px;
+			border-radius: 16px;
+			font-size: 24px;
+		}
+
+		.product-name {
+			font-size: 18px;
+		}
+
+		.product-org,
+		.product-intro {
+			font-size: 12px;
+		}
+
+		.product-intro {
+			-webkit-line-clamp: 4;
+		}
+
+		.attr-scroll {
+			padding: 0 16px 14px 16px;
+		}
+
+		.attr-track {
+			padding: 0;
+		}
+
+		.action-cell {
+			padding-top: 0;
+		}
+
+		.action-cell > * {
+			width: 100% !important;
+		}
+
+		.loading-block,
+		.empty-block {
+			padding: 20px 0 72px 0;
+		}
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.products-wrap {
+		padding-top: 84px;
+
+		.hero-block {
+			padding: 18px 16px;
+		}
+
+		.hero-title {
+			font-size: 26px;
+		}
+
+		.section-title {
+			font-size: 20px;
+		}
+
+		.product-cell {
+			padding-right: 16px;
+		}
+
+		.product-main {
+			flex-direction: column;
+		}
+
+		.logo-shell {
+			width: 100%;
+		}
+
+		.attr-head {
+			width: 142px;
 		}
 	}
 }
